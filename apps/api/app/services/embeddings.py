@@ -38,15 +38,19 @@ async def embed_text_gemini(text: str) -> list[float] | None:
         return None
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"{settings.embedding_model}:embedContent?key={settings.gemini_api_key}"
+        f"{settings.embedding_model}:embedContent"
     )
+    headers = {
+        "x-goog-api-key": settings.gemini_api_key,
+        "Content-Type": "application/json",
+    }
     payload = {
         "model": f"models/{settings.embedding_model}",
         "content": {"parts": [{"text": text[:8000]}]},
     }
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
-            res = await client.post(url, json=payload)
+            res = await client.post(url, headers=headers, json=payload)
             res.raise_for_status()
             values = res.json()["embedding"]["values"]
             return [float(v) for v in values]

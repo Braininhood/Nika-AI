@@ -16,8 +16,22 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
-const PROJECT_REF = process.env.SUPABASE_PROJECT_REF ?? "fdbxisjilainlbsgdbry";
+const PROJECT_REF = process.env.SUPABASE_PROJECT_REF?.trim();
 const TOKEN = process.env.SUPABASE_ACCESS_TOKEN;
+
+if (!PROJECT_REF) {
+  console.error(`
+Missing SUPABASE_PROJECT_REF.
+
+PowerShell:
+  $env:SUPABASE_PROJECT_REF = "your-project-ref"
+  $env:SUPABASE_ACCESS_TOKEN = "sbp_xxx"
+  node scripts/apply-supabase-magic-link-template.mjs
+
+Project ref: Supabase Dashboard → Project Settings → General → Reference ID
+`);
+  process.exit(1);
+}
 
 if (!TOKEN) {
   console.error(`

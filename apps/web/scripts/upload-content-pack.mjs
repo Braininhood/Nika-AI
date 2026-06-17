@@ -46,7 +46,7 @@ const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!url || !serviceKey) {
   console.error(
     "Missing SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.\n" +
-      "Add them to D:\\Nika AI\\.env (repo root) or set in shell before running.",
+      "Add them to the repo root .env or set in shell before running.",
   );
   process.exit(1);
 }

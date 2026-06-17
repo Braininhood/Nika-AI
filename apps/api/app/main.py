@@ -63,7 +63,7 @@ async def health(request: Request) -> dict:
     ollama = await get_ollama_status()
     return {
         "status": "ok",
-        "service": "oet-coach-api",
+        "service": "nika-ai-api",
         "environment": settings.environment,
         "llm": {
             "gemini_configured": bool(settings.gemini_api_key),

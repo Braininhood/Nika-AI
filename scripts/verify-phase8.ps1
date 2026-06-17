@@ -42,8 +42,8 @@ $deployDocs = @(
   "docs/07-IMPLEMENTATION/03-deployment-hosting.md",
   "docs/07-IMPLEMENTATION/04-aws-free-tier-deploy.md",
   "docs/07-IMPLEMENTATION/14-admin-panel-setup.md",
-  "deploy/systemd/oet-coach-api.service",
-  "deploy/systemd/oet-coach-web.service",
+  "deploy/systemd/Nika-AI-api.service",
+  "deploy/systemd/Nika-AI-web.service",
   "scripts/deploy-ec2.sh"
 )
 foreach ($f in $deployDocs) {

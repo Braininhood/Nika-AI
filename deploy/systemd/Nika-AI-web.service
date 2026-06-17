@@ -1,13 +1,13 @@
 [Unit]
-Description=OET Coach Next.js PWA
-After=network.target oet-coach-api.service
-Requires=oet-coach-api.service
+Description=Nika-AI Next.js PWA
+After=network.target Nika-AI-api.service
+Requires=Nika-AI-api.service
 
 [Service]
 Type=simple
 User=ubuntu
-WorkingDirectory=/opt/oet-coach/apps/web
-EnvironmentFile=/opt/oet-coach/.env
+WorkingDirectory=/opt/Nika-AI/apps/web
+EnvironmentFile=/opt/Nika-AI/.env
 Environment=ENVIRONMENT=production
 Environment=API_PROXY_URL=http://127.0.0.1:8000
 Environment=NODE_ENV=production
