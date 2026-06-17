@@ -1,0 +1,34 @@
+{
+  "name": "oet-coach",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "dev:api": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev-api.ps1",
+    "dev:all": "pnpm exec concurrently -n web,api -c blue,green \"pnpm dev\" \"pnpm dev:api\"",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "lint": "pnpm --filter web lint",
+    "test": "pnpm --filter web test",
+    "test:e2e": "pnpm --filter web test:e2e",
+    "verify:phase0": "powershell -File scripts/verify-phase0.ps1",
+    "verify:phase5": "powershell -File scripts/verify-phase5.ps1",
+    "verify:phase6": "powershell -File scripts/verify-phase6.ps1",
+    "setup:ollama": "node scripts/setup-ollama.mjs --install --pull",
+    "setup:ollama:check": "node scripts/setup-ollama.mjs --check-only",
+    "smoke:phase6": "powershell -File scripts/smoke-phase6-manual.ps1",
+    "generate:api": "pnpm --filter web generate:api",
+    "validate:content": "pnpm --filter web export:scenarios",
+    "pack:generate": "pnpm --filter web pack:generate",
+    "pack:upload": "pnpm --filter web pack:upload",
+    "pack:sync": "pnpm --filter web pack:sync",
+    "build:pack": "pnpm pack:sync",
+    "verify:phase8": "powershell -File scripts/verify-phase8.ps1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

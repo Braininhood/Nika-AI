@@ -1,0 +1,322 @@
+[
+  {
+    "id": "oet-overview",
+    "title": "OET overview",
+    "content": "The Occupational English Test (OET) assesses English for healthcare professionals. Four sub-tests: Listening (~45 min), Reading (~60 min), Writing (45 min), Speaking (~20 min). Grades A–E; most regulators require B or C+ per skill. Official preparation hub: oet.com/ready.",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet.com",
+    "category": "oet",
+    "tags": ["oet", "format", "overview"]
+  },
+  {
+    "id": "listening-format",
+    "title": "Listening sub-test format",
+    "content": "Listening has three parts. Part A: 15 minutes, consultation note completion (two extracts, 12 gaps each). Part B: six short workplace extracts, one MCQ each (~6 min). Part C: two longer presentations, six MCQs each (~12 min). Total about 45 minutes. Accents include UK, Australian, US, and others.",
+    "skill": "listening",
+    "profession": "all",
+    "source": "oet.com",
+    "category": "oet",
+    "tags": ["listening", "part-a", "part-b", "part-c", "timing"]
+  },
+  {
+    "id": "reading-format",
+    "title": "Reading sub-test format",
+    "content": "Reading Part A: 15-minute strict timer — match headings or locate specific information across four short texts. Parts B and C share 45 minutes: Part B has six workplace extracts with one MCQ each; Part C has two longer texts with eight MCQs total focusing on inference and writer attitude.",
+    "skill": "reading",
+    "profession": "all",
+    "source": "oet.com",
+    "category": "oet",
+    "tags": ["reading", "part-a", "part-b", "part-c", "timing"]
+  },
+  {
+    "id": "writing-format",
+    "title": "Writing sub-test format",
+    "content": "Writing: 5 minutes reading case notes, 40 minutes writing a referral or discharge letter (typically 180–200 words). Assessed on six criteria: Purpose, Content, Conciseness & Clarity, Genre & Style, Organisation & Layout, Language. Never invent clinical facts not in the case notes.",
+    "skill": "writing",
+    "profession": "all",
+    "source": "oet.com",
+    "category": "oet",
+    "tags": ["writing", "criteria", "letter", "timing"]
+  },
+  {
+    "id": "speaking-format",
+    "title": "Speaking sub-test format",
+    "content": "Speaking: two role-plays (~5 min each) with 3-minute preparation per card. Assessed on Linguistic criteria and Clinical Communication (relationship building, understanding patient perspective, providing structure, gathering information, establishing ICE — Ideas, Concerns, Expectations).",
+    "skill": "speaking",
+    "profession": "all",
+    "source": "oet.com",
+    "category": "oet",
+    "tags": ["speaking", "ice", "role-play", "criteria"]
+  },
+  {
+    "id": "writing-purpose",
+    "title": "Writing criterion — Purpose",
+    "content": "Purpose means the reason for writing is immediately clear, usually in the opening sentence (e.g. 'I am writing to refer…'). The reader should know urgency, requested action, and recipient role without reading the whole letter.",
+    "skill": "writing",
+    "profession": "all",
+    "source": "oet-coach-docs",
+    "category": "criteria",
+    "tags": ["writing", "purpose", "criterion"]
+  },
+  {
+    "id": "writing-conciseness",
+    "title": "Writing criterion — Conciseness",
+    "content": "Conciseness rewards relevant detail without repetition or padding. Typical referral letters are 180–200 words. Remove background not needed for the clinical decision. Every sentence should support the purpose.",
+    "skill": "writing",
+    "profession": "all",
+    "source": "oet-coach-docs",
+    "category": "criteria",
+    "tags": ["writing", "conciseness", "word-count"]
+  },
+  {
+    "id": "reg-gphc",
+    "title": "GPhC — UK pharmacist registration",
+    "content": "General Pharmaceutical Council (GPhC) regulates pharmacists in the United Kingdom. OET is accepted for English language evidence. Typical requirement: minimum Grade B in Listening, Reading, Writing, and Speaking (verify current GPhC guidance at pharmacyregulation.org). Registration involves eligibility assessment, OET or accepted alternative, and supervised practice pathways for international graduates.",
+    "skill": "all",
+    "profession": "pharmacy",
+    "source": "pharmacyregulation.org",
+    "category": "regulatory",
+    "tags": ["gphc", "uk", "pharmacy", "registration"]
+  },
+  {
+    "id": "reg-gmc",
+    "title": "GMC — UK doctor registration",
+    "content": "General Medical Council (GMC) regulates doctors in the UK. OET accepted for English evidence. IMG doctors often need Grade B in all four skills (check gmc-uk.org for current rules). PLAB and sponsorship routes have separate requirements.",
+    "skill": "all",
+    "profession": "medicine",
+    "source": "gmc-uk.org",
+    "category": "regulatory",
+    "tags": ["gmc", "uk", "medicine", "registration"]
+  },
+  {
+    "id": "reg-nmc",
+    "title": "NMC — UK nursing registration",
+    "content": "Nursing and Midwifery Council (NMC) regulates nurses and midwives in the UK. OET accepted; common requirement Grade B in Listening, Reading, and Speaking, and C+ in Writing (confirm at nmc.org.uk). Test of Competence (CBT/OSCE) is separate from OET.",
+    "skill": "all",
+    "profession": "nursing",
+    "source": "nmc.org.uk",
+    "category": "regulatory",
+    "tags": ["nmc", "uk", "nursing", "registration"]
+  },
+  {
+    "id": "reg-hcpc",
+    "title": "HCPC — UK allied health registration",
+    "content": "Health and Care Professions Council (HCPC) covers physiotherapy, radiography, occupational therapy, podiatry, dietetics, speech pathology, optometry, and more. OET accepted; typically Grade B in all skills. Official site: hcpc-uk.org.",
+    "skill": "all",
+    "profession": "all",
+    "source": "hcpc-uk.org",
+    "category": "regulatory",
+    "tags": ["hcpc", "uk", "allied-health", "registration"]
+  },
+  {
+    "id": "reg-ahpra",
+    "title": "AHPRA — Australia registration",
+    "content": "Australian Health Practitioner Regulation Agency (AHPRA) coordinates registration for 16 health professions in Australia. OET widely accepted; usually minimum B in each sub-test. Check ahpra.gov.au for profession-specific English requirements.",
+    "skill": "all",
+    "profession": "all",
+    "source": "ahpra.gov.au",
+    "category": "regulatory",
+    "tags": ["ahpra", "australia", "registration"]
+  },
+  {
+    "id": "platform-import",
+    "title": "Importing official OET materials",
+    "content": "Download MP3, PDF, and answer keys from oet.com sample tests. In the app: Listening → Import → choose your files → Import. Files stay on your device and are not uploaded to our servers. After import, use the answer-key matcher, then open Writing, Reading, or Listening practice.",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet-coach-platform",
+    "category": "platform",
+    "tags": ["import", "offline", "pdf", "audio"]
+  },
+  {
+    "id": "platform-mock",
+    "title": "OET mock exams in OET Coach",
+    "content": "Full mocks cover all four skills with exam timing. Pass two consecutive mocks at your regulator target grades to reach exam-ready state. Failed mocks reset the streak and adapt your study plan to weak skills.",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet-coach-platform",
+    "category": "platform",
+    "tags": ["mock", "exam-ready", "readiness"]
+  },
+  {
+    "id": "platform-study-plan",
+    "title": "Personalized daily study plan",
+    "content": "Your plan updates after every practice attempt. Nika prioritises your weakest skill and criterion tags — e.g. writing:purpose or reading:inference. Check Home for today's plan; Course shows your full multi-skill pathway.",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet-coach-platform",
+    "category": "platform",
+    "tags": ["study-plan", "adaptive", "personalized"]
+  },
+  {
+    "id": "platform-flashcards",
+    "title": "SM-2 flashcards",
+    "content": "Wrong answers in Reading quizzes generate flashcards scheduled with SM-2 spaced repetition. Due cards appear in your daily plan. Review them before new practice when the badge shows cards due.",
+    "skill": "reading",
+    "profession": "all",
+    "source": "oet-coach-platform",
+    "category": "platform",
+    "tags": ["flashcards", "sm-2", "spaced-repetition"]
+  },
+  {
+    "id": "oet-sample-tests",
+    "title": "Official OET sample tests",
+    "content": "OET provides paper and computer sample tests for all 12 professions at oet.com. Paper packs include Listening MP3, Reading/Writing PDFs, and answer keys. Computer samples do not save answers — record responses separately then check with downloaded keys.",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet.com",
+    "category": "oet",
+    "tags": ["sample-test", "official", "practice"]
+  },
+  {
+    "id": "speaking-ice",
+    "title": "Speaking — ICE framework",
+    "content": "ICE: Ideas (what the patient thinks is wrong), Concerns (worries), Expectations (what they want from the consultation). Eliciting ICE is central to OET Speaking clinical communication marks. Use open questions and summarise back.",
+    "skill": "speaking",
+    "profession": "all",
+    "source": "oet-coach-docs",
+    "category": "criteria",
+    "tags": ["speaking", "ice", "clinical-communication"]
+  },
+  {
+    "id": "reading-part-c",
+    "title": "Reading Part C — inference and attitude",
+    "content": "Part C tests understanding of opinion, attitude, and implied meaning in longer healthcare texts. Eliminate distractors that are true but do not answer the question. Watch for hedging language (may, might, appears to).",
+    "skill": "reading",
+    "profession": "all",
+    "source": "oet-coach-docs",
+    "category": "oet",
+    "tags": ["reading", "part-c", "inference"]
+  },
+  {
+    "id": "listening-part-a",
+    "title": "Listening Part A — note completion",
+    "content": "Part A uses consultation recordings. Spelling counts — write exactly what you hear. Predict gap type (noun, number, date) from the heading. Two extracts, 12 gaps each, 15 minutes total with no pausing between extracts in the real exam.",
+    "skill": "listening",
+    "profession": "all",
+    "source": "oet-coach-docs",
+    "category": "oet",
+    "tags": ["listening", "part-a", "spelling"]
+  },
+  {
+    "id": "prof-medicine-oet",
+    "title": "OET for doctors",
+    "content": "Medicine OET uses clinical scenarios for all four skills. Writing: referral/discharge letters from ward case notes. Speaking: doctor–patient or doctor–carer role-plays. Use profession-specific sample tests from oet.com.",
+    "skill": "all",
+    "profession": "medicine",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["medicine", "profession"]
+  },
+  {
+    "id": "prof-nursing-oet",
+    "title": "OET for nurses",
+    "content": "Nursing OET emphasises handover communication and patient education. NMC often requires B in L/R/S and C+ in Writing — confirm at nmc.org.uk. Practise ICE in Speaking and Purpose in Writing.",
+    "skill": "all",
+    "profession": "nursing",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["nursing", "profession", "nmc"]
+  },
+  {
+    "id": "prof-pharmacy-oet",
+    "title": "OET for pharmacists",
+    "content": "Pharmacy writing tasks often involve referral to GP or counselling summaries. GPhC typically requires Grade B in all four skills. Use pharmacy-tagged scenarios and official GPhC guidance for registration steps.",
+    "skill": "all",
+    "profession": "pharmacy",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["pharmacy", "profession", "gphc"]
+  },
+  {
+    "id": "prof-dentistry-oet",
+    "title": "OET for dentists",
+    "content": "Dentistry OET covers referral letters and patient explanations. GDC registration uses OET — check gdc-uk.org for current grade requirements.",
+    "skill": "all",
+    "profession": "dentistry",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["dentistry", "profession"]
+  },
+  {
+    "id": "prof-physiotherapy-oet",
+    "title": "OET for physiotherapists",
+    "content": "Physiotherapy scenarios focus on musculoskeletal and rehab communication. HCPC regulates UK physios — OET Grade B typical. Practise Speaking structure and Writing conciseness.",
+    "skill": "all",
+    "profession": "physiotherapy",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["physiotherapy", "profession", "hcpc"]
+  },
+  {
+    "id": "prof-occupational-therapy-oet",
+    "title": "OET for occupational therapists",
+    "content": "Occupational therapy OET tasks involve home assessments, equipment recommendations, and carer education. HCPC registration typically requires Grade B in all skills. Writing: clear purpose and safe discharge plans. Speaking: elicit ICE about daily living goals.",
+    "skill": "all",
+    "profession": "occupational_therapy",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["occupational-therapy", "profession", "hcpc"]
+  },
+  {
+    "id": "prof-radiography-oet",
+    "title": "OET for radiographers",
+    "content": "Radiography OET covers explaining procedures, consent, and referral letters. HCPC regulates UK radiographers. Practise explaining imaging in plain language in Speaking and concise clinical detail in Writing.",
+    "skill": "all",
+    "profession": "radiography",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["radiography", "profession", "hcpc"]
+  },
+  {
+    "id": "prof-optometry-oet",
+    "title": "OET for optometrists",
+    "content": "Optometry scenarios include referral to ophthalmology and patient counselling on vision changes. GOC regulates UK optometrists; OET Grade B is commonly required. Writing: urgency and findings clearly stated. Speaking: explain tests and next steps.",
+    "skill": "all",
+    "profession": "optometry",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["optometry", "profession", "goc"]
+  },
+  {
+    "id": "prof-podiatry-oet",
+    "title": "OET for podiatrists",
+    "content": "Podiatry OET focuses on diabetic foot care, wound management referrals, and patient education. HCPC registration uses OET — Grade B typical. Writing: document neurovascular status and requested action. Speaking: check understanding of self-care.",
+    "skill": "all",
+    "profession": "podiatry",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["podiatry", "profession", "hcpc"]
+  },
+  {
+    "id": "prof-veterinary-oet",
+    "title": "OET for veterinarians",
+    "content": "Veterinary Science OET uses animal-owner consultations and referral letters to specialists. RCVS accepts OET for English evidence in the UK. Speaking: balance clinical accuracy with empathetic owner communication. Writing: species, findings, and urgency clear in opening lines.",
+    "skill": "all",
+    "profession": "veterinary_science",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["veterinary", "profession", "rcvs"]
+  },
+  {
+    "id": "prof-speech-pathology-oet",
+    "title": "OET for speech pathologists",
+    "content": "Speech pathology OET includes dysphagia counselling, aphasia support, and GP referrals. HCPC regulates UK speech and language therapists. Speaking: structured explanations for patients and carers. Writing: assessment findings and recommended follow-up.",
+    "skill": "all",
+    "profession": "speech_pathology",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["speech-pathology", "profession", "hcpc"]
+  },
+  {
+    "id": "prof-dietetics-oet",
+    "title": "OET for dietitians",
+    "content": "Dietetics OET covers nutrition counselling, allergy management, and MDT referrals. HCPC registration typically requires OET Grade B. Writing: concise clinical rationale for dietary changes. Speaking: check beliefs and barriers before giving advice.",
+    "skill": "all",
+    "profession": "dietetics",
+    "source": "oet-coach-docs",
+    "category": "profession",
+    "tags": ["dietetics", "profession", "hcpc"]
+  }
+]

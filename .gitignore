@@ -1,0 +1,97 @@
+# OET Coach — root .gitignore (monorepo)
+
+# ── Private documentation (never publish to GitHub) ──
+/docs/
+
+# ── Secrets & environment ──
+.env
+.env.*
+!.env.example
+apps/web/.env.local
+*.pem
+*.key
+id_rsa*
+
+# ── Official OET copyrighted materials (local user imports only) ──
+reference/oet-official/
+*.pdf
+*.mp3
+*.m4a
+content/**/*.mp3
+packs/**/*.mp3
+
+# ── Node / pnpm ──
+node_modules/
+apps/web/node_modules/
+.pnpm-store/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ── Next.js (apps/web) ──
+apps/web/.next/
+apps/web/out/
+apps/web/build/
+apps/web/.vercel/
+apps/web/*.tsbuildinfo
+apps/web/next-env.d.ts
+apps/web/public/sw.js
+apps/web/public/sw.js.map
+apps/web/public/swe-worker-*.js
+
+# Generic build output
+.next/
+out/
+dist/
+build/
+
+# ── Python (apps/api) ──
+apps/api/.venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.eggs/
+
+# ── Testing & coverage ──
+coverage/
+playwright-report/
+test-results/
+htmlcov/
+
+# ── Supabase local ──
+.branches/
+.temp/
+supabase/.branches/
+supabase/.temp/
+supabase/config.toml
+
+# ── IDE & OS ──
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Logs & caches ──
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.turbo/
+.cache/
+.opfs/
+
+# ── Cursor / agent (optional local artifacts) ──
+.cursor/

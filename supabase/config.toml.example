@@ -1,0 +1,15 @@
+project_id = "your-project-ref"
+
+[auth]
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/auth/callback"]
+
+[auth.email.template.magic_link]
+subject = "Sign in to OET Coach"
+content_path = "./supabase/templates/magic_link.html"
+
+[auth.external.google]
+enabled = true
+client_id = "env(GOOGLE_CLIENT_ID)"
+secret = "env(GOOGLE_CLIENT_SECRET)"
+redirect_uri = "https://YOUR_PROJECT.supabase.co/auth/v1/callback"

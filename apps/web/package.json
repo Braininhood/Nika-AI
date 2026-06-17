@@ -1,0 +1,47 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "dev:api": "pnpm -C ../.. dev:api",
+    "dev:all": "pnpm -C ../.. dev:all",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "generate:api": "openapi-typescript http://127.0.0.1:8000/openapi.json -o src/lib/api/schema.d.ts",
+    "export:scenarios": "node scripts/export-writing-scenarios.mjs",
+    "pack:generate": "node scripts/generate-listening-pack.mjs",
+    "pack:upload": "node scripts/upload-content-pack.mjs",
+    "pack:sync": "node scripts/generate-listening-pack.mjs && node scripts/upload-content-pack.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.1",
+    "@tanstack/react-query": "^5.101.0",
+    "dexie": "^4.4.3",
+    "next": "16.2.9",
+    "pdfjs-dist": "^6.0.227",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@serwist/next": "^9.5.11",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "openapi-typescript": "^7.13.0",
+    "serwist": "^9.5.11",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.1.8"
+  }
+}

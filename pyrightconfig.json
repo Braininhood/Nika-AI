@@ -1,0 +1,25 @@
+{
+  "include": ["apps/api", "scripts"],
+  "exclude": [
+    "**/node_modules",
+    "**/.next",
+    "apps/web",
+    "apps/api/.venv"
+  ],
+  "venvPath": "apps/api",
+  "venv": ".venv",
+  "executionEnvironments": [
+    {
+      "root": "apps/api",
+      "extraPaths": ["apps/api"]
+    },
+    {
+      "root": "scripts",
+      "extraPaths": ["apps/api"],
+      "venvPath": "apps/api",
+      "venv": ".venv"
+    }
+  ],
+  "reportMissingImports": true,
+  "typeCheckingMode": "basic"
+}

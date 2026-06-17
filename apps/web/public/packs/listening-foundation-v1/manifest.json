@@ -1,0 +1,116 @@
+{
+  "packId": "listening-foundation-v1",
+  "version": "1.1.0",
+  "sizeBytes": 3573288,
+  "minAppVersion": "1.0.0",
+  "files": [
+    {
+      "path": "audio/accent-au-part-a.wav",
+      "sha256": "6e77584f2299bc94858cca7be3953058a86464c3b8d083a7622031c8eef4706d"
+    },
+    {
+      "path": "audio/accent-au-part-b.wav",
+      "sha256": "fd3567295a7e32f362caca58feb2dc67c54bd47de4ad1781cf240429628ab5da"
+    },
+    {
+      "path": "audio/accent-au-part-c.wav",
+      "sha256": "28b55bb87d313f0afcfdd12a1f61ed7829efe8da05c80c9d8c94f1200868a0bf"
+    },
+    {
+      "path": "audio/accent-ca-part-a.wav",
+      "sha256": "9127ccf480c7ead77917b18d8dba328425d9e78b099fd1f7dee220ebf89f5821"
+    },
+    {
+      "path": "audio/accent-ca-part-b.wav",
+      "sha256": "4e75c1846bfadc3ad9961daac7c67ea4ed076b663b5556fea3b717b85d1c4005"
+    },
+    {
+      "path": "audio/accent-ca-part-c.wav",
+      "sha256": "af260cc68728507b2d98b14d83f2b127a1c8b4322403cf908bc08473cd7990a0"
+    },
+    {
+      "path": "audio/accent-ie-part-a.wav",
+      "sha256": "65821361e9497967e3df24a7362f905c10e49482d182674b09f4f38177cfc143"
+    },
+    {
+      "path": "audio/accent-ie-part-b.wav",
+      "sha256": "6e77584f2299bc94858cca7be3953058a86464c3b8d083a7622031c8eef4706d"
+    },
+    {
+      "path": "audio/accent-ie-part-c.wav",
+      "sha256": "fd3567295a7e32f362caca58feb2dc67c54bd47de4ad1781cf240429628ab5da"
+    },
+    {
+      "path": "audio/accent-mixed-part-a.wav",
+      "sha256": "4bce2351604efbfa766cc739a064b44af7118bf1c380700cef4892ed7e51a951"
+    },
+    {
+      "path": "audio/accent-mixed-part-b.wav",
+      "sha256": "ac9840fa7bca83ef4ab51af2b6f423da844c006a9671f4803142f63542281acf"
+    },
+    {
+      "path": "audio/accent-mixed-part-c.wav",
+      "sha256": "739cc0e58964dced4877f4af1e75b4190b04a80d6053c3ef5c515c9f8556654b"
+    },
+    {
+      "path": "audio/accent-nz-part-a.wav",
+      "sha256": "46c850024a7115566daf4c6d530f8784be3577d13de54c9ff367165a7b1a413a"
+    },
+    {
+      "path": "audio/accent-nz-part-b.wav",
+      "sha256": "9127ccf480c7ead77917b18d8dba328425d9e78b099fd1f7dee220ebf89f5821"
+    },
+    {
+      "path": "audio/accent-nz-part-c.wav",
+      "sha256": "4e75c1846bfadc3ad9961daac7c67ea4ed076b663b5556fea3b717b85d1c4005"
+    },
+    {
+      "path": "audio/accent-uk-part-a.wav",
+      "sha256": "77662a1c95fd0b19bde555771b73922dc0f821d3ffdde929dbb205812ab3fe31"
+    },
+    {
+      "path": "audio/accent-uk-part-b.wav",
+      "sha256": "966ae19b3248a4ab9648437622ab4b3200dc19a667b7fefef28cf91632109ddb"
+    },
+    {
+      "path": "audio/accent-uk-part-c.wav",
+      "sha256": "46c850024a7115566daf4c6d530f8784be3577d13de54c9ff367165a7b1a413a"
+    },
+    {
+      "path": "audio/accent-us-part-a.wav",
+      "sha256": "28b55bb87d313f0afcfdd12a1f61ed7829efe8da05c80c9d8c94f1200868a0bf"
+    },
+    {
+      "path": "audio/accent-us-part-b.wav",
+      "sha256": "4bce2351604efbfa766cc739a064b44af7118bf1c380700cef4892ed7e51a951"
+    },
+    {
+      "path": "audio/accent-us-part-c.wav",
+      "sha256": "ac9840fa7bca83ef4ab51af2b6f423da844c006a9671f4803142f63542281acf"
+    },
+    {
+      "path": "audio/part-a-asthma.wav",
+      "sha256": "966ae19b3248a4ab9648437622ab4b3200dc19a667b7fefef28cf91632109ddb"
+    },
+    {
+      "path": "audio/part-a-back-pain.wav",
+      "sha256": "77662a1c95fd0b19bde555771b73922dc0f821d3ffdde929dbb205812ab3fe31"
+    },
+    {
+      "path": "audio/part-b-handover.wav",
+      "sha256": "ac9840fa7bca83ef4ab51af2b6f423da844c006a9671f4803142f63542281acf"
+    },
+    {
+      "path": "audio/part-b-infection.wav",
+      "sha256": "739cc0e58964dced4877f4af1e75b4190b04a80d6053c3ef5c515c9f8556654b"
+    },
+    {
+      "path": "audio/part-c-stewardship.wav",
+      "sha256": "8cd269d695b32cd3b4ab06b0555c82e69b8b94c6a25d8bacb1385e9c4de00e74"
+    },
+    {
+      "path": "audio/part-c-telehealth.wav",
+      "sha256": "8b94ec314a3fd891b8afae54bc8e4fb0443258348190644cf35714746ba1d117"
+    }
+  ]
+}

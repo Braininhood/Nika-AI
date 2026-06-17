@@ -1,0 +1,62 @@
+import { fullQuizPool } from "@/content/reading";
+import type { QuizQuestion } from "@/content/reading/types";
+import type { OetSkill } from "@/lib/domain/types";
+
+import {
+  LISTENING_QUIZ_BANK,
+  SPEAKING_QUIZ_BANK,
+  WRITING_QUIZ_BANK,
+} from "./skill-banks";
+import { VOCAB_BANK } from "./vocab-bank";
+
+export type AssessmentSkill = OetSkill | "vocab" | "mixed";
+
+export { VOCAB_BANK, VOCAB_PHRASES } from "./vocab-bank";
+export type { VocabPhrase } from "./vocab-bank";
+
+/** All quiz questions across skills for clever assessments and Nika generation. */
+export function fullAssessmentPool(): QuizQuestion[] {
+  const reading = fullQuizPool();
+  const seen = new Set<string>();
+  const merged: QuizQuestion[] = [];
+
+  for (const q of [
+    ...reading,
+    ...LISTENING_QUIZ_BANK,
+    ...WRITING_QUIZ_BANK,
+    ...SPEAKING_QUIZ_BANK,
+    ...VOCAB_BANK,
+  ]) {
+    if (seen.has(q.id)) continue;
+    seen.add(q.id);
+    merged.push(q);
+  }
+  return merged;
+}
+
+export function poolForSkill(skill: AssessmentSkill): QuizQuestion[] {
+  if (skill === "mixed") return fullAssessmentPool();
+  if (skill === "vocab") return VOCAB_BANK;
+  if (skill === "reading") return fullQuizPool();
+  if (skill === "listening") return LISTENING_QUIZ_BANK;
+  if (skill === "writing") return WRITING_QUIZ_BANK;
+  if (skill === "speaking") return SPEAKING_QUIZ_BANK;
+  return fullAssessmentPool();
+}
+
+export const CLEVER_SKILL_LABELS: Record<AssessmentSkill, string> = {
+  reading: "Reading",
+  listening: "Listening",
+  writing: "Writing criteria",
+  speaking: "Speaking communication",
+  vocab: "Healthcare vocabulary",
+  mixed: "Mixed OET skills",
+};
+
+export const CLEVER_SKILL_ROUTES: Record<Exclude<AssessmentSkill, "mixed">, string> = {
+  reading: "/study/clever/reading",
+  listening: "/study/clever/listening",
+  writing: "/study/clever/writing",
+  speaking: "/study/clever/speaking",
+  vocab: "/study/clever/vocab",
+};

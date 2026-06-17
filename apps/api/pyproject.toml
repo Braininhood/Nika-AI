@@ -1,0 +1,11 @@
+[project]
+name = "oet-coach-api"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[tool.pyright]
+include = ["app"]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.14"
+typeCheckingMode = "basic"

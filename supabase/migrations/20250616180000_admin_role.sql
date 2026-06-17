@@ -1,0 +1,12 @@
+-- Admin role documentation (grant manually in Supabase SQL Editor).
+-- See docs/07-IMPLEMENTATION/14-admin-panel-setup.md
+--
+-- Example (replace email, run once):
+--
+-- UPDATE auth.users
+-- SET raw_app_meta_data = raw_app_meta_data - 'role'
+-- WHERE raw_app_meta_data->>'role' = 'admin';
+--
+-- UPDATE auth.users
+-- SET raw_app_meta_data = COALESCE(raw_app_meta_data, '{}'::jsonb) || '{"role": "admin"}'::jsonb
+-- WHERE email = 'admin@yourdomain.com';

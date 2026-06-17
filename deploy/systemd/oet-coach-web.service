@@ -1,0 +1,19 @@
+[Unit]
+Description=OET Coach Next.js PWA
+After=network.target oet-coach-api.service
+Requires=oet-coach-api.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/oet-coach/apps/web
+EnvironmentFile=/opt/oet-coach/.env
+Environment=ENVIRONMENT=production
+Environment=API_PROXY_URL=http://127.0.0.1:8000
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/pnpm start
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

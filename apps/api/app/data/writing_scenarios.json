@@ -1,0 +1,218 @@
+[
+  {
+    "id": "w-pharm-001",
+    "profession": "pharmacy",
+    "difficulty": 2,
+    "title": "BP review after amlodipine",
+    "letterType": "referral",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-pharm-002",
+    "profession": "pharmacy",
+    "difficulty": 2,
+    "title": "Warfarin–antibiotic interaction",
+    "letterType": "advice",
+    "countryCode": "IE"
+  },
+  {
+    "id": "w-pharm-003",
+    "profession": "pharmacy",
+    "difficulty": 2,
+    "title": "Methotrexate monitoring reminder",
+    "letterType": "advice",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-nurs-012",
+    "profession": "nursing",
+    "difficulty": 2,
+    "title": "Post-op hip wound handover",
+    "letterType": "discharge",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-nurs-013",
+    "profession": "nursing",
+    "difficulty": 2,
+    "title": "Heart failure titration transfer",
+    "letterType": "transfer",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-nurs-014",
+    "profession": "nursing",
+    "difficulty": 2,
+    "title": "Insulin education discharge",
+    "letterType": "discharge",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-med-015",
+    "profession": "medicine",
+    "difficulty": 2,
+    "title": "Fatigue investigation reply",
+    "letterType": "reply",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-med-016",
+    "profession": "medicine",
+    "difficulty": 3,
+    "title": "Chest pain discharge to GP",
+    "letterType": "discharge",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-med-017",
+    "profession": "medicine",
+    "difficulty": 2,
+    "title": "Abnormal LFT referral to hepatology",
+    "letterType": "referral",
+    "countryCode": "US"
+  },
+  {
+    "id": "w-dent-003",
+    "profession": "dentistry",
+    "difficulty": 2,
+    "title": "Third molar surgical referral",
+    "letterType": "referral",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-dent-004",
+    "profession": "dentistry",
+    "difficulty": 2,
+    "title": "Periodontal maintenance to GP",
+    "letterType": "reply",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-phys-004",
+    "profession": "physiotherapy",
+    "difficulty": 2,
+    "title": "Low back pain reply to GP",
+    "letterType": "reply",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-phys-005",
+    "profession": "physiotherapy",
+    "difficulty": 2,
+    "title": "ACL post-op rehab update",
+    "letterType": "advice",
+    "countryCode": "NZ"
+  },
+  {
+    "id": "w-ot-005",
+    "profession": "occupational_therapy",
+    "difficulty": 2,
+    "title": "Stroke home adaptation report",
+    "letterType": "discharge",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-ot-006",
+    "profession": "occupational_therapy",
+    "difficulty": 2,
+    "title": "Workplace return-to-work plan",
+    "letterType": "advice",
+    "countryCode": "CA"
+  },
+  {
+    "id": "w-pod-006",
+    "profession": "podiatry",
+    "difficulty": 2,
+    "title": "Diabetic foot ulcer referral",
+    "letterType": "referral",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-pod-007",
+    "profession": "podiatry",
+    "difficulty": 1,
+    "title": "Ingrown toenail procedure summary",
+    "letterType": "reply",
+    "countryCode": "IE"
+  },
+  {
+    "id": "w-opt-007",
+    "profession": "optometry",
+    "difficulty": 2,
+    "title": "Suspected glaucoma referral",
+    "letterType": "referral",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-opt-008",
+    "profession": "optometry",
+    "difficulty": 2,
+    "title": "Diabetic retinopathy screening result",
+    "letterType": "referral",
+    "countryCode": "US"
+  },
+  {
+    "id": "w-diet-008",
+    "profession": "dietetics",
+    "difficulty": 2,
+    "title": "Type 2 diabetes dietary plan",
+    "letterType": "advice",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-diet-009",
+    "profession": "dietetics",
+    "difficulty": 2,
+    "title": "Renal diet counselling summary",
+    "letterType": "advice",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-rad-009",
+    "profession": "radiography",
+    "difficulty": 2,
+    "title": "Chest X-ray incidental nodule",
+    "letterType": "referral",
+    "countryCode": "AU"
+  },
+  {
+    "id": "w-rad-010",
+    "profession": "radiography",
+    "difficulty": 2,
+    "title": "MRI knee meniscal tear report",
+    "letterType": "reply",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-sp-010",
+    "profession": "speech_pathology",
+    "difficulty": 2,
+    "title": "Dysphagia ENT referral",
+    "letterType": "referral",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-sp-011",
+    "profession": "speech_pathology",
+    "difficulty": 2,
+    "title": "Paediatric language delay update",
+    "letterType": "advice",
+    "countryCode": "IE"
+  },
+  {
+    "id": "w-vet-011",
+    "profession": "veterinary_science",
+    "difficulty": 2,
+    "title": "Complex fracture referral",
+    "letterType": "referral",
+    "countryCode": "UK"
+  },
+  {
+    "id": "w-vet-012",
+    "profession": "veterinary_science",
+    "difficulty": 2,
+    "title": "Chronic kidney disease monitoring",
+    "letterType": "advice",
+    "countryCode": "AU"
+  }
+]
