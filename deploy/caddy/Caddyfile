@@ -1,15 +1,23 @@
 # Production Caddyfile — copy to /etc/caddy/Caddyfile on EC2.
-# Replace domain and email before use.
 #
 #   sudo cp /opt/Nika-AI/deploy/caddy/Caddyfile /etc/caddy/Caddyfile
 #   sudo caddy fmt --overwrite /etc/caddy/Caddyfile
 #   sudo caddy validate --config /etc/caddy/Caddyfile
-#   sudo systemctl reload caddy
+#   sudo systemctl enable caddy
+#   sudo systemctl restart caddy
+#
+# Verify: ./scripts/verify-https-ec2.sh
 
 {
 	email support@nika-oet.fun
 }
 
+# HTTP → HTTPS only (port 80)
+http://nika-oet.fun, http://www.nika-oet.fun {
+	redir https://{host}{uri} permanent
+}
+
+# HTTPS (port 443) — Let's Encrypt auto via Caddy
 nika-oet.fun, www.nika-oet.fun {
 	header {
 		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
