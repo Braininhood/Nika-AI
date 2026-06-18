@@ -100,6 +100,21 @@ def normalize_vocabulary_term(raw: str) -> tuple[str, str | None]:
     return cleaned, None
 
 
+def _target_term_suffix(text: str) -> str | None:
+    """e.g. 'ibuprofen - mean?', 'naproxen — translate?'"""
+    patterns = [
+        r"^([a-zA-Z][\w'-]{2,}(?:\s+[a-zA-Z][\w'-]+){0,4})\s*[-–—]\s*(?:mean|means|translate|translation)\s*\??\s*$",
+        r"([a-zA-Z][\w'-]{2,}(?:\s+[a-zA-Z][\w'-]+){0,4})\s*[-–—]\s*(?:mean|means|translate|translation)\s*\??\s*$",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text.strip(), re.I)
+        if match:
+            candidate = _clean_candidate(match.group(1))
+            if _is_valid_target(candidate):
+                return candidate[:120]
+    return None
+
+
 def _target_before_what_is_it(text: str) -> str | None:
     """e.g. 'neproxodine - what is it?' or 'help, naproxen, what is it?'"""
     patterns = [
@@ -145,13 +160,19 @@ def extract_vocabulary_target(message: str) -> str | None:
         if _is_valid_target(candidate):
             return candidate
 
+    # "TERM - mean?" / "TERM - translate?" before generic patterns
+    term_suffix = _target_term_suffix(text)
+    if term_suffix:
+        return term_suffix
+
     # "TERM - what is it?" before generic "what is X" (avoids capturing "it")
     before_it = _target_before_what_is_it(text)
     if before_it:
         return before_it
 
     patterns = [
-        r"(?:what\s+does|what\s+is|what'?s|explain|define|meaning\s+of|translate)\s+(.+?)(?:\?|$)",
+        r"(?:what\s+does|what\s+is|what'?s|explain|define|meaning\s+of|translate|translation\s+of)\s+(.+?)(?:\?|$)",
+        r"(?:translate|translation\s+of)\s+(.+?)(?:\?|$)",
         r"(?:how\s+do\s+you\s+say|pronounc(?:e|iation)\s+(?:of\s+)?)\s*(.+?)(?:\?|$)",
         r"(?:word|phrase|term)\s+[:\"]?\s*(.+?)(?:\?|$)",
     ]
@@ -182,6 +203,8 @@ def is_vocabulary_request(message: str) -> bool:
     if not text:
         return False
     if _QUOTED.search(text):
+        return True
+    if _target_term_suffix(text):
         return True
     if re.search(r"\bwhat\s+is\s+it\b", text, re.I) and extract_vocabulary_target(text):
         return True

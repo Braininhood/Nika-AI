@@ -12,6 +12,13 @@ import {
   type NikaChatMessage,
 } from "@/lib/nika/chat-history";
 import { fetchNikaQuota, fetchNikaStudyPlan, sendNikaMessage } from "@/lib/nika/chat";
+import {
+  guestLimitMessage,
+  guestNikaReply,
+  guestWelcomeMessage,
+  GUEST_MAX_TURNS,
+  isGuestLimitReached,
+} from "@/lib/nika/guest-chat";
 import { REFUSAL_HINT, classifyQuestion } from "@/lib/nika/topic-guard";
 import type { UserProfile } from "@/lib/domain/types";
 import { saveVocabularyEntry } from "@/lib/vocabulary/service";
@@ -35,6 +42,7 @@ const CHAT_TEXT_PAGE = "text-sm leading-relaxed";
 export function NikaChat({ profile, accessToken, variant = "page", onNavigate }: NikaChatProps) {
   const textSize = variant === "panel" ? CHAT_TEXT_PANEL : CHAT_TEXT_PAGE;
   const userId = profile?.id;
+  const isGuest = !accessToken;
   const [messages, setMessages] = useState<NikaChatMessage[]>([welcomeMessage()]);
   const [historyReady, setHistoryReady] = useState(false);
   const [input, setInput] = useState("");
@@ -48,6 +56,15 @@ export function NikaChat({ profile, accessToken, variant = "page", onNavigate }:
   const ctx = buildNikaContext(profile);
 
   useEffect(() => {
+    if (isGuest) {
+      const initial: NikaChatMessage[] = [guestWelcomeMessage()];
+      if (isGuestLimitReached()) {
+        initial.push(guestLimitMessage());
+      }
+      setMessages(initial);
+      setHistoryReady(true);
+      return;
+    }
     if (!userId) {
       setMessages([welcomeMessage()]);
       setHistoryReady(true);
@@ -62,7 +79,7 @@ export function NikaChat({ profile, accessToken, variant = "page", onNavigate }:
     return () => {
       cancelled = true;
     };
-  }, [userId]);
+  }, [userId, isGuest]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -97,8 +114,16 @@ export function NikaChat({ profile, accessToken, variant = "page", onNavigate }:
       const trimmed = text.trim();
       if (!trimmed || sending) return;
 
+      if (isGuest && isGuestLimitReached()) {
+        setMessages((m) => {
+          const withoutLimit = m.filter((x) => x.id !== "guest-limit");
+          return [...withoutLimit, guestLimitMessage()];
+        });
+        return;
+      }
+
       const guard = classifyQuestion(trimmed);
-      if (guard.verdict === "refused" && guard.reason === "out_of_scope") {
+      if (!isGuest && guard.verdict === "refused" && guard.reason === "out_of_scope") {
         setHint(REFUSAL_HINT);
       } else {
         setHint(null);
@@ -111,11 +136,27 @@ export function NikaChat({ profile, accessToken, variant = "page", onNavigate }:
         text: trimmed,
         createdAt: now,
       };
-      setMessages((m) => [...m.filter((x) => x.id !== "welcome"), userMsg]);
+      setMessages((m) => [...m.filter((x) => x.id !== "welcome" && x.id !== "guest-limit"), userMsg]);
       setInput("");
       setSending(true);
 
       try {
+        if (isGuest) {
+          const res = guestNikaReply(trimmed);
+          const nikaMsg: NikaChatMessage = {
+            id: `n-${Date.now()}`,
+            role: "nika",
+            text: res.reply,
+            refused: res.refused,
+            sources: res.sources,
+            tasks: res.tasks,
+            provider: res.provider,
+            createdAt: Date.now(),
+          };
+          setMessages((m) => [...m, nikaMsg]);
+          return;
+        }
+
         const res = await sendNikaMessage({
           message: trimmed,
           accessToken,
@@ -157,8 +198,10 @@ export function NikaChat({ profile, accessToken, variant = "page", onNavigate }:
         setSending(false);
       }
     },
-    [accessToken, ctx, sending, persistExchange],
+    [accessToken, ctx, sending, persistExchange, isGuest],
   );
+
+  const guestLocked = isGuest && isGuestLimitReached();
 
   return (
     <div
@@ -286,24 +329,52 @@ export function NikaChat({ profile, accessToken, variant = "page", onNavigate }:
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about OET, your regulator, or study plan…"
+            placeholder={
+              guestLocked
+                ? "Sign in to continue chatting with Nika…"
+                : isGuest
+                  ? "Ask about OET Coach, sign-in, or features…"
+                  : "Ask about OET, your regulator, or study plan…"
+            }
             className={`flex-1 rounded-xl border border-border bg-surface px-4 py-3 ${textSize} text-ink placeholder:text-ink-soft focus:border-brand-primary focus:outline-none`}
             maxLength={2000}
-            disabled={sending}
+            disabled={sending || guestLocked}
           />
-          <button
-            type="submit"
-            disabled={sending || !input.trim()}
-            className={`rounded-xl bg-brand-primary px-4 py-3 ${textSize} font-semibold text-white disabled:opacity-50`}
-          >
-            Send
-          </button>
+          {guestLocked ? (
+            <Link
+              href="/login"
+              className={`rounded-xl bg-brand-primary px-4 py-3 ${textSize} font-semibold text-white`}
+            >
+              Sign in
+            </Link>
+          ) : (
+            <button
+              type="submit"
+              disabled={sending || !input.trim()}
+              className={`rounded-xl bg-brand-primary px-4 py-3 ${textSize} font-semibold text-white disabled:opacity-50`}
+            >
+              Send
+            </button>
+          )}
         </form>
         <p className="text-[10px] text-ink-soft">
-          AI study coach for OET preparation — not medical advice. Chat saved 7 days on this device.{" "}
-          <Link href="/materials" className="text-brand-primary hover:underline">
-            Study materials →
-          </Link>
+          {isGuest ? (
+            <>
+              Preview mode — {GUEST_MAX_TURNS} general questions per visit, then sign in. No chat
+              history while logged out.{" "}
+              <Link href="/login" className="text-brand-primary hover:underline">
+                Get started →
+              </Link>
+            </>
+          ) : (
+            <>
+              AI study coach for OET preparation — not medical advice. Chat saved 7 days on this
+              device.{" "}
+              <Link href="/materials" className="text-brand-primary hover:underline">
+                Study materials →
+              </Link>
+            </>
+          )}
         </p>
       </div>
     </div>

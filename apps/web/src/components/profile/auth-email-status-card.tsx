@@ -15,8 +15,13 @@ export function AuthEmailStatusCard() {
       >
         <h2 className="font-semibold text-ink">Sign-in email</h2>
         <p className="mt-2 text-ink-soft">
-          Magic-link emails are sent from <strong className="text-ink">OET Coach</strong>.
-          Check your inbox and spam folder if a link does not arrive within a few minutes.
+          Magic-link emails are sent from <strong className="text-ink">Nika</strong> via{" "}
+          <strong className="text-ink">noreply@nika-oet.fun</strong>. That inbox is not monitored —
+          for help use{" "}
+          <a href="mailto:support@nika-oet.fun" className="font-medium text-brand-primary hover:underline">
+            support@nika-oet.fun
+          </a>
+          .
         </p>
       </section>
     );

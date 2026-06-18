@@ -2,26 +2,21 @@
 # Replace domain and email before use.
 #
 #   sudo cp /opt/Nika-AI/deploy/caddy/Caddyfile /etc/caddy/Caddyfile
-#   sudo nano /etc/caddy/Caddyfile   # set your domain + email
+#   sudo caddy fmt --overwrite /etc/caddy/Caddyfile
 #   sudo caddy validate --config /etc/caddy/Caddyfile
 #   sudo systemctl reload caddy
 
 {
-	# Let's Encrypt expiry notices (optional but recommended)
-	email you@yourdomain.com
+	email support@nika-oet.fun
 }
 
-oetcoach.app, www.oetcoach.app {
-	# Caddy obtains & renews valid public certs automatically (Let's Encrypt).
-	# HTTP :80 is used for ACME challenges and redirects to HTTPS by default.
-
+nika-oet.fun, www.nika-oet.fun {
 	header {
 		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
 		X-Content-Type-Options "nosniff"
 		X-Frame-Options "DENY"
 		Referrer-Policy "strict-origin-when-cross-origin"
 		Permissions-Policy "camera=(), microphone=(self), geolocation=()"
-		# Content-Security-Policy is set by Next.js (see apps/web/src/lib/security/headers.ts)
 		-Server
 	}
 

@@ -11,7 +11,7 @@ const OFF_TOPIC =
   /\b(weather|football|movie|netflix|dating|recipe|cook(ing)?|politics|bitcoin|crypto)\b/i;
 
 const VOCABULARY =
-  /\b(what\s+does|what\s+is|what'?s|explain|define|meaning\s+of|translate|vocab|vocabulary|pronunciation|how\s+do\s+you\s+say)\b/i;
+  /\b(what\s+does|what\s+is|what'?s|explain|define|meaning\s+of|translate|translation|vocab|vocabulary|pronunciation|how\s+do\s+you\s+say)\b|[-–—]\s*(mean|means|translate|translation)\s*\??\s*$/i;
 
 const ALLOWED =
   /\b(oet|listening|reading|writing|speaking|gphc|gmc|nmc|hcpc|ahpra|regulator|mock|study|import|flashcard|ice|criteria|oet\.com|progress|plan|practice|tasks?|exercises?|create|mix(ed)?|balanced|schedule|sub-?tests?)\b/i;

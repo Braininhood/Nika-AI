@@ -152,7 +152,9 @@ export function NikaCompanion() {
                   Ask Nika
                 </h2>
                 <p className="truncate text-xs text-ink-soft">
-                  OET study coach — here on every page
+                  {session?.access_token
+                    ? "OET study coach — here on every page"
+                    : "Preview — sign in for full coaching"}
                 </p>
               </div>
               <button

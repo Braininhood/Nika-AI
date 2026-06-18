@@ -6,6 +6,7 @@ import { ROLE_PLAY_CARDS } from "@/content/speaking";
 import type { RolePlayCard } from "@/content/speaking/types";
 import type { WritingScenario } from "@/content/writing/scenarios/types";
 import { WRITING_SCENARIOS } from "@/content/writing/scenarios";
+import { isValidWritingScenario } from "@/lib/content/writing-scenario-guard";
 import { fetchLearnerCatalog, type ContentSkill } from "@/lib/admin/content-api";
 
 import {
@@ -48,7 +49,7 @@ export async function mergedWritingScenarios(accessToken?: string): Promise<Writ
   if (!accessToken) return WRITING_SCENARIOS;
   try {
     const catalog = await loadCatalog(accessToken, "writing");
-    return mergeById(WRITING_SCENARIOS, catalog, ["scenario"]);
+    return mergeById(WRITING_SCENARIOS, catalog, ["scenario"]).filter(isValidWritingScenario);
   } catch {
     return WRITING_SCENARIOS;
   }

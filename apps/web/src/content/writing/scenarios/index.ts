@@ -18,6 +18,10 @@ import type { OetProfession } from "@/lib/domain/types";
 import { getProfessionLabel } from "@/lib/domain/professions";
 import { filterPoolByDifficulty, pickRotatedItem } from "@/lib/content/rotation";
 import { getActiveWritingScenarios } from "@/lib/content/active-content";
+import {
+  isValidWritingScenario,
+  scenarioSortTitle,
+} from "@/lib/content/writing-scenario-guard";
 
 import {
   COUNTRY_LABELS,
@@ -62,9 +66,11 @@ export function normalizeScenarioCountry(code?: string): ScenarioCountryCode | u
 }
 
 function sortScenarios(list: WritingScenario[]): WritingScenario[] {
-  return [...list].sort(
-    (a, b) => a.difficulty - b.difficulty || a.meta.title.localeCompare(b.meta.title),
-  );
+  return [...list]
+    .filter(isValidWritingScenario)
+    .sort(
+      (a, b) => a.difficulty - b.difficulty || scenarioSortTitle(a).localeCompare(scenarioSortTitle(b)),
+    );
 }
 
 export function getScenario(id: string): WritingScenario | undefined {

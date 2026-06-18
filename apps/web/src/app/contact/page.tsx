@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { LEGAL_ENTITY, PRODUCT_NAME, SUPPORT_EMAIL } from "@/content/legal/constants";
+import {
+  INFO_EMAIL,
+  LEGAL_ENTITY,
+  NOREPLY_EMAIL,
+  PRODUCT_NAME,
+  SUPPORT_EMAIL,
+} from "@/content/legal/constants";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -21,8 +27,10 @@ export default function ContactPage() {
 
       <div className="flex flex-col gap-6">
         <section className="rounded-2xl border border-border bg-surface p-6">
-          <h2 className="font-semibold text-ink">{LEGAL_ENTITY}</h2>
-          <p className="mt-2 text-sm text-ink-soft">Creator of {PRODUCT_NAME}</p>
+          <h2 className="font-semibold text-ink">Customer support</h2>
+          <p className="mt-2 text-sm text-ink-soft">
+            Account help, bugs, study questions, privacy requests, and accessibility reports.
+          </p>
           <p className="mt-4">
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
@@ -34,10 +42,46 @@ export default function ContactPage() {
         </section>
 
         <section className="rounded-2xl border border-border bg-surface p-6">
+          <h2 className="font-semibold text-ink">Information & partnerships</h2>
+          <p className="mt-2 text-sm text-ink-soft">
+            Service updates, reminders, and partnership enquiries.
+          </p>
+          <p className="mt-4">
+            <a
+              href={`mailto:${INFO_EMAIL}`}
+              className="text-base font-medium text-brand-primary hover:underline"
+            >
+              {INFO_EMAIL}
+            </a>
+          </p>
+        </section>
+
+        <section className="rounded-2xl border border-border bg-surface-muted/50 p-6">
+          <h2 className="font-semibold text-ink">Automated emails</h2>
+          <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+            Sign-in links and system notices are sent from{" "}
+            <span className="font-medium text-ink">{NOREPLY_EMAIL}</span>. That inbox is{" "}
+            <strong>not monitored</strong> — please use{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`} className="font-medium text-brand-primary hover:underline">
+              {SUPPORT_EMAIL}
+            </a>{" "}
+            for help.
+          </p>
+        </section>
+
+        <section className="rounded-2xl border border-border bg-surface p-6">
+          <h2 className="font-semibold text-ink">{LEGAL_ENTITY}</h2>
+          <p className="mt-2 text-sm text-ink-soft">Creator of {PRODUCT_NAME}</p>
+        </section>
+
+        <section className="rounded-2xl border border-border bg-surface p-6">
           <h2 className="font-semibold text-ink">Data & privacy requests</h2>
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-            To access, export, or delete your personal data, email us from your registered
-            account address. See our{" "}
+            To access, export, or delete your personal data, email{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`} className="font-medium text-brand-primary hover:underline">
+              {SUPPORT_EMAIL}
+            </a>{" "}
+            from your registered account address. See our{" "}
             <Link href="/privacy" className="font-medium text-brand-primary hover:underline">
               Privacy Policy
             </Link>{" "}
@@ -48,8 +92,11 @@ export default function ContactPage() {
         <section className="rounded-2xl border border-border bg-surface p-6">
           <h2 className="font-semibold text-ink">Accessibility</h2>
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-            We aim for WCAG 2.1 AA compliance. Report barriers via email — include the page URL
-            and assistive technology you use.
+            We aim for WCAG 2.1 AA compliance. Report barriers to{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`} className="font-medium text-brand-primary hover:underline">
+              {SUPPORT_EMAIL}
+            </a>{" "}
+            — include the page URL and assistive technology you use.
           </p>
         </section>
       </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { CONTENT_DISCLAIMER, LEGAL_ENTITY, PRODUCT_NAME, SHORT_DISCLAIMER } from "@/content/legal/constants";
+import { CONTENT_DISCLAIMER, INFO_EMAIL, LEGAL_ENTITY, PRODUCT_NAME, SHORT_DISCLAIMER, SUPPORT_EMAIL } from "@/content/legal/constants";
 import { NikaAvatar } from "@/components/nika/nika-avatar";
 
 const FOOTER_LINKS = [
@@ -31,6 +31,21 @@ export function SiteFooter() {
             <p className="mt-4 max-w-md text-sm leading-relaxed text-[#C9BBA8]">
               Personalised OET preparation for healthcare professionals — adaptive plans,
               offline study, and Nika, your AI study companion.
+            </p>
+            <p className="mt-3 text-sm">
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="font-medium text-brand-accent-glow hover:underline"
+              >
+                {SUPPORT_EMAIL}
+              </a>
+              <span className="text-[#9A8B7A]"> · </span>
+              <a
+                href={`mailto:${INFO_EMAIL}`}
+                className="font-medium text-[#C9BBA8] hover:text-brand-accent-glow hover:underline"
+              >
+                {INFO_EMAIL}
+              </a>
             </p>
           </div>
 

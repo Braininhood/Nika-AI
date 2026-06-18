@@ -4,6 +4,7 @@ import { Fraunces, Inter } from "next/font/google";
 import { AppChrome } from "@/components/layout/app-chrome";
 import { AppProviders } from "@/components/providers";
 import { InstallPrompt } from "@/components/install-prompt";
+import { siteMetadata, siteOpenGraph } from "@/lib/site/metadata";
 
 import "./globals.css";
 
@@ -19,12 +20,12 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteMetadata.url),
   title: {
-    default: "OET Coach — Personalised OET Preparation",
-    template: "%s · OET Coach",
+    default: siteMetadata.title,
+    template: `%s · ${siteMetadata.name}`,
   },
-  description:
-    "Personalised OET preparation for healthcare professionals. Adaptive plans, offline study, and Nika — your AI study companion.",
+  description: siteMetadata.description,
   manifest: "/manifest.json",
   icons: {
     icon: "/icons/icon-192.png",
@@ -33,7 +34,19 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "OET Coach",
+    title: siteMetadata.name,
+  },
+  openGraph: {
+    ...siteOpenGraph,
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: siteMetadata.url,
+  },
+  twitter: {
+    card: "summary",
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    images: siteOpenGraph.images.map((i) => i.url),
   },
 };
 

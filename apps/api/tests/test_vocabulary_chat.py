@@ -33,11 +33,32 @@ def test_quoted_term():
     assert extract_vocabulary_target('explain "presenting complaint"') == "presenting complaint"
 
 
+def test_ibuprofen_mean_shorthand():
+    msg = "ibuprofen - mean?"
+    assert extract_vocabulary_target(msg) == "ibuprofen"
+    assert is_vocabulary_request(msg)
+
+
+def test_ibuprofen_translate_shorthand():
+    msg = "ibuprofen - translate?"
+    assert extract_vocabulary_target(msg) == "ibuprofen"
+    assert is_vocabulary_request(msg)
+
+
+def test_translate_term_prefix():
+    msg = "translate ibuprofen"
+    assert extract_vocabulary_target(msg) == "ibuprofen"
+    assert is_vocabulary_request(msg)
+
+
 def run_all() -> None:
     test_nil_by_mouth()
     test_neproxodine_what_is_it()
     test_does_not_extract_pronoun_it()
     test_quoted_term()
+    test_ibuprofen_mean_shorthand()
+    test_ibuprofen_translate_shorthand()
+    test_translate_term_prefix()
     print("All vocabulary chat tests passed.")
 
 

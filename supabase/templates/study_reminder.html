@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your study plan is waiting</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f6f1e8;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f6f1e8;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:520px;background:#ffffff;border-radius:16px;border:1px solid #e8dfd0;overflow:hidden;">
+          <tr>
+            <td style="background:linear-gradient(135deg,#21402f 0%,#5c3d2e 100%);padding:28px 32px;text-align:center;">
+              <img src="https://nika-oet.fun/nika/avatar/nika-companion.png" alt="Nika" width="72" height="72" style="display:block;margin:0 auto 12px;border-radius:50%;border:3px solid #f6f1e8;" />
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:700;color:#f6f1e8;">A nudge from Nika</p>
+              <p style="margin:8px 0 0;font-size:14px;color:#c9bba8;">Your OET study companion</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:32px;">
+              <h1 style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:22px;color:#2a2118;">
+                Hi {{ .FirstName }}, ready for today's plan?
+              </h1>
+              <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#4a4038;">
+                You have <strong>{{ .TaskCount }} tasks</strong> on your plan today
+                (about <strong>{{ .Minutes }} minutes</strong>).
+                {{ .PrioritySkill }} is your current focus — small steps keep momentum.
+              </p>
+              <table role="presentation" cellspacing="0" cellpadding="0" style="margin:0 0 24px;">
+                <tr>
+                  <td style="border-radius:12px;background:#e8a838;">
+                    <a href="{{ .StudyUrl }}" style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">
+                      Open today's plan
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0;padding:14px 16px;background:#faf7f2;border-radius:10px;font-size:12px;line-height:1.5;color:#6b6158;">
+                <strong>This inbox is not monitored.</strong>
+                Questions? <a href="mailto:support@nika-oet.fun" style="color:#21402f;">support@nika-oet.fun</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:20px 32px;background:#faf7f2;border-top:1px solid #e8dfd0;">
+              <p style="margin:0;font-size:11px;line-height:1.5;color:#8a7f72;text-align:center;">
+                Sent by Nika · OET Coach · noreply@nika-oet.fun<br />
+                <a href="{{ .UnsubscribeUrl }}" style="color:#8a7f72;">Manage reminders</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

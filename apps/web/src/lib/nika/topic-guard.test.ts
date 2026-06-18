@@ -22,4 +22,12 @@ describe("nika topic guard", () => {
   it("allows mix task requests", () => {
     expect(classifyQuestion("what about mix tasks?").verdict).toBe("allowed");
   });
+
+  it("allows vocabulary shorthand mean?", () => {
+    expect(classifyQuestion("ibuprofen - mean?").verdict).toBe("allowed");
+  });
+
+  it("allows translate shorthand", () => {
+    expect(classifyQuestion("ibuprofen - translate?").verdict).toBe("allowed");
+  });
 });

@@ -93,7 +93,10 @@ export async function offlineNikaReply(
   }
 
   const vocabIntent =
-    /\b(what\s+does|what\s+is|explain|meaning\s+of|translate|vocab)\b/i.test(message) &&
+    (/\b(what\s+does|what\s+is|explain|meaning\s+of|translate|translation|vocab)\b/i.test(
+      message,
+    ) ||
+      /[-–—]\s*(mean|means|translate|translation)\s*\??\s*$/i.test(message)) &&
     !/\b(quiz|test|assessment)\b/i.test(message);
 
   if (vocabIntent) {
