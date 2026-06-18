@@ -55,6 +55,13 @@ if systemctl is-active --quiet ollama 2>/dev/null; then
 fi
 trap cleanup_build EXIT
 
+ENV_LOCAL="$ROOT/apps/web/.env.local"
+if [[ -f "$ENV_LOCAL" ]] && [[ ! -r "$ENV_LOCAL" ]]; then
+  echo "ERROR: Cannot read $ENV_LOCAL (permission denied)."
+  echo "Fix: sudo chown \$(whoami):\$(whoami) $ENV_LOCAL .env && chmod 600 $ENV_LOCAL .env"
+  exit 1
+fi
+
 echo "==> Build Next.js"
 # t3.micro: cap Node heap; swap handles the rest. Override: NODE_MAX_OLD_SPACE_SIZE=1024
 export NODE_OPTIONS="--max-old-space-size=${NODE_MAX_OLD_SPACE_SIZE:-768}"
