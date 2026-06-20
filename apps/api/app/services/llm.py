@@ -124,7 +124,7 @@ async def _ollama_chat(
         "stream": False,
     }
     try:
-        async with httpx.AsyncClient(timeout=90.0) as client:
+        async with httpx.AsyncClient(timeout=12.0) as client:
             res = await client.post(url, json=payload)
             res.raise_for_status()
             return res.json()["choices"][0]["message"]["content"].strip()

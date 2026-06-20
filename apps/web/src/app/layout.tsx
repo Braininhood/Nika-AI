@@ -28,8 +28,11 @@ export const metadata: Metadata = {
   description: siteMetadata.description,
   manifest: "/manifest.json",
   icons: {
-    icon: "/icons/icon-192.png",
-    apple: "/icons/icon-192.png",
+    icon: [
+      { url: "/nika/avatar/nika-icon.png", sizes: "192x192", type: "image/png" },
+      { url: "/nika/avatar/nika-icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/nika/avatar/nika-icon.png",
   },
   appleWebApp: {
     capable: true,

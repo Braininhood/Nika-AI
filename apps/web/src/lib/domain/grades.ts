@@ -12,14 +12,15 @@ export function computeGap(estBand: OetGrade, targetGrade: string): number {
 }
 
 export function estimateBandFromTier(tier: number, accuracy: number): OetGrade {
-  if (tier === 1) return accuracy >= 0.6 ? "C" : "D";
+  /** Conservative placement — grade B requires tier-3 performance. */
+  if (tier <= 1) return accuracy >= 0.65 ? "C" : "D";
   if (tier === 2) {
-    if (accuracy >= 0.8) return "B";
-    if (accuracy >= 0.55) return "C+";
-    return "C";
+    if (accuracy >= 0.85) return "C+";
+    if (accuracy >= 0.55) return "C";
+    return "D";
   }
-  if (accuracy >= 0.75) return "B";
-  if (accuracy >= 0.5) return "C+";
+  if (accuracy >= 0.8) return "B";
+  if (accuracy >= 0.55) return "C+";
   return "C";
 }
 

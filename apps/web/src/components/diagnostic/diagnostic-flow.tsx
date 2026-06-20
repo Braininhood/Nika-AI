@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { WeakSkillRadar } from "@/components/dashboard/weak-skill-radar";
 import { DiagnosticListenPlayer } from "@/components/diagnostic/diagnostic-listen-player";
@@ -47,6 +47,8 @@ const SKILL_LABELS: Record<OetSkill, string> = {
 
 export function DiagnosticFlow() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const retake = searchParams.get("retake") === "1";
   const { session: authSession } = useAuth();
   const accessToken = authSession?.access_token;
   const [diagSession, setDiagSession] = useState<
@@ -71,6 +73,10 @@ export function DiagnosticFlow() {
         return;
       }
       let existing = await loadDiagnosticSession();
+      if (retake && existing) {
+        await clearDiagnosticSession();
+        existing = null;
+      }
       if (!existing) {
         let sessionId = crypto.randomUUID();
         if (accessToken && navigator.onLine) {
@@ -86,7 +92,7 @@ export function DiagnosticFlow() {
       }
       setLoading(false);
     })();
-  }, [router, accessToken]);
+  }, [router, accessToken, retake]);
 
   useEffect(() => {
     if (!diagSession) return;
@@ -97,7 +103,7 @@ export function DiagnosticFlow() {
         return;
       }
       const block = diagSession.blocks[step.skill] ?? createBlockState();
-      setCurrentItem(getNextItem(step.skill, block));
+      setCurrentItem(getNextItem(step.skill, block, diagSession.sessionId));
       setSelected(null);
     });
   }, [diagSession]);

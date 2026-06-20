@@ -12,6 +12,26 @@ import type { BlockAnswer, DiagnosticSessionState, SkillBlockState } from "./typ
 const MIN_ITEMS = 4;
 const MAX_ITEMS = 8;
 
+function hashString(value: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < value.length; i += 1) {
+    h ^= value.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function shuffleWithSeed<T>(items: T[], seed: number): T[] {
+  const out = [...items];
+  let s = seed || 1;
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    s = (Math.imul(s, 1103515245) + 12345) >>> 0;
+    const j = s % (i + 1);
+    [out[i], out[j]] = [out[j]!, out[i]!];
+  }
+  return out;
+}
+
 export function createBlockState(): SkillBlockState {
   return { tier: 2, consecutiveCorrect: 0, consecutiveWrong: 0, answers: [] };
 }
@@ -40,7 +60,7 @@ export function recordAnswer(
   return next;
 }
 
-export function getNextItem(skill: OetSkill, block: SkillBlockState) {
+export function getNextItem(skill: OetSkill, block: SkillBlockState, sessionId = "") {
   if (block.answers.length >= MAX_ITEMS) return null;
   if (block.answers.length >= MIN_ITEMS) {
     const recent = block.answers.slice(-3);
@@ -54,14 +74,18 @@ export function getNextItem(skill: OetSkill, block: SkillBlockState) {
       !block.answers.some((a) => a.itemId === item.id),
   );
 
+  const seed = hashString(`${sessionId}:${skill}:${block.tier}`);
+
   if (pool.length === 0) {
     const fallback = itemsForSkill(skill).filter(
       (item) => !block.answers.some((a) => a.itemId === item.id),
     );
-    return fallback[0] ?? null;
+    const shuffled = shuffleWithSeed(fallback, seed);
+    return shuffled[block.answers.length % Math.max(shuffled.length, 1)] ?? null;
   }
 
-  return pool[block.answers.length % pool.length];
+  const shuffled = shuffleWithSeed(pool, seed);
+  return shuffled[block.answers.length % shuffled.length] ?? null;
 }
 
 function weakTagsFromAnswers(answers: BlockAnswer[]): string[] {
@@ -76,7 +100,10 @@ function weakTagsFromAnswers(answers: BlockAnswer[]): string[] {
 function blockResult(block: SkillBlockState, targetGrade: string) {
   const correct = block.answers.filter((a) => a.correct).length;
   const accuracy = block.answers.length ? correct / block.answers.length : 0.5;
-  const estBand = estimateBandFromTier(block.tier, accuracy);
+  const peakTier = block.answers.length
+    ? Math.max(block.tier, ...block.answers.map((a) => a.tier))
+    : block.tier;
+  const estBand = estimateBandFromTier(peakTier, accuracy);
   return {
     estBand,
     gap: computeGap(estBand, targetGrade),

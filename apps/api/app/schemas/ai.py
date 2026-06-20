@@ -45,6 +45,9 @@ class SpeakingFeedbackRequest(BaseModel):
 
 
 class SpeakingInterlocutorRequest(BaseModel):
+    role_card_id: str | None = Field(default=None, max_length=128)
+    interlocutor_role: str | None = Field(default=None, max_length=64)
+    patient_details: str = Field(default="", max_length=2000)
     messages: list[SpeakingMessage] = Field(default_factory=list, max_length=MAX_MESSAGES)
     patient_concerns: list[str] = Field(default_factory=list, max_length=8)
     patient_knowledge: str = Field(default="", max_length=2000)

@@ -16,17 +16,18 @@ def _grade_index(grade: str) -> int:
 
 
 def _estimate_band(tier: int, accuracy: float) -> str:
-    if tier == 1:
-        return "C" if accuracy >= 0.6 else "D"
+    """Conservative placement — B requires tier-3 performance."""
+    if tier <= 1:
+        return "C" if accuracy >= 0.65 else "D"
     if tier == 2:
-        if accuracy >= 0.8:
-            return "B"
-        if accuracy >= 0.55:
+        if accuracy >= 0.85:
             return "C+"
-        return "C"
-    if accuracy >= 0.75:
+        if accuracy >= 0.55:
+            return "C"
+        return "D"
+    if accuracy >= 0.8:
         return "B"
-    if accuracy >= 0.5:
+    if accuracy >= 0.55:
         return "C+"
     return "C"
 
@@ -59,7 +60,8 @@ def compute_skill_map(
         tier = max(r.get("tier", 2) for r in rows)
         correct = sum(1 for r in rows if r.get("correct"))
         accuracy = correct / len(rows)
-        est_band = _estimate_band(tier, accuracy)
+        peak_tier = max(tier, max((r.get("tier", 2) for r in rows), default=tier))
+        est_band = _estimate_band(peak_tier, accuracy)
         target = target_grades.get(skill, "B")
         gap = max(0, _grade_index(target) - _grade_index(est_band))
         weak = list({r.get("tag") for r in rows if not r.get("correct") and r.get("tag")})

@@ -4,10 +4,14 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import time
 
 import httpx
 
 from app.core.config import settings
+
+_http_cache: tuple[float, bool] | None = None
+_HTTP_CACHE_TTL = 45.0
 
 
 async def ollama_http_ok(base_url: str | None = None) -> bool:
@@ -76,8 +80,25 @@ async def get_ollama_status() -> dict:
     }
 
 
+def _cloud_llm_configured() -> bool:
+    return bool(settings.gemini_api_key or settings.groq_api_key)
+
+
 async def is_ollama_ready() -> bool:
+    """Fast check for chat hot path — HTTP only, no CLI subprocess."""
     if not settings.ollama_enabled:
         return False
-    status = await get_ollama_status()
-    return bool(status["ready"])
+    # t3.micro Ollama is too slow when Gemini/Groq are available
+    if settings.is_production and _cloud_llm_configured():
+        return False
+    return await ollama_http_ok_cached()
+
+
+async def ollama_http_ok_cached(base_url: str | None = None) -> bool:
+    global _http_cache
+    now = time.monotonic()
+    if _http_cache and now - _http_cache[0] < _HTTP_CACHE_TTL:
+        return _http_cache[1]
+    ok = await ollama_http_ok(base_url)
+    _http_cache = (now, ok)
+    return ok

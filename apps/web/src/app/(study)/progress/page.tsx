@@ -169,7 +169,7 @@ export default function ProgressPage() {
       )}
 
       <Link
-        href="/diagnostic"
+        href="/diagnostic?retake=1"
         className="text-center text-sm text-brand-primary hover:underline"
       >
         Re-run diagnostic placement test

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 
 from app.core.quota_deps import require_ai_consent, require_ai_quota
@@ -110,7 +110,15 @@ async def speaking_interlocutor(
 ) -> dict:
     payload = body.model_dump()
     payload["messages"] = [m.model_dump() for m in body.messages]
-    result = await next_interlocutor_line(payload)
+    try:
+        result = await next_interlocutor_line(payload)
+    except Exception:
+        from app.services.speaking_interlocutor import rule_based_interlocutor
+
+        result = {
+            "line": rule_based_interlocutor(payload),
+            "source": "rule",
+        }
     return {"user_id": user.id, **result}
 
 
@@ -163,18 +171,35 @@ async def nika_chat(
     user: AuthUser = Depends(get_current_user),
     _quota: QuotaStatus = Depends(require_ai_quota),
 ) -> dict:
-    result = await answer_nika_chat(
-        user_id=user.id,
-        message=payload.message.strip(),
-        profession=payload.profession,
-        regulator=payload.regulator,
-        country=payload.country,
-        skill_map=payload.skill_map,
-        skill_focus=payload.skill_focus,
-        native_language=payload.native_language,
-        exclude_ids=payload.exclude_ids,
-        skip_quota=True,
-    )
+    try:
+        result = await answer_nika_chat(
+            user_id=user.id,
+            message=payload.message.strip(),
+            profession=payload.profession,
+            regulator=payload.regulator,
+            country=payload.country,
+            skill_map=payload.skill_map,
+            skill_focus=payload.skill_focus,
+            native_language=payload.native_language,
+            exclude_ids=payload.exclude_ids,
+            skip_quota=True,
+        )
+    except HTTPException:
+        raise
+    except Exception:
+        from app.services.llm import _grounded_template_reply
+
+        result = {
+            "reply": _grounded_template_reply(
+                payload.message.strip(),
+                "OET exam preparation and healthcare registration guidance.",
+            ),
+            "refused": False,
+            "reason": "fallback",
+            "sources": [],
+            "provider": "grounded_rules",
+            "quota": _quota.__dict__,
+        }
     return {
         "user_id": user.id,
         "question": payload.message,

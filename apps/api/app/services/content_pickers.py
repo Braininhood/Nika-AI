@@ -27,14 +27,26 @@ SPEAKING_FALLBACKS = [
 ]
 
 
-def _pick_rotated(pool: list[dict], attempted_ids: list[str], key: str = "id") -> dict:
+def _daily_seed() -> int:
+    from datetime import date
+
+    return hash(date.today().isoformat()) % 10_000
+
+
+def _pick_rotated(
+    pool: list[dict],
+    attempted_ids: list[str],
+    key: str = "id",
+    day_seed: int | None = None,
+) -> dict:
     if not pool:
         raise ValueError("empty pool")
+    seed = day_seed if day_seed is not None else _daily_seed()
     attempt_set = set(attempted_ids)
-    for item in pool:
-        if item[key] not in attempt_set:
-            return item
-    idx = len(attempted_ids) % len(pool)
+    never = [item for item in pool if item[key] not in attempt_set]
+    if never:
+        return never[seed % len(never)]
+    idx = (len(attempted_ids) + seed) % len(pool)
     return pool[idx]
 
 

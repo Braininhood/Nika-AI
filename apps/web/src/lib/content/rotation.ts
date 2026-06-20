@@ -3,10 +3,22 @@
  * Picks the next item the user has attempted least recently (or never).
  */
 
+/** Stable numeric seed from YYYY-MM-DD for daily plan variety. */
+export function dailyRotationSeed(dateStr?: string): number {
+  const day = dateStr ?? new Date().toISOString().slice(0, 10);
+  let h = 2166136261;
+  for (let i = 0; i < day.length; i += 1) {
+    h ^= day.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
 export function pickRotatedItem<T extends { id: string }>(
   pool: T[],
   attemptedIds: string[],
   fallbackIndex = 0,
+  daySeed = dailyRotationSeed(),
 ): T {
   if (pool.length === 0) {
     throw new Error("pickRotatedItem: empty pool");
@@ -16,7 +28,7 @@ export function pickRotatedItem<T extends { id: string }>(
   const attemptSet = new Set(attemptedIds);
   const neverAttempted = pool.filter((item) => !attemptSet.has(item.id));
   if (neverAttempted.length > 0) {
-    return neverAttempted[0]!;
+    return neverAttempted[daySeed % neverAttempted.length]!;
   }
 
   // All attempted — pick least recently seen (last in history = most recent)
@@ -25,12 +37,12 @@ export function pickRotatedItem<T extends { id: string }>(
     const match = pool.find((item) => item.id === id);
     if (match) {
       const idx = pool.indexOf(match);
-      const next = pool[(idx + 1) % pool.length]!;
+      const next = pool[(idx + 1 + (daySeed % Math.max(pool.length - 1, 1))) % pool.length]!;
       return next;
     }
   }
 
-  return pool[fallbackIndex % pool.length]!;
+  return pool[(fallbackIndex + daySeed) % pool.length]!;
 }
 
 export function filterPoolByDifficulty<T extends { difficulty: number }>(
