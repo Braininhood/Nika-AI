@@ -1,0 +1,14 @@
+{
+  "profession": "physiotherapy",
+  "display_name": "Physiotherapy",
+  "phrases": [
+    {"term": "exercise programme", "skills": ["writing", "speaking"], "example": "Home exercise programme issued with diagrams and repetitions."},
+    {"term": "pulmonary rehab", "skills": ["writing", "listening"], "example": "Pulmonary rehab referral sent to community centre."},
+    {"term": "mobilisation", "skills": ["writing", "speaking"], "example": "Early mobilisation commenced with frame on day one."},
+    {"term": "ROM", "skills": ["writing"], "example": "ROM limited in left shoulder flexion to 90 degrees."},
+    {"term": "pain management", "skills": ["speaking"], "example": "We discussed pacing and flare-up management strategies."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer for GP review of persistent back pain."},
+    {"term": "COPD", "skills": ["reading", "writing"], "example": "COPD GOLD stage 2 — pulmonary rehab arranged."},
+    {"term": "ADLs", "skills": ["reading", "writing"], "example": "Functional assessment before return to ADLs at home."}
+  ]
+}

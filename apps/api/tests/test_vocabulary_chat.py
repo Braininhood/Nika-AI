@@ -51,6 +51,37 @@ def test_translate_term_prefix():
     assert is_vocabulary_request(msg)
 
 
+def test_egfr_is_value_what_is_it():
+    msg = "eGFR is 58 mL/min - what is it"
+    assert extract_vocabulary_target(msg) == "eGFR"
+    word, _ = normalize_vocabulary_term("eGFR")
+    assert word == "eGFR"
+    assert is_vocabulary_request(msg)
+
+
+def test_does_not_extract_min_from_ml_per_min():
+    msg = "eGFR is 58 mL/min - what is it"
+    assert extract_vocabulary_target(msg) != "min"
+
+
+def test_hba1c_with_value():
+    msg = "HbA1c is 64 mmol/mol - what is it?"
+    assert extract_vocabulary_target(msg) == "HbA1c"
+
+
+def test_what_is_egfr():
+    msg = "what is eGFR"
+    assert extract_vocabulary_target(msg) == "eGFR"
+
+
+def test_glossary_lookup():
+    from app.services.healthcare_vocabulary import lookup_healthcare_term
+
+    entry = lookup_healthcare_term("egfr")
+    assert entry is not None
+    assert entry.display == "eGFR"
+
+
 def run_all() -> None:
     test_nil_by_mouth()
     test_neproxodine_what_is_it()
@@ -59,6 +90,11 @@ def run_all() -> None:
     test_ibuprofen_mean_shorthand()
     test_ibuprofen_translate_shorthand()
     test_translate_term_prefix()
+    test_egfr_is_value_what_is_it()
+    test_does_not_extract_min_from_ml_per_min()
+    test_hba1c_with_value()
+    test_what_is_egfr()
+    test_glossary_lookup()
     print("All vocabulary chat tests passed.")
 
 

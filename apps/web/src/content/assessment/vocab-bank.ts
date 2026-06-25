@@ -113,6 +113,40 @@ export const VOCAB_BANK: QuizQuestion[] = [
     ],
     explanation: "Identity → situation → plan → accountability.",
   },
+  {
+    id: "vocab-009",
+    skill: "vocab",
+    profession: "all",
+    type: "mcq",
+    difficulty: 2,
+    tags: ["vocab:abbreviations", "vocab:renal"],
+    prompt: "In 'eGFR 58 mL/min', what does eGFR measure?",
+    options: [
+      "Kidney filtration rate",
+      "Heart rate",
+      "Blood pressure",
+      "Liver enzymes",
+    ],
+    correctAnswer: "Kidney filtration rate",
+    explanation: "eGFR = estimated glomerular filtration rate — how well kidneys filter blood.",
+  },
+  {
+    id: "vocab-010",
+    skill: "vocab",
+    profession: "all",
+    type: "mcq",
+    difficulty: 1,
+    tags: ["vocab:abbreviations"],
+    prompt: "What does ICE stand for in OET Speaking?",
+    options: [
+      "Ideas, Concerns, Expectations",
+      "Immediate Clinical Examination",
+      "Internal Care Escalation",
+      "Infection Control Entry",
+    ],
+    correctAnswer: "Ideas, Concerns, Expectations",
+    explanation: "ICE is the patient-centred communication framework for Speaking.",
+  },
 ];
 
 /** Short phrase cards for vocabulary study (not quiz format). */
@@ -159,5 +193,26 @@ export const VOCAB_PHRASES: VocabPhrase[] = [
     meaning: "Patient must not eat or drink",
     example: "The patient is nil by mouth from midnight.",
     tags: ["vocab:clinical"],
+  },
+  {
+    id: "phr-006",
+    phrase: "eGFR",
+    meaning: "Estimated glomerular filtration rate — kidney function in mL/min",
+    example: "His eGFR is 58 mL/min; review renally cleared medicines.",
+    tags: ["vocab:abbreviations", "vocab:renal"],
+  },
+  {
+    id: "phr-007",
+    phrase: "HbA1c",
+    meaning: "Average blood glucose over ~3 months",
+    example: "HbA1c is 64 mmol/mol, above the agreed target.",
+    tags: ["vocab:abbreviations", "vocab:diabetes"],
+  },
+  {
+    id: "phr-008",
+    phrase: "ICE",
+    meaning: "Ideas, Concerns, Expectations — patient-centred speaking framework",
+    example: "I explored her ideas, concerns, and expectations about insulin.",
+    tags: ["vocab:speaking"],
   },
 ];

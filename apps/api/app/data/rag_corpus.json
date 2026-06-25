@@ -318,5 +318,75 @@
     "source": "oet-coach-docs",
     "category": "profession",
     "tags": ["dietetics", "profession", "hcpc"]
+  },
+  {
+    "id": "vocab-egfr",
+    "title": "eGFR — estimated glomerular filtration rate",
+    "content": "eGFR estimates kidney filtration in mL/min. Normal is typically above 90. Values below 60 for three months suggest CKD. Common in OET Writing referrals (renal dosing, contrast safety) and Reading texts about pharmacy or radiography. Example: 'eGFR 58 mL/min — review metformin and NSAIDs.'",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["vocab", "egfr", "renal", "ckd", "abbreviations"]
+  },
+  {
+    "id": "vocab-clinical-abbreviations",
+    "title": "Common OET clinical abbreviations",
+    "content": "Healthcare abbreviations appear in all four OET skills. Listening: PRN (as needed), stat (immediately), BD/TDS (dosing). Reading/Writing: eGFR, HbA1c, BP, AF, CKD, NBM/NPO. Speaking: ICE (Ideas, Concerns, Expectations). When a learner asks about a phrase with a number (e.g. eGFR 58 mL/min), explain the clinical term, not the unit.",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["vocab", "abbreviations", "listening", "reading", "writing", "speaking"]
+  },
+  {
+    "id": "vocab-presenting-complaint",
+    "title": "Presenting complaint",
+    "content": "The main reason the patient sought care. Standard opening in OET Writing letters and Speaking handovers. Example: 'Her presenting complaint was chest pain on exertion.' Related phrases: on admission, as discussed, for your information.",
+    "skill": "writing",
+    "profession": "all",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["vocab", "writing", "clinical-phrases"]
+  },
+  {
+    "id": "vocab-handover-phrases",
+    "title": "Handover and chart phrases",
+    "content": "OET Listening and Speaking use workplace phrases: nil by mouth (NBM/NPO), bilateral, PRN, stat, observations, pending actions. Writing uses referral language: I am writing to refer, please review, for your information. Learn the phrase as a whole, not isolated unit words like min or mg.",
+    "skill": "listening",
+    "profession": "all",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["vocab", "handover", "listening", "phrases"]
+  },
+  {
+    "id": "vocab-nika-brain",
+    "title": "Nika knowledge brain — all 12 OET professions",
+    "content": "Nika explains healthcare English from a curated glossary (50+ terms) plus phrases auto-harvested from OET Coach writing scenarios, speaking role-plays, listening notes, and reading texts for all 12 professions: medicine, nursing, pharmacy, dentistry, physiotherapy, radiography, occupational therapy, optometry, podiatry, veterinary science, speech pathology, dietetics. When learners ask about abbreviations (eGFR, INR, PRN, ICE, COPD, IOP, NEWS2), Nika explains the clinical term in OET context — not measurement units like min or mg. Rebuild phrase index: python scripts/harvest_oet_vocabulary.py",
+    "skill": "all",
+    "profession": "all",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["nika", "vocabulary", "all-professions", "self-study"]
+  },
+  {
+    "id": "vocab-dentistry-key",
+    "title": "Dentistry OET vocabulary",
+    "content": "Dentistry OET: referral to maxillofacial/oral surgery, extraction, dry socket, avulsion, splinting, OPG imaging, anxiety counselling, antibiotic prophylaxis. Writing: treatment summary and urgent surgical referral. Speaking: explain procedures and post-op care in plain English.",
+    "skill": "writing",
+    "profession": "dentistry",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["dentistry", "vocab", "referral"]
+  },
+  {
+    "id": "vocab-veterinary-key",
+    "title": "Veterinary OET vocabulary",
+    "content": "Veterinary Science OET: owner communication, species-specific findings, colic, cruciate ligament, surgical referral, empathetic pet-owner language. Writing letters to specialist vets or owners. Speaking: explain treatment options to pet owners using ICE.",
+    "skill": "all",
+    "profession": "veterinary_science",
+    "source": "oet-coach-vocabulary",
+    "category": "vocabulary",
+    "tags": ["veterinary", "vocab"]
   }
 ]

@@ -1,0 +1,2220 @@
+{
+  "version": 1,
+  "generated_from": "apps\\web\\src\\content",
+  "phrase_count": 117,
+  "phrases": [
+    {
+      "term": "referral",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "occupational_therapy",
+        "optometry",
+        "pharmacy",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 398,
+      "example": "Which sentence best establishes Purpose in a referral?",
+      "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/listening/blocks/universal.ts"
+      ]
+    },
+    {
+      "term": "ice",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "nursing",
+        "occupational_therapy",
+        "optometry",
+        "pharmacy",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "vocab"
+      ],
+      "occurrences": 173,
+      "example": "speaking:ice-expectations",
+      "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/speaking/accent-wave4.ts",
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/speaking/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "Handover",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "nursing",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 78,
+      "example": "Handover: 1L fluid restriction for heart failure. Main clinical concern?",
+      "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/universal.ts",
+        "apps/web/src/content/reading/blocks/countries.ts"
+      ]
+    },
+    {
+      "term": "INR",
+      "professions": [
+        "all",
+        "pharmacy"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 45,
+      "example": "Warfarin dose increased → INR monitoring should be…",
+      "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/quiz-bank.ts",
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts"
+      ]
+    },
+    {
+      "term": "HbA1c",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "nursing",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 43,
+      "example": "HbA1c is 64 mmol/mol, above the agreed target.",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/speaking/medicine.ts",
+        "apps/web/src/content/writing/drills.ts"
+      ]
+    },
+    {
+      "term": "BP",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "pharmacy",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 42,
+      "example": "North American rhythm with Caribbean cadence — note BP readings and drug names.",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/speaking/country-wave2.ts",
+        "apps/web/src/content/writing/drills.ts",
+        "apps/web/src/content/writing/lesson-examples.ts"
+      ]
+    },
+    {
+      "term": "MRI",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 38,
+      "example": "Text A — MRI safety: patient with pacemaker — cardiology clearance faxed, scan cancelled pending review.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/reading/blocks/universal.ts",
+        "apps/web/src/content/speaking/accent-wave4.ts",
+        "apps/web/src/content/speaking/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "CT",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 36,
+      "example": "Text C — Radiology: CT chest for Ms Patel booked urgent — nil by mouth from midnight. Consent form in notes.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/speaking/accent-wave4.ts",
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts"
+      ]
+    },
+    {
+      "term": "ENT",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 31,
+      "example": "Text D — ENT referral for Bed 6 hoarse voice >3 weeks — copy GP letter to notes.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/grade-c-samples.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts"
+      ]
+    },
+    {
+      "term": "COPD",
+      "professions": [
+        "all",
+        "physiotherapy"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "writing"
+      ],
+      "occurrences": 25,
+      "example": "Dublin — rural Irish patient COPD review",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "profession_phrases/physiotherapy.json"
+      ]
+    },
+    {
+      "term": "avulsion",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 24,
+      "example": "Which text gives avulsion first-aid advice?",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts"
+      ]
+    },
+    {
+      "term": "eGFR",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 23,
+      "example": "In 'eGFR 58 mL/min', what does eGFR measure?",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts"
+      ]
+    },
+    {
+      "term": "dysphagia",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 22,
+      "example": "Text A — Bed 11 dysphagia — modified fluids until videofluoroscopy review Wednesday.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts"
+      ]
+    },
+    {
+      "term": "ADLs",
+      "professions": [
+        "all",
+        "occupational_therapy",
+        "physiotherapy"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 21,
+      "example": "Text B — Cognitive screen: Bed 9 delirium — OT to assess ADLs before discharge destination agreed.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/occupational_therapy.json",
+        "profession_phrases/physiotherapy.json"
+      ]
+    },
+    {
+      "term": "colic",
+      "professions": [
+        "all",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 21,
+      "example": "Equine colic surgical referral",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "profession_phrases/veterinary_science.json"
+      ]
+    },
+    {
+      "term": "Exercise Programme",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 21,
+      "example": "Explain home exercise programme for frozen shoulder.",
+      "sources": [
+        "apps/web/src/content/speaking/accent-wave4.ts",
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/writing/drills.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts"
+      ]
+    },
+    {
+      "term": "IOP",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 21,
+      "example": "Mrs Okonkwo, 64, elevated IOP 28mmHg, early visual field loss",
+      "sources": [
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/drills.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/grade-c-samples.ts"
+      ]
+    },
+    {
+      "term": "OCT",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 21,
+      "example": "Text D — OCT machine calibration — morning list delayed 30 minutes.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts"
+      ]
+    },
+    {
+      "term": "Dry Socket",
+      "professions": [
+        "all",
+        "dentistry"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 20,
+      "example": "Gum flares behind back tooth, friend had dry socket",
+      "sources": [
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/drills.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts",
+        "profession_phrases/dentistry.json"
+      ]
+    },
+    {
+      "term": "keratitis",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 19,
+      "example": "Counsel on contact lens hygiene after mild keratitis.",
+      "sources": [
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "Charcot Foot",
+      "professions": [
+        "all",
+        "podiatry"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 18,
+      "example": "Explain Charcot foot management in diabetes — offloading and monitoring.",
+      "sources": [
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts",
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "CKD",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 18,
+      "example": "Explain renal diet modifications for CKD stage 4.",
+      "sources": [
+        "apps/web/src/content/speaking/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "PRN",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "occupational_therapy",
+        "optometry",
+        "pharmacy",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 18,
+      "example": "What does PRN mean on a medication chart?",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts"
+      ]
+    },
+    {
+      "term": "Discharge Summary",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 17,
+      "example": "Text B — Discharge summary pending for Mrs O'Brien — pharmacy to reconcile amiodarone before TTO. GP letter by 16:00.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/reading/quiz-bank.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts",
+        "apps/web/src/content/writing/sample-letters/grade-c-samples.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts"
+      ]
+    },
+    {
+      "term": "ECG",
+      "professions": [
+        "all",
+        "medicine"
+      ],
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "occurrences": 17,
+      "example": "ECG sinus rhythm.",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "apps/web/src/content/writing/scenarios/medicine.ts"
+      ]
+    },
+    {
+      "term": "LFT",
+      "professions": [
+        "all",
+        "medicine",
+        "pharmacy"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 17,
+      "example": "No formal prescription request or LFT caveat.",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/medicine.ts",
+        "apps/web/src/content/writing/scenarios/pharmacy.ts"
+      ]
+    },
+    {
+      "term": "Nil By Mouth",
+      "professions": [
+        "all",
+        "nursing"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 17,
+      "example": "True or false: 'Nil by mouth' means the patient must not eat or drink.",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/nursing.json"
+      ]
+    },
+    {
+      "term": "Presenting Complaint",
+      "professions": [
+        "all",
+        "medicine"
+      ],
+      "skills": [
+        "listening",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 16,
+      "example": "Presenting complaint",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/universal.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "profession_phrases/medicine.json"
+      ]
+    },
+    {
+      "term": "malnutrition",
+      "professions": [
+        "all",
+        "dietetics"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 15,
+      "example": "Text D — Home visit cancelled — snow — telephone review for malnutrition screen instead.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "profession_phrases/dietetics.json"
+      ]
+    },
+    {
+      "term": "OPG",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 15,
+      "example": "Text D — Radiograph QC: OPG machine service due — use alternate room until Friday.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "profession_phrases/dentistry.json"
+      ]
+    },
+    {
+      "term": "Pulmonary Rehab",
+      "professions": [
+        "all",
+        "physiotherapy"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "writing"
+      ],
+      "occurrences": 15,
+      "example": "Mr O'Sullivan, seventy, COPD GOLD stage two. Salbutamol inhaler two puffs PRN. Started tiotropium this month. Still smoking five a day. Flu vaccine due. Pulmonary rehab referral sent to Bantry.",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/physiotherapy.json"
+      ]
+    },
+    {
+      "term": "PVD",
+      "professions": [
+        "all",
+        "podiatry"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 15,
+      "example": "Likely Grade B: urgent referral for PVD with lattice degeneration monitoring.",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts",
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "Videofluoroscopy",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 15,
+      "example": "Text A — Videofluoroscopy 10:00: Bed 14 — nil by mouth 4 hours, wheelchair transport booked.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "profession_phrases/speech_pathology.json"
+      ]
+    },
+    {
+      "term": "NEWS2",
+      "professions": [
+        "all",
+        "nursing"
+      ],
+      "skills": [
+        "listening",
+        "reading"
+      ],
+      "occurrences": 14,
+      "example": "Text A — NEWS2 7 on Bed 12 — medical review requested. Oxygen started 2 L/min via nasal cannula.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/reading/quiz-bank.ts",
+        "profession_phrases/nursing.json"
+      ]
+    },
+    {
+      "term": "ROM",
+      "professions": [
+        "all",
+        "physiotherapy"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 14,
+      "example": "Text C — Splinting workshop: rheumatoid hands — heat pack and gentle ROM before fabrication.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "profession_phrases/physiotherapy.json"
+      ]
+    },
+    {
+      "term": "Visual Field",
+      "professions": [
+        "all",
+        "optometry"
+      ],
+      "skills": [
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 14,
+      "example": "Mrs Okonkwo, 64, elevated IOP 28mmHg, early visual field loss",
+      "sources": [
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/drills.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts",
+        "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "BMI",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 13,
+      "example": "Booking visit at ten weeks. BMI twenty-six. Taking folic acid four hundred micrograms daily. No smoking. Dating scan booked at hospital. Discussed pertussis vaccination in third trimester.",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave3.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/speaking/country-wave2.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts"
+      ]
+    },
+    {
+      "term": "FBC",
+      "professions": [
+        "all",
+        "medicine",
+        "pharmacy"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 13,
+      "example": "FBC normal; TSH 6.2 mIU/L; night-shift work noted; repeat TFTs in six weeks planned.",
+      "sources": [
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/medicine.ts",
+        "apps/web/src/content/writing/scenarios/pharmacy.ts"
+      ]
+    },
+    {
+      "term": "hypertension",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 13,
+      "example": "Toronto — Caribbean-Canadian patient hypertension",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/speaking/country-wave2.ts",
+        "apps/web/src/content/writing/lessons.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave3.ts"
+      ]
+    },
+    {
+      "term": "maxillofacial",
+      "professions": [
+        "all",
+        "dentistry"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 13,
+      "example": "Text C — Referral: orthopantomogram for Ms Wright sent to maxillofacial — await triage letter.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "profession_phrases/dentistry.json"
+      ]
+    },
+    {
+      "term": "RNFL",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 13,
+      "example": "IOP 24/26 mmHg; cup-to-disc 0.6; RNFL thinning OCT; family history glaucoma; latanoprost started.",
+      "sources": [
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/sample-letters/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "Angle Closure",
+      "professions": [
+        "all",
+        "optometry"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 12,
+      "example": "Text A — Urgent: Ms Tran suspected acute angle closure — same-day ophthalmology referral.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "contraindication",
+      "professions": [
+        "all",
+        "pharmacy"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 12,
+      "example": "Acute treatment and CKD contraindication explained.",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "profession_phrases/pharmacy.json"
+      ]
+    },
+    {
+      "term": "dysphonia",
+      "professions": [
+        "all",
+        "speech_pathology"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 12,
+      "example": "Clear ENT referral for occupational dysphonia.",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "profession_phrases/speech_pathology.json"
+      ]
+    },
+    {
+      "term": "MDT",
+      "professions": [
+        "all",
+        "medicine"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 12,
+      "example": "Text D — MDT minutes: discuss oncology referral for Mr Jones Tuesday 08:30 — junior to present imaging.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/medicine.json"
+      ]
+    },
+    {
+      "term": "Modified Fluids",
+      "professions": [
+        "all",
+        "speech_pathology"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 12,
+      "example": "Text A — Bed 11 dysphagia — modified fluids until videofluoroscopy review Wednesday.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/speech_pathology.json"
+      ]
+    },
+    {
+      "term": "Differential Diagnosis",
+      "professions": [
+        "all",
+        "medicine"
+      ],
+      "skills": [
+        "reading",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 11,
+      "example": "A 'differential diagnosis' is…",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "profession_phrases/medicine.json"
+      ]
+    },
+    {
+      "term": "adherence",
+      "professions": [
+        "pharmacy"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "We discussed barriers to adherence with twice-daily dosing.",
+      "sources": [
+        "profession_phrases/pharmacy.json"
+      ]
+    },
+    {
+      "term": "AF",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Mr Nguyen, 71, new AF, CHA₂DS₂-VASc 3, started warfarin last week",
+      "sources": [
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "anticoagulation",
+      "professions": [
+        "medicine"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Anticoagulation commenced for non-valvular AF.",
+      "sources": [
+        "profession_phrases/medicine.json"
+      ]
+    },
+    {
+      "term": "anxiety",
+      "professions": [
+        "radiography"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I used clear steps to reduce anxiety before the scan.",
+      "sources": [
+        "profession_phrases/radiography.json"
+      ]
+    },
+    {
+      "term": "aphasia",
+      "professions": [
+        "speech_pathology"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "Communication strategies discussed with family for aphasia.",
+      "sources": [
+        "profession_phrases/speech_pathology.json"
+      ]
+    },
+    {
+      "term": "BD",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Metformin 1g BD and empagliflozin.",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/speaking/country-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "cognitive screen",
+      "professions": [
+        "occupational_therapy"
+      ],
+      "skills": [
+        "reading"
+      ],
+      "occurrences": 10,
+      "example": "Cognitive screen: delirium — OT to assess before discharge.",
+      "sources": [
+        "profession_phrases/occupational_therapy.json"
+      ]
+    },
+    {
+      "term": "contrast",
+      "professions": [
+        "radiography"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "eGFR 28 — refer to radiologist before iodinated contrast.",
+      "sources": [
+        "profession_phrases/radiography.json"
+      ]
+    },
+    {
+      "term": "cruciate ligament",
+      "professions": [
+        "veterinary_science"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Canine cruciate ligament rupture — surgical referral discussed.",
+      "sources": [
+        "profession_phrases/veterinary_science.json"
+      ]
+    },
+    {
+      "term": "dental anxiety",
+      "professions": [
+        "dentistry"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I acknowledged her anxiety and explained each step of the procedure.",
+      "sources": [
+        "profession_phrases/dentistry.json"
+      ]
+    },
+    {
+      "term": "diabetic foot",
+      "professions": [
+        "podiatry"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "High-risk diabetic foot clinic follow-up arranged.",
+      "sources": [
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "discharge planning",
+      "professions": [
+        "occupational_therapy"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Discharge planning includes carer training on transfers.",
+      "sources": [
+        "profession_phrases/occupational_therapy.json"
+      ]
+    },
+    {
+      "term": "drug interaction",
+      "professions": [
+        "pharmacy"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Antibiotic course may interact with warfarin — INR monitoring required.",
+      "sources": [
+        "profession_phrases/pharmacy.json"
+      ]
+    },
+    {
+      "term": "enteral",
+      "professions": [
+        "dietetics"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Enteral feeding regimen reviewed with nursing team.",
+      "sources": [
+        "profession_phrases/dietetics.json"
+      ]
+    },
+    {
+      "term": "equipment",
+      "professions": [
+        "occupational_therapy"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Raised toilet seat and grab rails recommended.",
+      "sources": [
+        "profession_phrases/occupational_therapy.json"
+      ]
+    },
+    {
+      "term": "exertional chest pain",
+      "professions": [
+        "medicine"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "He reports exertional chest pain over six weeks.",
+      "sources": [
+        "profession_phrases/medicine.json"
+      ]
+    },
+    {
+      "term": "extraction",
+      "professions": [
+        "dentistry"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Extraction performed under local anaesthetic on 12 June.",
+      "sources": [
+        "profession_phrases/dentistry.json"
+      ]
+    },
+    {
+      "term": "fluid restriction",
+      "professions": [
+        "dietetics"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Fluid restriction 1.5 L/day explained with practical tips.",
+      "sources": [
+        "profession_phrases/dietetics.json"
+      ]
+    },
+    {
+      "term": "functional assessment",
+      "professions": [
+        "occupational_therapy"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Functional assessment shows difficulty with dressing and bathing.",
+      "sources": [
+        "profession_phrases/occupational_therapy.json"
+      ]
+    },
+    {
+      "term": "glaucoma",
+      "professions": [
+        "optometry"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Family history of glaucoma; RNFL thinning on OCT.",
+      "sources": [
+        "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "glycaemic",
+      "professions": [
+        "dietetics"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Request GP co-management for glycaemic optimisation.",
+      "sources": [
+        "profession_phrases/dietetics.json"
+      ]
+    },
+    {
+      "term": "home assessment",
+      "professions": [
+        "occupational_therapy"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Home OT visit arranged to review kitchen and bathroom access.",
+      "sources": [
+        "profession_phrases/occupational_therapy.json"
+      ]
+    },
+    {
+      "term": "informed consent",
+      "professions": [
+        "radiography"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I explained the procedure, risks, and obtained informed consent.",
+      "sources": [
+        "profession_phrases/radiography.json"
+      ]
+    },
+    {
+      "term": "lenses",
+      "professions": [
+        "optometry"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I explained how to insert and care for contact lenses safely.",
+      "sources": [
+        "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "medication counselling",
+      "professions": [
+        "pharmacy"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "I counselled him on adherence and missed-dose advice.",
+      "sources": [
+        "profession_phrases/pharmacy.json"
+      ]
+    },
+    {
+      "term": "mobilisation",
+      "professions": [
+        "physiotherapy"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Early mobilisation commenced with frame on day one.",
+      "sources": [
+        "profession_phrases/physiotherapy.json"
+      ]
+    },
+    {
+      "term": "neurovascular",
+      "professions": [
+        "podiatry"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Neurovascular status documented — absent pedal pulses.",
+      "sources": [
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "observations",
+      "professions": [
+        "nursing"
+      ],
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Observations repeated hourly post-operatively.",
+      "sources": [
+        "profession_phrases/nursing.json"
+      ]
+    },
+    {
+      "term": "offloading",
+      "professions": [
+        "podiatry"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Charcot foot — total contact cast for offloading.",
+      "sources": [
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "OTC",
+      "professions": [
+        "pharmacy"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "Advised to check with pharmacist before taking OTC ibuprofen.",
+      "sources": [
+        "profession_phrases/pharmacy.json"
+      ]
+    },
+    {
+      "term": "owner",
+      "professions": [
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "I explained treatment options clearly to the owner.",
+      "sources": [
+        "profession_phrases/veterinary_science.json"
+      ]
+    },
+    {
+      "term": "pain management",
+      "professions": [
+        "physiotherapy"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "We discussed pacing and flare-up management strategies.",
+      "sources": [
+        "profession_phrases/physiotherapy.json"
+      ]
+    },
+    {
+      "term": "patient education",
+      "professions": [
+        "nursing"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "Patient education provided on inhaler technique.",
+      "sources": [
+        "profession_phrases/nursing.json"
+      ]
+    },
+    {
+      "term": "post-operative care",
+      "professions": [
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Post-operative care instructions given in plain language.",
+      "sources": [
+        "profession_phrases/veterinary_science.json"
+      ]
+    },
+    {
+      "term": "prognosis",
+      "professions": [
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I discussed prognosis and recovery timeline with the owner.",
+      "sources": [
+        "profession_phrases/veterinary_science.json"
+      ]
+    },
+    {
+      "term": "prophylaxis",
+      "professions": [
+        "dentistry"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Antibiotic prophylaxis discussed for high-risk cardiac patient.",
+      "sources": [
+        "profession_phrases/dentistry.json"
+      ]
+    },
+    {
+      "term": "protein target",
+      "professions": [
+        "dietetics"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Daily protein target 1.2 g/kg for wound healing.",
+      "sources": [
+        "profession_phrases/dietetics.json"
+      ]
+    },
+    {
+      "term": "radiation dose",
+      "professions": [
+        "radiography"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I explained radiation dose is kept as low as reasonably achievable.",
+      "sources": [
+        "profession_phrases/radiography.json"
+      ]
+    },
+    {
+      "term": "self-care",
+      "professions": [
+        "podiatry"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "I checked understanding of daily foot inspection and moisturising.",
+      "sources": [
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "species",
+      "professions": [
+        "veterinary_science"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Species, findings, and urgency stated in opening lines.",
+      "sources": [
+        "profession_phrases/veterinary_science.json"
+      ]
+    },
+    {
+      "term": "ulcer",
+      "professions": [
+        "podiatry"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Diabetic foot ulcer dressed; offloading insole provided.",
+      "sources": [
+        "profession_phrases/podiatry.json"
+      ]
+    },
+    {
+      "term": "vital signs",
+      "professions": [
+        "nursing"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "occurrences": 10,
+      "example": "Vital signs within normal limits on admission.",
+      "sources": [
+        "profession_phrases/nursing.json"
+      ]
+    },
+    {
+      "term": "wound care",
+      "professions": [
+        "nursing"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 10,
+      "example": "Wound dressing changed; no signs of infection.",
+      "sources": [
+        "profession_phrases/nursing.json"
+      ]
+    },
+    {
+      "term": "oedema",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "nursing",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 9,
+      "example": "Mrs Patel, 68, new HF diagnosis, ejection fraction 35%, mild ankle oedema",
+      "sources": [
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/lessons.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts"
+      ]
+    },
+    {
+      "term": "On Admission",
+      "professions": [
+        "all",
+        "nursing"
+      ],
+      "skills": [
+        "reading",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 7,
+      "example": "On admission",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/reading/blocks/countries-wave2.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
+        "apps/web/src/content/writing/scenarios/nursing.ts"
+      ]
+    },
+    {
+      "term": "DVT",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 5,
+      "example": "He is cleared for surgery. I recommend post-operative DVT prophylaxis and early physiotherapy.\\n\\nYours sincerely,\\n[Doctor name]",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "IV",
+      "professions": [
+        "all",
+        "medicine"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 5,
+      "example": "Text B — IV antibiotics due 14:00 Bed 15 — flush line before piperacillin-tazobactam.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "apps/web/src/content/writing/scenarios/medicine.ts"
+      ]
+    },
+    {
+      "term": "PE",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 4,
+      "example": "CT PE protocol report",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "SpO2",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 4,
+      "example": "Dear Ms Kelly,\\n\\nRe: Mr Sean Doyle, aged 68 years\\n\\nI am writing regarding Mr Doyle, who is ready for discharge home on 17 June 2026 following admission for a COPD exacerbation. His SpO2 is 94% on room air.",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "ADL",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 3,
+      "example": "ADL assessment before discharge destination.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "apps/web/src/content/writing/drills.ts"
+      ]
+    },
+    {
+      "term": "Contact Lens Keratitis",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 3,
+      "example": "Contact lens keratitis referral",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "CXR",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "occurrences": 3,
+      "example": "Text D — Rheumatology: start methotrexate for Mr Singh — folic acid 5mg weekly, baseline CXR filed.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/writing/lesson-examples.ts",
+        "apps/web/src/content/writing/scenarios/allied-health.ts"
+      ]
+    },
+    {
+      "term": "Ideas, Concerns, Expectations",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 3,
+      "example": "Ideas, Concerns, Expectations",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "OD",
+      "professions": [
+        "dentistry",
+        "dietetics",
+        "nursing",
+        "occupational_therapy",
+        "optometry",
+        "pharmacy",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 3,
+      "example": "BP 165 mmHg systolic; started amlodipine 0.625mg OD",
+      "sources": [
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/nursing.ts",
+        "apps/web/src/content/writing/scenarios/pharmacy.ts"
+      ]
+    },
+    {
+      "term": "SLT",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 3,
+      "example": "Mr Geoff Edwards, 70y — SLT assessment",
+      "sources": [
+        "apps/web/src/content/writing/scenarios/allied-health.ts",
+        "apps/web/src/content/writing/scenarios/country-wave3.ts"
+      ]
+    },
+    {
+      "term": "As Discussed",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 2,
+      "example": "As discussed",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "For Your Information",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 2,
+      "example": "For your information",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "METs",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 2,
+      "example": "METs and aspirin hold duration not specified.",
+      "sources": [
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "NSAID",
+      "professions": [
+        "all",
+        "pharmacy"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "occurrences": 2,
+      "example": "Explain risks of NSAID with aspirin",
+      "sources": [
+        "apps/web/src/content/speaking/pharmacy.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts"
+      ]
+    },
+    {
+      "term": "Palliative",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "reading"
+      ],
+      "occurrences": 2,
+      "example": "Text C — Palliative family meeting 16:30 Room 4 — chaplain notified, notes in folder.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions-wave2.ts"
+      ]
+    },
+    {
+      "term": "TDS",
+      "professions": [
+        "all",
+        "pharmacy"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 2,
+      "example": "Amoxicillin 500mg TDS x 5 days completed — partial improvement only",
+      "sources": [
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "apps/web/src/content/writing/scenarios/pharmacy.ts"
+      ]
+    },
+    {
+      "term": "Anticoagulant",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "reading"
+      ],
+      "occurrences": 1,
+      "example": "Text B — Anticoagulant counselling: new apixaban starter pack for Bed 6 — counsel before first dose.",
+      "sources": [
+        "apps/web/src/content/reading/blocks/professions.ts"
+      ]
+    },
+    {
+      "term": "DM",
+      "professions": [
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 1,
+      "example": "Type 2 DM 12 years; HbA1c 8.1%",
+      "sources": [
+        "apps/web/src/content/writing/scenarios/allied-health.ts"
+      ]
+    },
+    {
+      "term": "FYI",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 1,
+      "example": "FYI — sharing without requiring action",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "HR",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "listening"
+      ],
+      "occurrences": 1,
+      "example": "HR podcast · Leeds",
+      "sources": [
+        "apps/web/src/content/listening/blocks/accents-wave3.ts"
+      ]
+    },
+    {
+      "term": "hyperkalaemia",
+      "professions": [
+        "dentistry",
+        "dietetics",
+        "occupational_therapy",
+        "optometry",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "speaking"
+      ],
+      "occurrences": 1,
+      "example": "Mr Patel, 58, eGFR 22, hyperkalaemia history",
+      "sources": [
+        "apps/web/src/content/speaking/allied-health.ts"
+      ]
+    },
+    {
+      "term": "NBM",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 1,
+      "example": "NBM / NPO — nothing orally.",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "NPO",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 1,
+      "example": "NBM / NPO — nothing orally.",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "SC",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "writing"
+      ],
+      "occurrences": 1,
+      "example": "Enoxaparin 40mg SC daily until INR therapeutic",
+      "sources": [
+        "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "Stat",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 1,
+      "example": "'Stat' in a clinical order means…",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    }
+  ]
+}

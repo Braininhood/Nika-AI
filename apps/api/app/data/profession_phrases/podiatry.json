@@ -1,0 +1,14 @@
+{
+  "profession": "podiatry",
+  "display_name": "Podiatry",
+  "phrases": [
+    {"term": "neurovascular", "skills": ["writing"], "example": "Neurovascular status documented — absent pedal pulses."},
+    {"term": "PVD", "skills": ["reading", "writing"], "example": "Vascular referral for PVD with absent pedal pulses."},
+    {"term": "ulcer", "skills": ["writing", "speaking"], "example": "Diabetic foot ulcer dressed; offloading insole provided."},
+    {"term": "offloading", "skills": ["writing"], "example": "Charcot foot — total contact cast for offloading."},
+    {"term": "Charcot foot", "skills": ["writing"], "example": "Referral-style letter requesting GP co-management of Charcot foot."},
+    {"term": "self-care", "skills": ["speaking"], "example": "I checked understanding of daily foot inspection and moisturising."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer for vascular duplex assessment."},
+    {"term": "diabetic foot", "skills": ["writing", "speaking"], "example": "High-risk diabetic foot clinic follow-up arranged."}
+  ]
+}

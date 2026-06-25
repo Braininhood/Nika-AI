@@ -1,0 +1,14 @@
+{
+  "profession": "nursing",
+  "display_name": "Nursing",
+  "phrases": [
+    {"term": "handover", "skills": ["reading", "speaking"], "example": "Confirm patient identity, state current problem, list pending actions."},
+    {"term": "NEWS2", "skills": ["reading", "listening"], "example": "NEWS2 score 7 — medical review requested."},
+    {"term": "vital signs", "skills": ["listening", "speaking"], "example": "Vital signs within normal limits on admission."},
+    {"term": "nil by mouth", "skills": ["listening", "writing"], "example": "Patient is nil by mouth from midnight for theatre."},
+    {"term": "observations", "skills": ["listening", "writing"], "example": "Observations repeated hourly post-operatively."},
+    {"term": "wound care", "skills": ["writing", "speaking"], "example": "Wound dressing changed; no signs of infection."},
+    {"term": "patient education", "skills": ["speaking"], "example": "Patient education provided on inhaler technique."},
+    {"term": "ICE", "skills": ["speaking"], "example": "What concerns you most about managing fluids at home?"}
+  ]
+}

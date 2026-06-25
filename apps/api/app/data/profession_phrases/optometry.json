@@ -1,0 +1,14 @@
+{
+  "profession": "optometry",
+  "display_name": "Optometry",
+  "phrases": [
+    {"term": "IOP", "skills": ["reading", "writing"], "example": "IOP 24/26 mmHg; latanoprost commenced."},
+    {"term": "visual field", "skills": ["reading", "writing"], "example": "Referral for visual field defect with IOP findings."},
+    {"term": "glaucoma", "skills": ["writing", "speaking"], "example": "Family history of glaucoma; RNFL thinning on OCT."},
+    {"term": "RNFL", "skills": ["writing"], "example": "RNFL thinning noted; repeat review in three months."},
+    {"term": "angle closure", "skills": ["reading", "writing"], "example": "Suspected acute angle closure — same-day ophthalmology referral."},
+    {"term": "keratitis", "skills": ["writing"], "example": "Urgent referral for contact lens keratitis."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer to ophthalmology for urgent review."},
+    {"term": "lenses", "skills": ["speaking"], "example": "I explained how to insert and care for contact lenses safely."}
+  ]
+}

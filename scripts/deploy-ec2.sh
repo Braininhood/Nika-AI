@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Redeploy on EC2 after git pull — same stack as local dev (no Docker).
+# Nika vocabulary/knowledge re-syncs automatically when Nika-AI-api restarts.
 # Usage: ./scripts/deploy-ec2.sh
 set -euo pipefail
 
@@ -82,6 +83,7 @@ done
 
 echo "==> Restart services"
 sudo systemctl restart Nika-AI-api
+# Nika knowledge brain auto-syncs on API startup (harvest + profession packs)
 sudo systemctl restart Nika-AI-web
 
 echo "==> Status"

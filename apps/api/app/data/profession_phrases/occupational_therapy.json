@@ -1,0 +1,14 @@
+{
+  "profession": "occupational_therapy",
+  "display_name": "Occupational Therapy",
+  "phrases": [
+    {"term": "ADLs", "skills": ["reading", "writing"], "example": "OT to assess ADLs before discharge destination agreed."},
+    {"term": "home assessment", "skills": ["writing", "speaking"], "example": "Home OT visit arranged to review kitchen and bathroom access."},
+    {"term": "equipment", "skills": ["writing"], "example": "Raised toilet seat and grab rails recommended."},
+    {"term": "functional assessment", "skills": ["writing"], "example": "Functional assessment shows difficulty with dressing and bathing."},
+    {"term": "discharge planning", "skills": ["writing"], "example": "Discharge planning includes carer training on transfers."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer for driving assessment."},
+    {"term": "cognitive screen", "skills": ["reading"], "example": "Cognitive screen: delirium — OT to assess before discharge."},
+    {"term": "ICE", "skills": ["speaking"], "example": "What are your main goals for returning home independently?"}
+  ]
+}

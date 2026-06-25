@@ -1,0 +1,14 @@
+{
+  "profession": "medicine",
+  "display_name": "Medicine",
+  "phrases": [
+    {"term": "differential diagnosis", "skills": ["writing", "reading"], "example": "The differential diagnosis includes PE, pneumonia, and musculoskeletal pain."},
+    {"term": "presenting complaint", "skills": ["writing"], "example": "Her presenting complaint was progressive dyspnoea on exertion."},
+    {"term": "MDT", "skills": ["reading", "writing"], "example": "MDT discussed oncology referral for Tuesday 08:30."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer Mr Holt for cardiology review."},
+    {"term": "discharge summary", "skills": ["writing"], "example": "Discharge summary sent to GP within 24 hours."},
+    {"term": "exertional chest pain", "skills": ["writing", "speaking"], "example": "He reports exertional chest pain over six weeks."},
+    {"term": "anticoagulation", "skills": ["writing", "speaking"], "example": "Anticoagulation commenced for non-valvular AF."},
+    {"term": "ICE", "skills": ["speaking"], "example": "I explored his ideas, concerns, and expectations about warfarin."}
+  ]
+}

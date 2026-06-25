@@ -1,0 +1,14 @@
+{
+  "profession": "radiography",
+  "display_name": "Radiography",
+  "phrases": [
+    {"term": "contrast", "skills": ["reading", "writing"], "example": "eGFR 28 — refer to radiologist before iodinated contrast."},
+    {"term": "eGFR", "skills": ["reading", "writing"], "example": "Renal function checked prior to CT contrast administration."},
+    {"term": "informed consent", "skills": ["speaking"], "example": "I explained the procedure, risks, and obtained informed consent."},
+    {"term": "CT", "skills": ["reading", "writing"], "example": "CT pulmonary angiography investigated for suspected PE."},
+    {"term": "MRI", "skills": ["reading", "speaking"], "example": "MRI requires removal of metal implants — safety screened."},
+    {"term": "radiation dose", "skills": ["speaking"], "example": "I explained radiation dose is kept as low as reasonably achievable."},
+    {"term": "referral", "skills": ["writing"], "example": "Report forwarded to referring clinician with urgent findings."},
+    {"term": "anxiety", "skills": ["speaking"], "example": "I used clear steps to reduce anxiety before the scan."}
+  ]
+}

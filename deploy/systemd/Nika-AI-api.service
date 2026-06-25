@@ -9,6 +9,7 @@ User=ubuntu
 WorkingDirectory=/opt/Nika-AI/apps/api
 EnvironmentFile=/opt/Nika-AI/.env
 Environment=ENVIRONMENT=production
+# Nika knowledge (harvest + profession packs + glossary) syncs automatically on API startup
 ExecStart=/opt/Nika-AI/apps/api/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
 Restart=on-failure
 RestartSec=5

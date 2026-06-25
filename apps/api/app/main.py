@@ -1,16 +1,26 @@
 """FastAPI application entry point."""
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.core.config import settings
 from app.core.rate_limit import RateLimitMiddleware
+from app.services.knowledge_sync import startup_knowledge_sync
 from app.services.ollama_status import get_ollama_status
 from app.routers import admin, admin_content, ai, auth, content, course, diagnostic, mock_exam, plan, profile, progress, readiness, vocabulary
 
 _docs = None if settings.is_production else "/docs"
 _openapi = None if settings.is_production else "/openapi.json"
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    await startup_knowledge_sync()
+    yield
+
 
 app = FastAPI(
     title="OET Coach API",
@@ -19,6 +29,7 @@ app = FastAPI(
     docs_url=_docs,
     redoc_url=None if settings.is_production else "/redoc",
     openapi_url=_openapi,
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -71,4 +82,14 @@ async def health(request: Request) -> dict:
             "ollama": ollama,
         },
         "deepl_configured": bool(settings.deepl_api_key),
+        "nika_knowledge": _nika_knowledge_health(),
     }
+
+
+def _nika_knowledge_health() -> dict:
+    try:
+        from app.services.nika_knowledge import knowledge_stats
+
+        return knowledge_stats()
+    except Exception:
+        return {"status": "unavailable"}

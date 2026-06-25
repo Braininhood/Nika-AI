@@ -1,0 +1,14 @@
+{
+  "profession": "pharmacy",
+  "display_name": "Pharmacy",
+  "phrases": [
+    {"term": "medication counselling", "skills": ["speaking", "writing"], "example": "I counselled him on adherence and missed-dose advice."},
+    {"term": "contraindication", "skills": ["writing", "speaking"], "example": "NSAIDs are contraindicated while on apixaban."},
+    {"term": "drug interaction", "skills": ["writing", "speaking"], "example": "Antibiotic course may interact with warfarin — INR monitoring required."},
+    {"term": "INR", "skills": ["writing", "listening"], "example": "INR 2.4 — repeat in 3–5 days."},
+    {"term": "adherence", "skills": ["speaking"], "example": "We discussed barriers to adherence with twice-daily dosing."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer the patient for BP review."},
+    {"term": "PRN", "skills": ["listening", "reading"], "example": "Paracetamol 1 g PRN for pain, max four doses in 24 hours."},
+    {"term": "OTC", "skills": ["speaking"], "example": "Advised to check with pharmacist before taking OTC ibuprofen."}
+  ]
+}

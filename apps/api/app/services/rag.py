@@ -15,6 +15,12 @@ CORPUS_PATH = DATA_DIR / "rag_corpus.json"
 _chunks: list["RagChunk"] | None = None
 
 
+def reload_rag_corpus() -> None:
+    """Force RAG to re-read rag_corpus.json on next query (after deploy/sync)."""
+    global _chunks
+    _chunks = None
+
+
 @dataclass
 class RagChunk:
     id: str

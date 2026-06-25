@@ -28,6 +28,7 @@ NEVER:
 
 STYLE:
 - Clear English, 2–4 short paragraphs max
+- Understand healthcare phrases and abbreviations in context (eGFR, PRN, ICE, etc.) — explain English meaning for OET study, not real-patient advice
 - Reference the learner's weak areas when USER PROGRESS is provided
 - End with one concrete next step (lesson, practice, or official link)
 - If CONTEXT lacks the answer, say you don't know and point to oet.com/ready
@@ -196,6 +197,20 @@ async def answer_nika_chat(
     )
     context = format_context(chunks)
     progress = _format_user_progress(skill_map)
+
+    # Ground questions in harvested OET study phrases when relevant
+    from app.services.nika_knowledge import search_phrases
+
+    phrase_hits = search_phrases(message, profession=profession, limit=3)
+    phrase_ctx = ""
+    if phrase_hits:
+        lines = ["Phrases from your OET study material:"]
+        for p in phrase_hits:
+            line = f"- {p.term}"
+            if p.example:
+                line += f" — e.g. “{p.example[:120]}”"
+            lines.append(line)
+        phrase_ctx = "\n".join(lines)
     plan_context = study_context_for_message(
         message,
         skill_map,
@@ -203,6 +218,8 @@ async def answer_nika_chat(
         country=country,
     )
     full_context = f"USER PROGRESS:\n{progress}\n\nKNOWLEDGE:\n{context}"
+    if phrase_ctx:
+        full_context += f"\n\nSTUDY VOCABULARY:\n{phrase_ctx}"
     if plan_context:
         full_context += f"\n\n{plan_context}"
     if regulator:

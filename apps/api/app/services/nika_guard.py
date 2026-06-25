@@ -76,6 +76,15 @@ _ALLOWED_PATTERNS = [
     (re.compile(r"\b(pharmacy|nursing|medicine|dentist|physio|allied\s+health)\s+(oet|writing|speaking)\b", re.I), "oet"),
     (re.compile(r"\bhow\s+(long|many)\s+(minutes?|words?|questions?)\b", re.I), "oet"),
     (re.compile(r"\b(ice|concerns?\s+and\s+expectations?|role\s*play|role\s*card)\b", re.I), "oet"),
+    (
+        re.compile(
+            r"\b(eGFR|GFR|HbA1c|BNP|CKD|PRN|NBM|NPO|nil\s+by\s+mouth|presenting\s+complaint|"
+            r"bilateral|hyperkalaemia|differential\s+diagnosis|INR|COPD|NEWS2|IOP|ICE|"
+            r"dysphagia|dyspnoea|oedema|anticoagulant|MDT|DVT|UTI|referral|handover)\b",
+            re.I,
+        ),
+        "vocabulary",
+    ),
 ]
 
 

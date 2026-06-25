@@ -1,4 +1,4 @@
-"""Vocabulary — translate, explain, lookup via DeepL + optional LLM."""
+"""Vocabulary — translate, explain, lookup via DeepL + Nika knowledge brain."""
 
 from __future__ import annotations
 
@@ -8,8 +8,11 @@ from pydantic import BaseModel, Field
 from app.core.quota_deps import require_ai_quota
 from app.core.security import AuthUser, get_current_user
 from app.services.deepl import translate_text
+from app.services.healthcare_vocabulary import format_vocab_entry, lookup_healthcare_term
 from app.services.llm import generate_chat_reply
+from app.services.nika_knowledge import knowledge_context_for_term, knowledge_stats
 from app.services.quota import QuotaStatus
+from app.services.vocabulary_chat import EXPLAIN_SYSTEM
 
 router = APIRouter()
 
@@ -26,9 +29,12 @@ class ExplainRequest(BaseModel):
     profession: str | None = None
 
 
-EXPLAIN_SYSTEM = """You are Nika, OET vocabulary coach. Explain English healthcare/OET terms clearly in 2-3 sentences.
-Include: plain meaning, typical OET context (reading/listening/writing/speaking), one example phrase.
-Never give clinical advice for real patients. English only in explanation."""
+@router.get("/knowledge/stats")
+async def vocabulary_knowledge_stats(
+    user: AuthUser = Depends(get_current_user),
+) -> dict:
+    """Glossary + harvested phrase counts — all 12 OET professions."""
+    return {"user_id": user.id, **knowledge_stats()}
 
 
 @router.post("/translate")
@@ -50,18 +56,28 @@ async def vocabulary_explain(
     user: AuthUser = Depends(get_current_user),
     _quota: QuotaStatus = Depends(require_ai_quota),
 ) -> dict:
-    context = payload.context or ""
     prof = (payload.profession or "healthcare").replace("_", " ")
-    prompt = f"Explain the word/phrase '{payload.word}' for an OET {prof} candidate."
-    if context:
-        prompt += f"\nContext sentence: {context}"
-
-    explanation, provider = await generate_chat_reply(
-        system=EXPLAIN_SYSTEM,
-        user_message=prompt,
-        context=f"OET healthcare English vocabulary. Word: {payload.word}",
-        temperature=0.3,
+    known = lookup_healthcare_term(payload.word)
+    knowledge_ctx = knowledge_context_for_term(
+        payload.word,
+        message=payload.context or "",
+        profession=payload.profession,
     )
+
+    if known:
+        explanation = format_vocab_entry(known, profession=prof)
+        provider = "glossary+harvest"
+    else:
+        prompt = f"Explain the word/phrase '{payload.word}' for an OET {prof} candidate."
+        if payload.context:
+            prompt += f"\nLearner's full message or context: {payload.context}"
+
+        explanation, provider = await generate_chat_reply(
+            system=EXPLAIN_SYSTEM,
+            user_message=prompt,
+            context=knowledge_ctx or f"OET healthcare English vocabulary. Word: {payload.word}",
+            temperature=0.3,
+        )
 
     return {
         "user_id": user.id,

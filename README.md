@@ -12,6 +12,7 @@
 - Diagnostic placement and adaptive daily study plans
 - Listening, Reading, Writing, and Speaking practice
 - Nika AI tutor with topic guardrails and daily usage quota
+- **Nika knowledge brain** — healthcare vocabulary for all 12 OET professions (auto-sync on API startup)
 - Offline PWA (IndexedDB + service worker)
 - GDPR tooling: data export, account deletion, AI processing consent
 - Optional local LLM via Ollama; cloud fallback (Gemini / Groq)
@@ -97,6 +98,7 @@ pnpm setup:ollama:check
 ```bash
 pnpm verify:phase0
 curl http://localhost:8000/health
+# → includes nika_knowledge stats (glossary, harvested phrases, profession_packs: 12)
 ```
 
 ---
@@ -112,7 +114,9 @@ curl http://localhost:8000/health
 | `pnpm setup:ollama` | Install Ollama + pull default model |
 | `pnpm pack:sync` | Upload content packs to Supabase Storage |
 | `pnpm verify:phase0` | Phase 0 smoke checks |
-| `./scripts/deploy-ec2.sh` | Redeploy on EC2 (production) |
+| `./scripts/deploy-ec2.sh` | Redeploy on EC2 (production; restarts API → Nika auto-sync) |
+| `python scripts/harvest_oet_vocabulary.py` | Optional: manual vocabulary harvest (dev/CI) |
+| `python scripts/ingest_rag.py` | Optional: embed docs into pgvector RAG |
 
 ---
 
@@ -120,18 +124,22 @@ curl http://localhost:8000/health
 
 ```
 apps/web/       Next.js PWA (auth, study UI, Nika, offline storage)
-apps/api/       FastAPI (AI, diagnostic scoring, profile, sync)
+apps/api/       FastAPI (AI, diagnostic scoring, profile, Nika knowledge sync)
+                └── app/data/  glossary, profession_phrases/, oet_phrases_index.json
 content/        Original scenario JSON (not official OET materials)
 deploy/         Caddy, systemd units for EC2
 scripts/        Setup, deploy, and verification scripts
 supabase/       SQL migrations and auth email templates
+docs/           OET research, AI tutor, AWS deploy guides
 ```
 
 ---
 
 ## Production deployment
 
-Production runs on a single **EC2** instance (Caddy HTTPS → Next.js → FastAPI on localhost). **Supabase** hosts auth, Postgres, and content-pack storage. No Docker required on the server.
+Production runs on a single **EC2** instance (Caddy HTTPS → Next.js → FastAPI on localhost). **Supabase** hosts auth, Postgres, and content-pack storage. **No Docker on the server** — same as local: pnpm + Python venv + systemd.
+
+**Nika knowledge** re-syncs automatically when the API restarts (`./scripts/deploy-ec2.sh` or `systemctl restart Nika-AI-api`). See [docs/04-AI-TUTOR/09-nika-knowledge-brain.md](docs/04-AI-TUTOR/09-nika-knowledge-brain.md) and [docs/07-IMPLEMENTATION/04-aws-free-tier-deploy.md](docs/07-IMPLEMENTATION/04-aws-free-tier-deploy.md).
 
 Key production env vars:
 

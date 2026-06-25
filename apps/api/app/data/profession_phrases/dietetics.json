@@ -1,0 +1,14 @@
+{
+  "profession": "dietetics",
+  "display_name": "Dietetics",
+  "phrases": [
+    {"term": "malnutrition", "skills": ["reading", "writing"], "example": "Malnutrition screening score indicates high risk."},
+    {"term": "HbA1c", "skills": ["writing", "speaking"], "example": "HbA1c trend discussed to show dietary intervention effect."},
+    {"term": "protein target", "skills": ["writing"], "example": "Daily protein target 1.2 g/kg for wound healing."},
+    {"term": "fluid restriction", "skills": ["writing", "speaking"], "example": "Fluid restriction 1.5 L/day explained with practical tips."},
+    {"term": "glycaemic", "skills": ["writing"], "example": "Request GP co-management for glycaemic optimisation."},
+    {"term": "enteral", "skills": ["reading", "writing"], "example": "Enteral feeding regimen reviewed with nursing team."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to summarise dietary counselling for CKD stage 4."},
+    {"term": "ICE", "skills": ["speaking"], "example": "What beliefs or barriers might affect your meal planning?"}
+  ]
+}

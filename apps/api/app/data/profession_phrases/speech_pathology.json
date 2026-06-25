@@ -1,0 +1,14 @@
+{
+  "profession": "speech_pathology",
+  "display_name": "Speech Pathology",
+  "phrases": [
+    {"term": "dysphagia", "skills": ["reading", "writing", "speaking"], "example": "Bed 11 dysphagia — modified fluids until videofluoroscopy review."},
+    {"term": "videofluoroscopy", "skills": ["reading", "writing"], "example": "Modified fluids until videofluoroscopy Wednesday."},
+    {"term": "modified fluids", "skills": ["reading", "writing"], "example": "Level 2 modified fluids until swallow review."},
+    {"term": "aphasia", "skills": ["speaking"], "example": "Communication strategies discussed with family for aphasia."},
+    {"term": "dysphonia", "skills": ["writing", "speaking"], "example": "ENT referral for occupational dysphonia."},
+    {"term": "ENT", "skills": ["reading", "writing"], "example": "Hoarse voice >3 weeks — ENT referral."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer for ENT assessment of persistent hoarseness."},
+    {"term": "ICE", "skills": ["speaking"], "example": "What worries you most about your child's swallowing at school?"}
+  ]
+}

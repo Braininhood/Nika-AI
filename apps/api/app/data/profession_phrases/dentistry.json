@@ -1,0 +1,14 @@
+{
+  "profession": "dentistry",
+  "display_name": "Dentistry",
+  "phrases": [
+    {"term": "dry socket", "skills": ["writing", "speaking"], "example": "Referral after extraction with dry socket and persistent pain."},
+    {"term": "avulsion", "skills": ["writing", "speaking"], "example": "Urgent paediatric referral after tooth avulsion and splinting."},
+    {"term": "OPG", "skills": ["reading", "writing"], "example": "OPG sent to maxillofacial for review."},
+    {"term": "maxillofacial", "skills": ["writing"], "example": "Referral to maxillofacial for unresolved abscess."},
+    {"term": "extraction", "skills": ["writing", "speaking"], "example": "Extraction performed under local anaesthetic on 12 June."},
+    {"term": "prophylaxis", "skills": ["writing"], "example": "Antibiotic prophylaxis discussed for high-risk cardiac patient."},
+    {"term": "dental anxiety", "skills": ["speaking"], "example": "I acknowledged her anxiety and explained each step of the procedure."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer for specialist endodontic opinion."}
+  ]
+}

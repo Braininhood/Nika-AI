@@ -7,12 +7,24 @@ import uuid
 
 from app.services.deepl import translate_text
 from app.services.generate_assessment import is_assessment_request
+from app.services.healthcare_vocabulary import format_vocab_entry, lookup_healthcare_term
 from app.services.llm import generate_chat_reply
+from app.services.nika_knowledge import knowledge_context_for_term
+from app.services.rag import format_context, retrieve_chunks
 
-EXPLAIN_SYSTEM = """You are Nika, OET vocabulary coach. Explain English healthcare/OET terms clearly in 2-4 sentences.
-Include: plain meaning, drug class or clinical use if relevant, typical OET context (reading/listening/writing/speaking), one example phrase.
-If the learner misspelled a term, name the correct spelling first, then explain the correct term.
-Never give clinical advice for real patients. English only."""
+EXPLAIN_SYSTEM = """You are Nika, OET vocabulary coach for healthcare professionals learning English.
+
+Explain healthcare terms clearly in 3–5 sentences. Always cover:
+1. Plain English meaning (expand abbreviations fully on first mention)
+2. Clinical context — what the term measures or describes, not treatment advice for real patients
+3. Where it appears in OET (Listening note completion, Reading texts, Writing case notes, Speaking role-plays)
+4. One example phrase a candidate might write or hear
+
+IMPORTANT:
+- If the learner pasted a full phrase with a value (e.g. "eGFR is 58 mL/min"), explain the MAIN term (eGFR), not the unit (min, mg, mL).
+- Distinguish abbreviations from measurement units (mL/min = millilitres per minute, not a vocabulary word).
+- If the learner misspelled a term, name the correct spelling first.
+- Never give clinical advice for real patients. English only."""
 
 _VOCAB_INTENT = re.compile(
     r"\b("
@@ -25,6 +37,53 @@ _VOCAB_INTENT = re.compile(
 
 _QUOTED = re.compile(r"['\"]([^'\"]{2,120})['\"]")
 
+# Measurement units and noise — never treat as the vocabulary target
+_UNIT_FRAGMENTS = frozenset(
+    {
+        "min",
+        "mins",
+        "minute",
+        "minutes",
+        "max",
+        "mg",
+        "ml",
+        "mcg",
+        "g",
+        "kg",
+        "hr",
+        "hrs",
+        "hour",
+        "hours",
+        "day",
+        "days",
+        "week",
+        "weeks",
+        "mmol",
+        "mol",
+        "pg",
+        "dl",
+        "mmhg",
+        "bpm",
+        "percent",
+        "daily",
+        "weekly",
+    }
+)
+
+# Common OET healthcare abbreviations — prefer these over trailing unit tokens
+_MEDICAL_ABBREV = re.compile(
+    r"\b("
+    r"eGFR|GFR|HbA1c|BNP|CKD|AF|NSTEMI|STEMI|COPD|DM|HTN|"
+    r"BP|HR|RR|SpO2|BMI|CRP|ESR|INR|APT|DVT|PE|"
+    r"NPO|NBM|PRN|STAT|IV|IM|SC|PO|"
+    r"MRI|CT|ECG|EKG|CXR|"
+    r"NSAID|ACE|ARB|"
+    r"ICE|FYI|"
+    r"BD|TDS|QDS|OD"
+    r")\b",
+    re.I,
+)
+
 # Common learner misspellings → correct OET healthcare term
 _TERM_CORRECTIONS: dict[str, str] = {
     "neproxodine": "naproxen",
@@ -36,6 +95,9 @@ _TERM_CORRECTIONS: dict[str, str] = {
     "acetaminophen": "paracetamol",
     "npo": "nil by mouth",
     "n.b.m.": "nil by mouth",
+    "egfr": "eGFR",
+    "gfr": "eGFR",
+    "hba1c": "HbA1c",
 }
 
 _INVALID_TARGETS = frozenset(
@@ -84,7 +146,10 @@ def _is_valid_target(candidate: str) -> bool:
     lower = cleaned.lower()
     if lower in _INVALID_TARGETS:
         return False
-    # Reject bare pronoun phrases
+    if lower in _UNIT_FRAGMENTS:
+        return False
+    if re.fullmatch(r"m[lL]|k[gG]|m[gG]|mcg|mmol", cleaned):
+        return False
     if re.fullmatch(r"(it|this|that|these|those)", lower):
         return False
     return True
@@ -97,7 +162,39 @@ def normalize_vocabulary_term(raw: str) -> tuple[str, str | None]:
     corrected = _TERM_CORRECTIONS.get(key)
     if corrected:
         return corrected, cleaned
+    known = lookup_healthcare_term(cleaned)
+    if known:
+        return known.display, cleaned if cleaned != known.display else None
     return cleaned, None
+
+
+def _target_term_is_value_what_is_it(text: str) -> str | None:
+    """e.g. 'eGFR is 58 mL/min - what is it' → eGFR"""
+    if not re.search(r"\bwhat\s+is\s+it\b", text, re.I):
+        return None
+    match = re.search(
+        r"^([a-zA-Z][\w'-]{1,}(?:\s+[a-zA-Z][\w'-]+){0,3})\s+is\s+[\d.]",
+        text.strip(),
+        re.I,
+    )
+    if match:
+        candidate = _clean_candidate(match.group(1))
+        if _is_valid_target(candidate):
+            return candidate[:120]
+    return None
+
+
+def _scan_medical_abbrev(text: str) -> str | None:
+    """Find a healthcare abbreviation in a 'what is it' style message."""
+    if not re.search(r"\bwhat\s+is\s+it\b", text, re.I):
+        return None
+    matches = _MEDICAL_ABBREV.findall(text)
+    if not matches:
+        return None
+    for abbrev in matches:
+        if _is_valid_target(abbrev):
+            return abbrev
+    return None
 
 
 def _target_term_suffix(text: str) -> str | None:
@@ -116,7 +213,7 @@ def _target_term_suffix(text: str) -> str | None:
 
 
 def _target_before_what_is_it(text: str) -> str | None:
-    """e.g. 'neproxodine - what is it?' or 'help, naproxen, what is it?'"""
+    """e.g. 'neproxodine - what is it?' — but not 'mL/min - what is it' (unit fragment)."""
     patterns = [
         r"([a-zA-Z][\w'-]{2,}(?:\s+[a-zA-Z][\w'-]+){0,4})\s*[-–—]\s*what\s+is\s+it\b",
         r",\s*([a-zA-Z][\w'-]{3,})\s*[-–—]\s*what\s+is\s+it\b",
@@ -127,23 +224,38 @@ def _target_before_what_is_it(text: str) -> str | None:
         match = re.search(pattern, text, re.I)
         if match:
             candidate = _clean_candidate(match.group(1))
-            if _is_valid_target(candidate):
-                return candidate[:120]
+            if not _is_valid_target(candidate):
+                continue
+            if re.search(r"/" + re.escape(candidate) + r"\b", text, re.I):
+                continue
+            return candidate[:120]
     return None
 
 
 def _scan_healthcare_token(text: str) -> str | None:
-    """Last likely term in a help-style message."""
+    """Last likely clinical term in a help-style message."""
     if not re.search(r"\bwhat\s+is\s+it\b", text, re.I):
         return None
-    # Strip question tail
+
+    abbrev = _scan_medical_abbrev(text)
+    if abbrev:
+        return abbrev
+
     head = re.split(r"\bwhat\s+is\s+it\b", text, maxsplit=1, flags=re.I)[0]
+    is_match = re.match(r"^([a-zA-Z][\w'-]{2,})\s+is\s+", head.strip(), re.I)
+    if is_match:
+        candidate = _clean_candidate(is_match.group(1))
+        if _is_valid_target(candidate):
+            return candidate
+
     tokens = re.findall(r"[a-zA-Z][\w'-]{2,}", head)
     for token in reversed(tokens):
         lower = token.lower()
-        if lower in _INVALID_TARGETS:
+        if lower in _INVALID_TARGETS or lower in _UNIT_FRAGMENTS:
             continue
         if lower in {"need", "want", "please", "thanks", "thank"}:
+            continue
+        if re.fullmatch(r"\d+", token):
             continue
         return token
     return None
@@ -160,12 +272,18 @@ def extract_vocabulary_target(message: str) -> str | None:
         if _is_valid_target(candidate):
             return candidate
 
-    # "TERM - mean?" / "TERM - translate?" before generic patterns
     term_suffix = _target_term_suffix(text)
     if term_suffix:
         return term_suffix
 
-    # "TERM - what is it?" before generic "what is X" (avoids capturing "it")
+    term_is_value = _target_term_is_value_what_is_it(text)
+    if term_is_value:
+        return term_is_value
+
+    abbrev = _scan_medical_abbrev(text)
+    if abbrev:
+        return abbrev
+
     before_it = _target_before_what_is_it(text)
     if before_it:
         return before_it
@@ -226,18 +344,44 @@ async def handle_vocabulary_chat(
         return None
 
     word, misspelling = normalize_vocabulary_term(raw_word)
-
     prof = (profession or "healthcare").replace("_", " ")
-    prompt = f"Explain the healthcare term '{word}' for an OET {prof} candidate."
-    if misspelling and misspelling.lower() != word.lower():
-        prompt += f" The learner wrote '{misspelling}' — confirm the correct term is '{word}'."
 
-    explanation, provider = await generate_chat_reply(
-        system=EXPLAIN_SYSTEM,
-        user_message=prompt,
-        context=f"OET healthcare English vocabulary. Term: {word}",
-        temperature=0.3,
+    known = lookup_healthcare_term(word)
+    chunks = await retrieve_chunks(
+        f"{word} {message} OET healthcare vocabulary",
+        profession=profession,
+        limit=4,
     )
+    rag_context = format_context(chunks)
+    knowledge_ctx = knowledge_context_for_term(
+        word, message=message, profession=profession
+    )
+
+    if known:
+        explanation = format_vocab_entry(known, profession=prof or profession or "healthcare")
+        provider = "glossary+harvest"
+    else:
+        prompt = (
+            f"Explain the healthcare term '{word}' for an OET {prof} candidate.\n"
+            f"Learner's full message: {message.strip()}"
+        )
+        if misspelling and misspelling.lower() != word.lower():
+            prompt += f"\nThe learner wrote '{misspelling}' — confirm the correct term is '{word}'."
+
+        context_parts: list[str] = []
+        if knowledge_ctx:
+            context_parts.append(knowledge_ctx)
+        if rag_context:
+            context_parts.append(f"Official OET guides:\n{rag_context}")
+        if not context_parts:
+            context_parts.append(f"OET healthcare English vocabulary. Term: {word}")
+
+        explanation, provider = await generate_chat_reply(
+            system=EXPLAIN_SYSTEM,
+            user_message=prompt,
+            context="\n\n".join(context_parts),
+            temperature=0.3,
+        )
 
     native_translation: str | None = None
     translate_provider = "none"
@@ -253,10 +397,14 @@ async def handle_vocabulary_chat(
     if misspelling and misspelling.lower() != word.lower():
         title = f"**{word}** _(you wrote “{misspelling}”)_"
 
-    reply_lines = [
-        f"{title} — OET healthcare vocabulary\n",
-        explanation,
-    ]
+    if known:
+        reply_body = explanation
+    else:
+        reply_body = explanation
+        if not explanation.strip().startswith("**"):
+            reply_body = f"{title} — OET healthcare vocabulary\n\n{explanation}"
+
+    reply_lines = [reply_body]
     if native_translation:
         reply_lines.append(f"\n**Your language{lang_note}:** {native_translation}")
 
@@ -266,6 +414,11 @@ async def handle_vocabulary_chat(
     )
 
     entry_id = str(uuid.uuid4())
+    sources = [{"id": "vocabulary", "title": "OET vocabulary", "source": "oet-coach"}]
+    if knowledge_ctx and not known:
+        sources.append({"id": "content-harvest", "title": "OET Coach study material", "source": "oet-coach"})
+    for c in chunks[:2]:
+        sources.append({"id": c.id, "title": c.title, "source": c.source})
 
     return {
         "reply": "\n".join(reply_lines),
@@ -294,6 +447,6 @@ async def handle_vocabulary_chat(
             "nativeLanguage": target or "EN",
             "source": "nika",
         },
-        "sources": [{"id": "vocabulary", "title": "OET vocabulary", "source": "oet-coach"}],
+        "sources": sources,
         "provider": f"{provider}+{translate_provider}",
     }

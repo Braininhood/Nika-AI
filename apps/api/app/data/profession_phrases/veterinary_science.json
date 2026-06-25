@@ -1,0 +1,14 @@
+{
+  "profession": "veterinary_science",
+  "display_name": "Veterinary Science",
+  "phrases": [
+    {"term": "colic", "skills": ["writing", "speaking"], "example": "Emergency surgical referral for refractory equine colic."},
+    {"term": "owner", "skills": ["speaking", "writing"], "example": "I explained treatment options clearly to the owner."},
+    {"term": "referral", "skills": ["writing"], "example": "I am writing to refer for specialist orthopaedic opinion."},
+    {"term": "cruciate ligament", "skills": ["writing"], "example": "Canine cruciate ligament rupture — surgical referral discussed."},
+    {"term": "species", "skills": ["writing"], "example": "Species, findings, and urgency stated in opening lines."},
+    {"term": "prognosis", "skills": ["speaking"], "example": "I discussed prognosis and recovery timeline with the owner."},
+    {"term": "ICE", "skills": ["speaking"], "example": "What concerns you most about his recovery at home?"},
+    {"term": "post-operative care", "skills": ["speaking", "writing"], "example": "Post-operative care instructions given in plain language."}
+  ]
+}

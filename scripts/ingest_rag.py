@@ -4,6 +4,12 @@
 Usage (from repo root):
   python scripts/ingest_rag.py
   python scripts/ingest_rag.py --paths docs/04-AI-TUTOR docs/01-OET-RESEARCH
+
+Note: OET vocabulary / healthcare phrases sync automatically on API startup
+(see docs/04-AI-TUTOR/09-nika-knowledge-brain.md). ingest_rag is for doc embeddings only.
+
+Optional manual harvest (dev/CI):
+  python scripts/harvest_oet_vocabulary.py
 """
 
 from __future__ import annotations
