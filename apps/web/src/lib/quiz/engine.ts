@@ -10,6 +10,7 @@ import { tipsForPart } from "@/lib/reading/exam-guide";
 import type { QuizQuestion, ReadingBlock, ReadingPart } from "@/content/reading";
 import { computeGap, sortSkillsByGap } from "@/lib/domain/grades";
 import type { OetGrade, SkillMap } from "@/lib/domain/types";
+import { createSelectionSeed, shuffleWithSeed } from "@/lib/quiz/shuffle-seed";
 
 export type QuizMode = "quick_drill" | "part_focus" | "adaptive" | "clever_mix";
 
@@ -21,6 +22,8 @@ export interface QuizSelectionInput {
   part?: "A" | "B" | "C";
   limit?: number;
   excludeIds?: string[];
+  /** Per-user/per-session seed — different learners get different question sets. */
+  selectionSeed?: number;
   /** When set, pulls from reading-only or cross-skill assessment pools. */
   assessmentSkill?: AssessmentSkill;
 }
@@ -80,12 +83,16 @@ function selectCleverMix(
   weakTags: string[],
   targetCountry: string | undefined,
   limit: number,
+  seed: number,
 ): QuizQuestion[] {
-  const ranked = [...pool].sort((a, b) => {
-    const aScore = tagOverlap(a.tags, weakTags) + countryBoost(a, targetCountry);
-    const bScore = tagOverlap(b.tags, weakTags) + countryBoost(b, targetCountry);
-    return bScore - aScore;
-  });
+  const ranked = shuffleWithSeed(
+    [...pool].sort((a, b) => {
+      const aScore = tagOverlap(a.tags, weakTags) + countryBoost(a, targetCountry);
+      const bScore = tagOverlap(b.tags, weakTags) + countryBoost(b, targetCountry);
+      return bScore - aScore;
+    }),
+    seed,
+  );
 
   const picked: QuizQuestion[] = [];
   const used = new Set<string>();
@@ -106,7 +113,37 @@ function selectCleverMix(
     used.add(q.id);
   }
 
-  return shuffle(picked.slice(0, limit));
+  return shuffleWithSeed(picked.slice(0, limit), seed + 17);
+}
+
+function rankPool(
+  pool: QuizQuestion[],
+  weakTags: string[],
+  targetCountry: string | undefined,
+): QuizQuestion[] {
+  return [...pool].sort((a, b) => {
+    const aScore = tagOverlap(a.tags, weakTags) + countryBoost(a, targetCountry);
+    const bScore = tagOverlap(b.tags, weakTags) + countryBoost(b, targetCountry);
+    if (bScore !== aScore) return bScore - aScore;
+    if (a.profession !== "all" && b.profession === "all") return -1;
+    if (b.profession !== "all" && a.profession === "all") return 1;
+    return a.difficulty - b.difficulty;
+  });
+}
+
+function pickFromRanked(
+  ranked: QuizQuestion[],
+  limit: number,
+  excludeIds: string[],
+  seed: number,
+): QuizQuestion[] {
+  const excluded = new Set(excludeIds);
+  const fresh = ranked.filter((q) => !excluded.has(q.id));
+  const seen = ranked.filter((q) => excluded.has(q.id));
+  const merged = fresh.length >= limit ? fresh : [...fresh, ...seen];
+  const windowSize = Math.min(merged.length, Math.max(limit * 3, limit));
+  const window = merged.slice(0, windowSize);
+  return shuffleWithSeed(window, seed).slice(0, limit);
 }
 
 export function cleverQuizRationale(weakTags: string[], skill: AssessmentSkill = "reading"): string {
@@ -146,6 +183,7 @@ export function cleverQuizRationale(weakTags: string[], skill: AssessmentSkill =
 
 /** Select clever/adaptive questions for any assessment skill. */
 export function selectAssessmentQuestions(input: QuizSelectionInput): QuizQuestion[] {
+  const seed = input.selectionSeed ?? createSelectionSeed();
   const skill = input.assessmentSkill ?? "reading";
   if (skill === "mixed") {
     const limit = input.limit ?? 5;
@@ -154,7 +192,13 @@ export function selectAssessmentQuestions(input: QuizSelectionInput): QuizQuesti
     const used = new Set<string>();
     for (let i = 0; i < limit; i++) {
       const s = skills[i % skills.length]!;
-      const subset = selectAssessmentQuestions({ ...input, assessmentSkill: s, limit: 1, mode: "clever_mix" });
+      const subset = selectAssessmentQuestions({
+        ...input,
+        assessmentSkill: s,
+        limit: 1,
+        mode: "clever_mix",
+        selectionSeed: seed + i * 31,
+      });
       for (const q of subset) {
         if (!used.has(q.id)) {
           picked.push(q);
@@ -171,28 +215,18 @@ export function selectAssessmentQuestions(input: QuizSelectionInput): QuizQuesti
       ? fullQuizPool().filter(
           (q) =>
             q.skill === "reading" &&
-            !input.excludeIds?.includes(q.id) &&
             matchesProfession(q, input.profession) &&
             matchesCountry(q, input.targetCountry) &&
             (input.part ? q.part === input.part : true),
         )
-      : poolForSkill(skill).filter(
-          (q) =>
-            !input.excludeIds?.includes(q.id) &&
-            matchesProfession(q, input.profession),
-        );
+      : poolForSkill(skill).filter((q) => matchesProfession(q, input.profession));
 
   if (input.mode === "clever_mix") {
-    return selectCleverMix(basePool, input.weakTags, input.targetCountry, input.limit ?? 5);
+    return selectCleverMix(basePool, input.weakTags, input.targetCountry, input.limit ?? 5, seed);
   }
 
-  const ranked = [...basePool].sort((a, b) => {
-    const aScore = tagOverlap(a.tags, input.weakTags) + countryBoost(a, input.targetCountry);
-    const bScore = tagOverlap(b.tags, input.weakTags) + countryBoost(b, input.targetCountry);
-    return bScore - aScore;
-  });
-
-  return ranked.slice(0, input.limit ?? 5);
+  const ranked = rankPool(basePool, input.weakTags, input.targetCountry);
+  return pickFromRanked(ranked, input.limit ?? 5, input.excludeIds ?? [], seed);
 }
 
 export function selectQuizQuestions(input: QuizSelectionInput): QuizQuestion[] {
@@ -208,58 +242,35 @@ export function selectQuizQuestions(input: QuizSelectionInput): QuizQuestion[] {
     part,
     limit = 5,
     excludeIds = [],
+    selectionSeed = createSelectionSeed(),
   } = input;
 
   const pool = fullQuizPool().filter(
     (q) =>
       q.skill === "reading" &&
-      !excludeIds.includes(q.id) &&
       matchesProfession(q, profession) &&
       matchesCountry(q, targetCountry) &&
       (part ? q.part === part : true),
   );
 
   if (mode === "part_focus" && part) {
-    return pool.slice(0, limit);
+    return pickFromRanked(rankPool(pool, weakTags, targetCountry), limit, excludeIds, selectionSeed);
   }
 
-  const ranked = [...pool].sort((a, b) => {
-    const aScore = tagOverlap(a.tags, weakTags) + countryBoost(a, targetCountry);
-    const bScore = tagOverlap(b.tags, weakTags) + countryBoost(b, targetCountry);
-    if (bScore !== aScore) return bScore - aScore;
-    if (a.profession !== "all" && b.profession === "all") return -1;
-    if (b.profession !== "all" && a.profession === "all") return 1;
-    return a.difficulty - b.difficulty;
-  });
+  const ranked = rankPool(pool, weakTags, targetCountry);
 
   if (mode === "quick_drill") {
-    return shuffle(ranked.slice(0, Math.min(limit, ranked.length)));
+    return shuffleWithSeed(ranked.slice(0, Math.min(limit * 3, ranked.length)), selectionSeed).slice(
+      0,
+      limit,
+    );
   }
 
   if (mode === "clever_mix") {
-    return selectCleverMix(pool, weakTags, targetCountry, limit);
+    return selectCleverMix(pool, weakTags, targetCountry, limit, selectionSeed);
   }
 
-  const picked: QuizQuestion[] = [];
-  const used = new Set<string>();
-
-  for (const q of ranked) {
-    if (picked.length >= limit) break;
-    if (used.has(q.id)) continue;
-    picked.push(q);
-    used.add(q.id);
-  }
-
-  if (picked.length < limit) {
-    for (const q of pool) {
-      if (picked.length >= limit) break;
-      if (used.has(q.id)) continue;
-      picked.push(q);
-      used.add(q.id);
-    }
-  }
-
-  return picked;
+  return pickFromRanked(ranked, limit, excludeIds, selectionSeed);
 }
 
 /** Reading passages needed to answer passage-linked quiz questions (Part A/B/C blocks). */
@@ -526,13 +537,4 @@ export function recommendedSpeakingStage(
   if (speaking.gap >= 2 || speaking.estBand === "C" || speaking.estBand === "D") return "learn";
   if (speaking.gap === 1) return "practice";
   return "exam";
-}
-
-function shuffle<T>(items: T[]): T[] {
-  const copy = [...items];
-  for (let i = copy.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j]!, copy[i]!];
-  }
-  return copy;
 }

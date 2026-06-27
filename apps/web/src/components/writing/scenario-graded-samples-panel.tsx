@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import {
   samplesForScenario,
   type GradedSampleLetter,
@@ -47,27 +46,22 @@ function SamplePreviewCard({
         {letterPreview(sample)}
       </pre>
       <p className="mt-3 text-xs text-ink-soft">{sample.assessorSummary}</p>
-      <Link
-        href={`/writing/learn/samples/${sample.id}`}
-        className="mt-3 text-sm font-medium text-brand-primary hover:underline"
-      >
+      <SecondaryActionLink href={`/writing/learn/samples/${sample.id}`} className="mt-3">
         Full annotated sample →
-      </Link>
+      </SecondaryActionLink>
     </article>
   );
 }
 
 interface ScenarioGradedSamplesPanelProps {
   scenarioId: string;
-  /** Collapse previews until expanded (practice page keeps open by default). */
-  defaultExpanded?: boolean;
+  defaultOpen?: boolean;
 }
 
 export function ScenarioGradedSamplesPanel({
   scenarioId,
-  defaultExpanded = true,
+  defaultOpen = false,
 }: ScenarioGradedSamplesPanelProps) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
   const samples = samplesForScenario(scenarioId);
   const gradeB = samples.find(
     (s) => s.estimatedOverall === "B" || s.estimatedOverall === "A",
@@ -77,51 +71,27 @@ export function ScenarioGradedSamplesPanel({
   if (!gradeB && !gradeC) return null;
 
   const hasPair = Boolean(gradeB && gradeC);
+  const subtitle = hasPair
+    ? "Compare Grade B (strong) vs Grade C (weak) for this exact scenario."
+    : "Model letter linked to this practice task.";
 
   return (
-    <section className="rounded-2xl border border-brand-primary/25 bg-surface p-4">
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <h2 className="font-semibold text-ink">
-            {hasPair ? "Grade B vs C — this scenario" : "Graded sample — this scenario"}
-          </h2>
-          <p className="mt-1 text-xs text-ink-soft">
-            {hasPair
-              ? "Compare a strong letter with a weak one before you write. Same case notes, different criteria scores."
-              : "Model letter linked to this practice task."}
-          </p>
-        </div>
-        {hasPair && (
-          <button
-            type="button"
-            onClick={() => setExpanded((v) => !v)}
-            className="rounded-lg border border-border px-3 py-1.5 text-xs text-ink-soft hover:text-ink"
-          >
-            {expanded ? "Collapse" : "Expand previews"}
-          </button>
-        )}
+    <CollapsibleSection
+      title={hasPair ? "Grade B vs C — this scenario" : "Graded sample — this scenario"}
+      subtitle={subtitle}
+      defaultOpen={defaultOpen}
+      variant="samples"
+      badge={hasPair ? "Examples" : "Sample"}
+    >
+      <p className="text-xs text-ink-soft">
+        Read these after drafting your own letter — same case notes, different criteria scores.
+      </p>
+      <div
+        className={`mt-4 grid gap-4 ${gradeB && gradeC ? "md:grid-cols-2" : "grid-cols-1"}`}
+      >
+        {gradeB ? <SamplePreviewCard sample={gradeB} highlight="good" /> : null}
+        {gradeC ? <SamplePreviewCard sample={gradeC} highlight="weak" /> : null}
       </div>
-
-      {expanded && (
-        <div
-          className={`mt-4 grid gap-4 ${gradeB && gradeC ? "md:grid-cols-2" : "grid-cols-1"}`}
-        >
-          {gradeB ? <SamplePreviewCard sample={gradeB} highlight="good" /> : null}
-          {gradeC ? <SamplePreviewCard sample={gradeC} highlight="weak" /> : null}
-        </div>
-      )}
-
-      {!expanded && hasPair && gradeB && gradeC && (
-        <p className="mt-3 text-xs text-ink-soft">
-          <Link href={`/writing/learn/samples/${gradeB.id}`} className="text-brand-primary hover:underline">
-            Grade B
-          </Link>
-          {" · "}
-          <Link href={`/writing/learn/samples/${gradeC.id}`} className="text-danger hover:underline">
-            Grade C
-          </Link>
-        </p>
-      )}
-    </section>
+    </CollapsibleSection>
   );
 }

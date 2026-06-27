@@ -1,48 +1,52 @@
 "use client";
 
-import Link from "next/link";
-
 import { CLEVER_SKILL_LABELS, CLEVER_SKILL_ROUTES } from "@/content/assessment";
+import { SkillHubHeader } from "@/components/study/skill-hub-header";
+import { StudySectionCard } from "@/components/study/study-section-card";
 
 const SKILLS = ["reading", "listening", "writing", "speaking", "vocab"] as const;
 
-export default function CleverQuizHubPage() {
+const QUIZ_HINT = "5 mixed questions · MCQ, gap-fill, matching — from your weak areas";
+
+export default function QuickQuizHubPage() {
   return (
     <div className="mx-auto flex w-full min-w-0 max-w-lg flex-col gap-6 px-4 py-8">
-      <header>
-        <h1 className="text-2xl font-bold text-ink">Clever assessments</h1>
-        <p className="mt-2 text-sm text-ink-soft">
-          Mixed question types for every OET skill — or ask Nika to &quot;create a vocabulary quiz&quot;
-          in chat.
-        </p>
-      </header>
+      <SkillHubHeader
+        eyebrow="Practice"
+        title="Quick quizzes"
+        description="Short 5-question sets — not a full OET mock. Questions mix types (true/false, gap-fill, matching, MCQ) and are picked from your Skill Map weak tags."
+        backHref="/study"
+        backLabel="← Back to study hub"
+      />
 
-      <ul className="space-y-3">
-        {SKILLS.map((skill) => (
-          <li key={skill}>
-            <Link
-              href={CLEVER_SKILL_ROUTES[skill]}
-              className="flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-4 transition hover:bg-surface-muted"
-            >
-              <span className="font-medium text-ink">{CLEVER_SKILL_LABELS[skill]}</span>
-              <span className="text-sm text-brand-primary">Start →</span>
-            </Link>
-          </li>
-        ))}
-        <li>
-          <Link
-            href="/study/clever/mixed"
-            className="flex items-center justify-between rounded-xl border border-brand-primary/40 bg-brand-accent-soft/25 px-4 py-4 transition hover:bg-brand-accent-soft/40"
-          >
-            <span className="font-medium text-ink">{CLEVER_SKILL_LABELS.mixed}</span>
-            <span className="text-sm text-brand-primary">Start →</span>
-          </Link>
-        </li>
-      </ul>
+      <p className="rounded-xl border border-border bg-surface-muted/50 px-4 py-3 text-sm text-ink-soft">
+        You can also start a quiz from each skill hub (Reading, Listening, etc.) or ask Nika in chat:
+        &ldquo;give me a vocabulary quiz&rdquo;.
+      </p>
 
-      <Link href="/vocabulary" className="text-sm text-brand-primary hover:underline">
-        Healthcare vocabulary list →
-      </Link>
+      <StudySectionCard
+        title="Pick a skill"
+        items={SKILLS.map((skill) => ({
+          href: CLEVER_SKILL_ROUTES[skill],
+          label: CLEVER_SKILL_LABELS[skill],
+          hint: QUIZ_HINT,
+        }))}
+        highlighted
+      />
+
+      <StudySectionCard
+        title="All skills"
+        hubHref="/study/clever/mixed"
+        hubLabel={CLEVER_SKILL_LABELS.mixed}
+        hubHint="One question from each skill area"
+        items={[
+          {
+            href: "/vocabulary",
+            label: "Vocabulary word list",
+            hint: "Translate, explain & pronounce",
+          },
+        ]}
+      />
     </div>
   );
 }

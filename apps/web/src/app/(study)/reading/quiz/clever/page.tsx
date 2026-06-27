@@ -4,20 +4,21 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { QuizQuestionList } from "@/components/reading/quiz-question";
+import { QuizSourceTip } from "@/components/quiz/quiz-source-tip";
 import { ReadingExamBriefing } from "@/components/reading/reading-exam-briefing";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
 import { useAuth } from "@/lib/auth/auth-provider";
-import { loadRotationContext } from "@/lib/content/rotation-context";
 import { loadUserProfile } from "@/lib/profile/service";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
 import { cleverQuizRationale, quizBriefingPart, selectQuizQuestions } from "@/lib/quiz/engine";
+import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
 
 export default function CleverQuizPage() {
   const { session, loading } = useAuth();
+  const { excludeIds, selectionSeed } = useQuizSelection(session?.user?.id);
   const [weakTags, setWeakTags] = useState<string[]>(["reading:part-c-inference"]);
   const [profession, setProfession] = useState<string | undefined>();
   const [targetCountry, setTargetCountry] = useState<string | undefined>();
-  const [excludeIds, setExcludeIds] = useState<string[]>([]);
   const [responses, setResponses] = useState<Record<string, string | string[]>>({});
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<Awaited<ReturnType<typeof submitReadingAttempt>> | null>(
@@ -32,7 +33,6 @@ export default function CleverQuizPage() {
       setProfession(profile?.profession);
       setTargetCountry(profile?.targetCountry);
     });
-    void loadRotationContext().then((ctx) => setExcludeIds(ctx.questions));
   }, [loading, session?.user?.id]);
 
   const questions = useMemo(
@@ -44,8 +44,9 @@ export default function CleverQuizPage() {
         mode: "clever_mix",
         limit: 5,
         excludeIds,
+        selectionSeed,
       }),
-    [weakTags, profession, targetCountry, excludeIds],
+    [weakTags, profession, targetCountry, excludeIds, selectionSeed],
   );
 
   const rationale = cleverQuizRationale(weakTags);
@@ -83,16 +84,15 @@ export default function CleverQuizPage() {
 
       <ReadingExamBriefing part={briefingPart} weakTags={weakTags} compact />
 
+      <QuizSourceTip />
+
       <header>
         <p className="text-[10px] font-semibold uppercase tracking-wide text-brand-primary">
-          Nika clever quiz
+          Quick quiz
         </p>
-        <h1 className="text-xl font-bold text-ink">Mixed challenge set</h1>
+        <h1 className="text-xl font-bold text-ink">Reading — mixed questions</h1>
         <p className="mt-2 rounded-xl bg-brand-accent-soft/40 px-3 py-2 text-sm text-ink-soft">
           <strong className="text-brand-primary">Why this set?</strong> {rationale}
-        </p>
-        <p className="mt-2 text-xs text-ink-soft">
-          Question types: true/false · gap-fill · ordering · matching · MCQ
         </p>
       </header>
 
@@ -108,7 +108,7 @@ export default function CleverQuizPage() {
         onClick={() => void handleSubmit()}
         className="rounded-xl bg-brand-accent px-4 py-3 text-sm font-semibold text-ink disabled:opacity-40"
       >
-        {submitting ? "Submitting…" : "Submit clever quiz"}
+        {submitting ? "Submitting…" : "Submit quiz"}
       </button>
     </div>
   );

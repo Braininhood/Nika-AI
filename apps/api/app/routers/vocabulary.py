@@ -7,7 +7,9 @@ from pydantic import BaseModel, Field
 
 from app.core.quota_deps import require_ai_quota
 from app.core.security import AuthUser, get_current_user
+from app.routers.profile import _load_profile_row
 from app.services.deepl import translate_text
+from app.services.daily_tip import get_daily_tip
 from app.services.healthcare_vocabulary import format_vocab_entry, lookup_healthcare_term
 from app.services.llm import generate_chat_reply
 from app.services.nika_knowledge import knowledge_context_for_term, knowledge_stats
@@ -27,6 +29,17 @@ class ExplainRequest(BaseModel):
     word: str = Field(..., min_length=1, max_length=120)
     context: str | None = Field(None, max_length=500)
     profession: str | None = None
+
+
+@router.get("/today-tip")
+async def vocabulary_today_tip(
+    user: AuthUser = Depends(get_current_user),
+) -> dict:
+    """One curated OET tip per profession per day — vocabulary, speaking, writing."""
+    profile_row = await _load_profile_row(user.id)
+    profession = profile_row.get("profession") if profile_row else None
+    tip = get_daily_tip(profession)
+    return {"user_id": user.id, **tip}
 
 
 @router.get("/knowledge/stats")

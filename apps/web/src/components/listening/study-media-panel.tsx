@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { SecondaryActionAnchor } from "@/components/ui/secondary-action-button";
 import {
   listeningAccentResources,
   masterclassResources,
@@ -35,14 +37,14 @@ function MediaCard({ item }: { item: StudyMediaItem }) {
           <span className="shrink-0 text-xs text-ink-soft">{item.durationMinutes} min</span>
         )}
       </div>
-      <a
+      <SecondaryActionAnchor
         href={href}
         target={external ? "_blank" : undefined}
         rel={external ? "noopener noreferrer" : undefined}
-        className="mt-3 inline-flex text-sm font-medium text-brand-primary hover:underline"
+        className="mt-3"
       >
         {item.kind === "oet_download" ? "Download from oet.com →" : "Open →"}
-      </a>
+      </SecondaryActionAnchor>
       {item.youtubeId && (
         <div className="mt-3 aspect-video overflow-hidden rounded-lg border border-border">
           <iframe
@@ -63,6 +65,15 @@ interface StudyMediaPanelProps {
   showAccentPodcasts?: boolean;
 }
 
+function dedupeMediaById(items: StudyMediaItem[]): StudyMediaItem[] {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    if (seen.has(item.id)) return false;
+    seen.add(item.id);
+    return true;
+  });
+}
+
 export function StudyMediaPanel({
   skill = "listening",
   showAccentPodcasts = true,
@@ -76,21 +87,28 @@ export function StudyMediaPanel({
   const accentItems = showAccentPodcasts ? listeningAccentResources() : [];
 
   const guideItems = masterclassResources();
+  const oetTabItems = dedupeMediaById([
+    ...oetItems,
+    ...officialDownloadResources().slice(0, 6),
+  ]);
   const list =
     tab === "guides"
       ? guideItems
       : tab === "oet"
-      ? [...oetItems, ...officialDownloadResources().slice(0, 6)]
-      : tab === "video"
-        ? videoItems
-        : accentItems;
+        ? oetTabItems
+        : tab === "video"
+          ? videoItems
+          : accentItems;
 
   return (
-    <section className="rounded-2xl border border-border bg-surface-muted/30 p-5">
-      <h2 className="font-semibold text-ink">Study resources</h2>
-      <p className="mt-1 text-sm text-ink-soft">
-        Official OET links and videos — we link or embed only, never re-host copyrighted files.
-        Practice audio in the app is original content for daily drills.
+    <CollapsibleSection
+      title="Study resources"
+      subtitle="Official OET links, preparation guides & accent practice"
+      defaultOpen={false}
+    >
+      <p className="text-sm text-ink-soft">
+        Curated links to oet.com and trusted preparation material. In-app practice audio is our
+        own OET-style content for daily drills.
       </p>
 
       <div className="mt-4 flex flex-wrap gap-2 text-xs">
@@ -107,7 +125,7 @@ export function StudyMediaPanel({
             key={id}
             type="button"
             onClick={() => setTab(id)}
-            className={`rounded-full px-3 py-1.5 ${
+            className={`min-h-9 rounded-full px-3 py-1.5 ${
               tab === id
                 ? "bg-brand-accent font-semibold text-ink"
                 : "bg-surface text-ink-soft"
@@ -120,15 +138,15 @@ export function StudyMediaPanel({
 
       {tab === "professions" ? (
         <div className="mt-4">
-          <OetProfessionSamplesPanel filterByProfile />
+          <OetProfessionSamplesPanel filterByProfile embedded />
         </div>
       ) : (
         <ul className="mt-4 space-y-3">
-          {list.map((item) => (
-            <MediaCard key={item.id} item={item} />
+          {list.map((item, index) => (
+            <MediaCard key={`${item.id}-${index}`} item={item} />
           ))}
         </ul>
       )}
-    </section>
+    </CollapsibleSection>
   );
 }

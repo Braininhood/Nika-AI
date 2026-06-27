@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
+
 export type ExamPhase = "reading" | "writing" | "done";
 
 const READ_SECONDS = 5 * 60;
@@ -85,13 +87,9 @@ export function ExamTimerBar({ phase, onPhaseChange }: ExamTimerBarProps) {
             <div className="h-full bg-brand-primary transition-all" style={{ width: `${pct}%` }} />
           </div>
           {phase === "reading" && (
-            <button
-              type="button"
-              onClick={skipToWriting}
-              className="mt-2 text-xs text-brand-primary hover:underline"
-            >
+            <SecondaryActionButton className="mt-2" onClick={skipToWriting}>
               Skip to writing phase →
-            </button>
+            </SecondaryActionButton>
           )}
         </>
       )}

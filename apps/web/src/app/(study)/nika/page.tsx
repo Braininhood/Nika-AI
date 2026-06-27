@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { NikaChat } from "@/components/nika/nika-chat";
 import { NikaAvatar } from "@/components/nika/nika-avatar";
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { deriveNikaStage, nikaProgressRatio, nikaStageLabel, nikaStageProgress } from "@/lib/nika/stage";
 import { loadUserProfile } from "@/lib/profile/service";
@@ -34,12 +35,9 @@ export default function NikaPage() {
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-2">
               <h1 className="font-display text-2xl font-bold text-ink">Nika</h1>
-              <Link
-                href="/materials"
-                className="shrink-0 text-xs font-medium text-brand-primary hover:underline"
-              >
+              <SecondaryActionLink href="/materials" className="shrink-0">
                 Materials
-              </Link>
+              </SecondaryActionLink>
             </div>
             <p className="text-xs font-medium text-brand-primary">
               {nikaStageLabel(stage)} stage

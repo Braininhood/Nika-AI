@@ -31,8 +31,8 @@ export const PROGRESS_BADGES: ProgressBadge[] = [
   },
   {
     id: "clever_mind",
-    title: "Clever mind",
-    description: "Complete a Nika clever quiz mix",
+    title: "Quiz explorer",
+    description: "Complete a quick mixed-question quiz",
     icon: "🧩",
     category: "skills",
   },

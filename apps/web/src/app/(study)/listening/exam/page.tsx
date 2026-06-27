@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { ListeningSession } from "@/components/listening/listening-session";
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
 import { getListeningBlock, pickPlanListeningBlock } from "@/content/listening";
 
 export default function ListeningExamPage() {
@@ -59,13 +60,7 @@ export default function ListeningExamPage() {
       >
         Start Part B →
       </button>
-      <button
-        type="button"
-        onClick={() => setStep("c")}
-        className="text-sm text-brand-primary hover:underline"
-      >
-        Skip to Part C
-      </button>
+      <SecondaryActionButton onClick={() => setStep("c")}>Skip to Part C</SecondaryActionButton>
     </div>
   );
 }

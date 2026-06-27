@@ -5,19 +5,20 @@ import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { CaseNotesPanel } from "@/components/writing/case-notes-panel";
+import { StudyPageHeader } from "@/components/study/study-page-header";
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import { FeedbackPanel } from "@/components/writing/feedback-panel";
 import { LetterEditor } from "@/components/writing/letter-editor";
 import { ScenarioGradedSamplesPanel } from "@/components/writing/scenario-graded-samples-panel";
-import { getScenario } from "@/content/writing/scenarios";
-import { samplesForScenario } from "@/content/writing/sample-letters";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { db } from "@/lib/db";
+import { useWritingScenario } from "@/lib/writing/use-writing-scenario";
 import { submitWritingAttempt } from "@/lib/writing/submit-feedback";
 
 export default function WritingPracticeScenarioPage() {
   const params = useParams();
   const scenarioId = params.scenarioId as string;
-  const scenario = getScenario(scenarioId);
+  const { scenario, loading } = useWritingScenario(scenarioId);
   const { session } = useAuth();
 
   const [letterText, setLetterText] = useState("");
@@ -25,6 +26,7 @@ export default function WritingPracticeScenarioPage() {
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [result, setResult] = useState<Awaited<ReturnType<typeof submitWritingAttempt>> | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
 
   const persistDraft = useCallback(async (text: string) => {
     if (!scenario) return;
@@ -53,9 +55,23 @@ export default function WritingPracticeScenarioPage() {
     };
   }, [letterText, persistDraft, scenario]);
 
+  useEffect(() => {
+    if (result) {
+      feedbackRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [result]);
+
+  if (loading) {
+    return (
+      <div className="mx-auto flex min-h-[40vh] max-w-lg items-center justify-center px-4 text-sm text-ink-soft">
+        Loading scenario…
+      </div>
+    );
+  }
+
   if (!scenario) {
     return (
-      <p className="py-8 text-sm text-ink-soft">
+      <p className="mx-auto max-w-lg px-4 py-8 text-sm text-ink-soft">
         Scenario not found.{" "}
         <Link href="/writing/practice" className="text-brand-primary">
           Back
@@ -76,63 +92,70 @@ export default function WritingPracticeScenarioPage() {
     setSubmitting(false);
   };
 
-  if (result) {
-    return (
-      <FeedbackPanel
-        feedback={result.feedback}
-        checklist={result.checklist.items}
-        queuedForSync={result.queuedForSync}
-        criterionScores={(result.feedback.criterion_scores ?? {}) as Record<string, number>}
-        scenarioId={scenario.id}
-      />
-    );
-  }
-
-  const linkedSamples = samplesForScenario(scenario.id);
-  const hasLinkedSamples = linkedSamples.length > 0;
-
   return (
-    <div className="flex flex-col gap-6 pb-8">
-      <Link href="/writing/practice" className="text-sm text-ink-soft hover:text-ink">
-        ← Practice scenarios
-      </Link>
-
-      <header>
-        <h1 className="text-xl font-bold text-ink capitalize">{scenario.meta.letterType} letter</h1>
-        <div className="mt-2 flex flex-wrap gap-2 text-xs">
-          <Link href={`/writing/guided/${scenario.id}`} className="text-brand-primary hover:underline">
-            Try guided wizard →
-          </Link>
-          <Link href={`/writing/exam/${scenario.id}`} className="text-brand-primary hover:underline">
-            Exam mode →
-          </Link>
-          {!hasLinkedSamples && (
-            <Link href="/writing/learn/samples" className="text-brand-primary hover:underline">
-              Graded samples →
-            </Link>
-          )}
-        </div>
-      </header>
-
-      <CaseNotesPanel scenario={scenario} />
-
-      <ScenarioGradedSamplesPanel scenarioId={scenario.id} />
-
-      <LetterEditor
-        value={letterText}
-        onChange={setLetterText}
-        savedHint={savedAt ? "draft saved" : null}
-        disabled={submitting}
+    <div className="mx-auto flex max-w-lg flex-col gap-5 px-4 py-6 pb-24">
+      <StudyPageHeader
+        backHref="/writing/practice"
+        backLabel="Practice scenarios"
+        skill="writing"
+        eyebrow={`Writing · Practice · ${scenario.meta.title}`}
+        title={`${scenario.meta.letterType} letter`}
+        description={
+          <>
+            To: {scenario.meta.readerRole}
+            {scenario.meta.readerName ? ` · ${scenario.meta.readerName}` : ""}
+            <div className="mt-3 flex flex-wrap gap-2">
+              <SecondaryActionLink href={`/writing/guided/${scenario.id}`}>
+                Guided wizard →
+              </SecondaryActionLink>
+              <SecondaryActionLink href={`/writing/exam/${scenario.id}`}>
+                Exam mode →
+              </SecondaryActionLink>
+            </div>
+          </>
+        }
       />
 
-      <button
-        type="button"
-        disabled={submitting || letterText.trim().length < 50}
-        onClick={() => void handleSubmit()}
-        className="w-full rounded-xl bg-brand-accent px-4 py-3 text-sm font-semibold text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent disabled:opacity-40"
-      >
-        {submitting ? "Checking…" : "Submit for feedback"}
-      </button>
+      <ol className="flex flex-col gap-5" aria-label="Writing practice steps">
+        <li>
+          <CaseNotesPanel scenario={scenario} defaultOpen />
+        </li>
+        <li>
+          <LetterEditor
+            value={letterText}
+            onChange={setLetterText}
+            savedHint={savedAt ? "draft saved" : null}
+            disabled={submitting || Boolean(result)}
+          />
+        </li>
+        <li>
+          <ScenarioGradedSamplesPanel scenarioId={scenario.id} defaultOpen={false} />
+        </li>
+      </ol>
+
+      {!result ? (
+        <button
+          type="button"
+          disabled={submitting || letterText.trim().length < 50}
+          onClick={() => void handleSubmit()}
+          className="sticky bottom-20 z-10 w-full rounded-xl bg-brand-accent px-4 py-3.5 text-sm font-semibold text-ink shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent disabled:opacity-40"
+        >
+          {submitting ? "Nika is reviewing…" : "Submit for Nika feedback"}
+        </button>
+      ) : null}
+
+      {result ? (
+        <div ref={feedbackRef}>
+          <FeedbackPanel
+            feedback={result.feedback}
+            checklist={result.checklist.items}
+            queuedForSync={result.queuedForSync}
+            criterionScores={(result.feedback.criterion_scores ?? {}) as Record<string, number>}
+            scenarioId={scenario.id}
+            letterText={letterText}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

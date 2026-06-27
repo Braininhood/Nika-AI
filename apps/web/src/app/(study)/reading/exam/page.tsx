@@ -80,7 +80,7 @@ export default function ReadingExamPage() {
 
       {examBlocks.map((block) => (
         <div key={block.id} className="space-y-4">
-          <PassagePanel block={block} />
+          <PassagePanel block={block} collapsible defaultOpen />
           <QuizQuestionList
             questions={block.questions}
             responses={responses}

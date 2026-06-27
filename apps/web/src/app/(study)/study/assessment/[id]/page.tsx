@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { QuizQuestionList } from "@/components/reading/quiz-question";
+import { StudyPageHeader } from "@/components/study/study-page-header";
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
 import type { AssessmentSkill } from "@/content/assessment";
 import type { QuizQuestion } from "@/content/reading/types";
@@ -41,17 +42,30 @@ export default function GeneratedAssessmentPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-lg px-4 py-8 text-ink-soft">Loading assessment…</div>
+      <div className="mx-auto max-w-lg px-4 py-8">
+        <StudyPageHeader
+          backHref="/nika"
+          backLabel="Nika"
+          eyebrow="Nika · Assessment"
+          title="Loading assessment…"
+        />
+      </div>
     );
   }
 
   if (!questions.length) {
     return (
       <div className="mx-auto max-w-lg px-4 py-8">
-        <p className="text-ink-soft">Assessment not found. Ask Nika to create a new quiz.</p>
-        <Link href="/nika" className="mt-4 text-sm text-brand-primary hover:underline">
+        <StudyPageHeader
+          backHref="/nika"
+          backLabel="Nika"
+          eyebrow="Nika · Assessment"
+          title="Assessment not found"
+          description="Ask Nika to create a new quiz."
+        />
+        <SecondaryActionLink href="/nika" className="mt-4">
           Open Nika →
-        </Link>
+        </SecondaryActionLink>
       </div>
     );
   }
@@ -74,13 +88,12 @@ export default function GeneratedAssessmentPage() {
 
   return (
     <div className="mx-auto flex w-full min-w-0 max-w-lg flex-col gap-6 px-4 py-6">
-      <Link href="/nika" className="text-sm text-ink-soft hover:text-ink">
-        ← Nika
-      </Link>
-      <header>
-        <p className="text-[10px] font-semibold uppercase text-brand-primary">Nika created</p>
-        <h1 className="text-xl font-bold text-ink">{title}</h1>
-      </header>
+      <StudyPageHeader
+        backHref="/nika"
+        backLabel="Nika"
+        eyebrow="Nika · Custom assessment"
+        title={title}
+      />
       <QuizQuestionList
         questions={questions}
         responses={responses}

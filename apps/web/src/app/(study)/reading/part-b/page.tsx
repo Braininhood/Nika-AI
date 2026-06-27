@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { StudyPageHeader } from "@/components/study/study-page-header";
 import { blockRoute, blockSummary } from "@/content/reading";
 import type { ReadingBlock } from "@/content/reading";
 import { useAuth } from "@/lib/auth/auth-provider";
@@ -21,13 +22,14 @@ export default function ReadingPartBListPage() {
 
   return (
     <div className="flex flex-col gap-4 pb-8">
-      <Link href="/reading" className="text-sm text-ink-soft hover:text-ink">
-        ← Reading hub
-      </Link>
-      <h1 className="text-xl font-bold text-ink">Part B — gist &amp; detail</h1>
-      <p className="text-sm text-ink-soft">
-        Locale-matched policies (NHS, AHPRA, HIPAA, HSE, etc.) listed first for your destination.
-      </p>
+      <StudyPageHeader
+        backHref="/reading"
+        backLabel="Reading hub"
+        skill="reading"
+        eyebrow="Reading · Part B"
+        title="Gist & detail"
+        description="Locale-matched policies (NHS, AHPRA, HIPAA, HSE, etc.) listed first for your destination."
+      />
       <ul className="space-y-2 text-sm">
         {blocks.map((block) => (
           <li key={block.id} className="rounded-xl border border-border px-3 py-2">

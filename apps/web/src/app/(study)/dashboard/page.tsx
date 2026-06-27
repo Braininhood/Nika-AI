@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { NextStepCard } from "@/components/dashboard/next-step-card";
 import { ExamCountdownCard } from "@/components/dashboard/exam-countdown-card";
+import { TodaysPlanCard } from "@/components/dashboard/todays-plan-card";
 import { WeakSkillRadar } from "@/components/dashboard/weak-skill-radar";
 import { scenarioCountryLabel, normalizeScenarioCountry } from "@/content/writing/scenarios";
 import { getProfessionLabel } from "@/lib/domain/professions";
@@ -13,7 +14,6 @@ import type { SkillMap, UserProfile } from "@/lib/domain/types";
 import { apiUrl } from "@/lib/api/base-url";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { buildAdaptiveDailyPlan } from "@/lib/adaptive/plan";
-import { loadReadinessStatus } from "@/lib/adaptive/service";
 import { computeExamCountdown, shouldShowExamCountdown } from "@/lib/exam/countdown";
 import { loadUserProfile } from "@/lib/profile/service";
 import {
@@ -27,8 +27,6 @@ import {
   writingStageLabel,
   type WritingRecommendation,
 } from "@/lib/writing/recommendations";
-import { ReadinessCard } from "@/components/readiness/readiness-card";
-import type { ReadinessStatus } from "@/lib/adaptive/types";
 import type { DailyPlan } from "@/lib/plan/types";
 
 type NextStepRecommendation = WritingRecommendation | ReadingRecommendation;
@@ -40,21 +38,13 @@ export default function DashboardPage() {
   const [plan, setPlan] = useState<DailyPlan | null>(null);
   const [nextStep, setNextStep] = useState<NextStepRecommendation | null>(null);
 
-  const [readiness, setReadiness] = useState<ReadinessStatus | null>(null);
-
   useEffect(() => {
     if (loading) return;
     void loadUserProfile(session?.user?.id).then(async (loaded) => {
       setProfile(loaded);
       setSkillMap(loaded?.skillMap);
-      const [adaptivePlan, readinessStatus] = await Promise.all([
-        buildAdaptiveDailyPlan(loaded),
-        loaded?.skillMap
-          ? loadReadinessStatus(session?.access_token)
-          : Promise.resolve(null),
-      ]);
+      const adaptivePlan = await buildAdaptiveDailyPlan(loaded);
       setPlan(adaptivePlan);
-      setReadiness(readinessStatus);
 
       const priority = loaded?.skillMap?.priority?.[0];
       if (priority === "reading") {
@@ -131,6 +121,12 @@ export default function DashboardPage() {
             Today&apos;s study
           </Link>
           <Link
+            href="/today-tip"
+            className="inline-flex rounded-xl bg-warning px-4 py-2.5 text-sm font-semibold text-ink transition hover:opacity-90"
+          >
+            Today&apos;s tip
+          </Link>
+          <Link
             href="/reading"
             className="rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-surface-muted"
           >
@@ -148,12 +144,16 @@ export default function DashboardPage() {
           >
             Writing
           </Link>
+          <Link
+            href="/speaking"
+            className="rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-surface-muted"
+          >
+            Speaking
+          </Link>
         </div>
       </section>
 
       {examCountdown ? <ExamCountdownCard countdown={examCountdown} /> : null}
-
-      {readiness ? <ReadinessCard status={readiness} compact /> : null}
 
       {nextStep && profile?.profession ? (
         <NextStepCard
@@ -163,38 +163,9 @@ export default function DashboardPage() {
         />
       ) : null}
 
-      <WeakSkillRadar skillMap={skillMap} />
+      <TodaysPlanCard plan={plan} profession={profile?.profession} />
 
-      <section className="rounded-2xl border border-border bg-surface p-5">
-        <h2 className="font-semibold text-ink">Today&apos;s plan</h2>
-        {plan ? (
-          <>
-            <p className="mt-1 text-xs text-ink-soft">
-              Priority: {plan.prioritySkill} · ~{plan.estimatedMinutes} min
-              {plan.primaryScenarioId && profile?.profession
-                ? ` · ${getProfessionLabel(profile.profession)}`
-                : ""}
-            </p>
-            <ul className="mt-4 space-y-2">
-              {plan.items.map((item) => (
-                <li key={`${item.type}-${item.route}`}>
-                  <Link
-                    href={item.route}
-                    className="flex items-center justify-between rounded-xl border border-border px-4 py-3 text-sm hover:bg-surface-muted"
-                  >
-                    <span className="font-medium text-ink">{item.title}</span>
-                    <span className="text-ink-soft">{item.durationMinutes}m</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p className="mt-2 text-sm text-ink-soft">
-            Complete onboarding and diagnostic to unlock your personalized plan.
-          </p>
-        )}
-      </section>
+      <WeakSkillRadar skillMap={skillMap} />
     </div>
   );
 }

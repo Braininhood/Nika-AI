@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
+
 interface ListeningTimerBarProps {
   totalMinutes: number;
   onExpire?: () => void;
@@ -51,13 +53,9 @@ export function ListeningTimerBar({
           style={{ width: `${pct}%` }}
         />
       </div>
-      <button
-        type="button"
-        onClick={() => setRunning((r) => !r)}
-        className="mt-2 text-xs text-brand-primary hover:underline"
-      >
+      <SecondaryActionButton className="mt-2" onClick={() => setRunning((r) => !r)}>
         {running ? "Pause timer" : "Resume timer"}
-      </button>
+      </SecondaryActionButton>
     </div>
   );
 }

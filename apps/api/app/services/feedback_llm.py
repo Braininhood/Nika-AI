@@ -12,23 +12,31 @@ async def enrich_writing_feedback(base: dict, payload: dict) -> dict:
 
     scores = base.get("criterion_scores") or {}
     weak = [k for k, v in scores.items() if v < 0.6]
+    ctx = payload.get("scenario_context") if isinstance(payload.get("scenario_context"), dict) else {}
+
     system = (
-        "You are an OET Writing coach. Reply in 2–4 short bullet points. "
-        "Reference OET criteria only. Do not invent clinical facts. "
-        "Under 100 words. No greetings."
+        "You are an OET Writing coach. Analyse THIS specific letter against the case task. "
+        "Reply with exactly two sections:\n"
+        "GOOD: 2-3 bullet points on what the candidate did well (reference their actual wording).\n"
+        "IMPROVE: 2-3 bullet points on what to fix (reference missing case facts if any).\n"
+        "Do not invent clinical facts. Under 120 words total. No greetings."
     )
     context = (
         f"Profession: {payload.get('profession', 'healthcare')}\n"
+        f"Scenario: {ctx.get('title', payload.get('scenario_id', 'unknown'))}\n"
+        f"Task: {ctx.get('instruction', '')}\n"
+        f"Must include from notes: {', '.join(ctx.get('must_include') or [])}\n"
+        f"Should omit: {', '.join(ctx.get('should_omit') or [])}\n"
         f"Indicative grade: {base.get('grade_estimate')}\n"
         f"Weak criteria: {', '.join(weak) or 'none'}\n"
         f"Scores: {scores}\n"
-        f"Letter excerpt:\n{letter[:2000]}"
+        f"Letter:\n{letter[:2500]}"
     )
     reply, provider = await generate_chat_reply(
         system=system,
-        user_message="Give specific writing improvement advice for this draft.",
+        user_message="Give specific good vs improve feedback for this OET letter draft.",
         context=context,
-        temperature=0.3,
+        temperature=0.35,
     )
     if provider != "grounded_rules":
         base = {**base, "feedback": reply, "feedback_provider": provider}

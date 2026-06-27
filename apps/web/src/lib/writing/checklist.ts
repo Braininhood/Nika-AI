@@ -47,7 +47,8 @@ export function runQuickChecklist(
   const omittedIrrelevant = !scenario.assessorGuide.shouldOmit.some((id) => {
     const note = scenario.caseNotes.find((n) => n.id === id);
     if (!note) return false;
-    return lower.includes("childhood asthma") || lower.includes("resolved asthma");
+    const keywords = note.text.toLowerCase().split(/\W+/).filter((w) => w.length > 4);
+    return keywords.some((kw) => lower.includes(kw));
   });
 
   const informal = /\b(gonna|kids|guy|sort it|asap|lol)\b/i.test(text);

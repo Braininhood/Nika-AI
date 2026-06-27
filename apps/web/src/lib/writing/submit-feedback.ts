@@ -9,6 +9,10 @@ import {
   type ChecklistItem,
   type QuickChecklistResult,
 } from "@/lib/writing/checklist";
+import {
+  buildWritingFeedbackDetail,
+  mergeFeedbackWithDetail,
+} from "@/lib/writing/feedback-detail";
 
 import { apiUrl } from "@/lib/api/base-url";
 
@@ -45,7 +49,20 @@ export async function submitWritingAttempt(input: WritingSubmitInput): Promise<W
     profession: scenario.profession,
     mode,
     skill_map: profile?.skillMap,
+    scenario_context: {
+      title: scenario.meta.title,
+      instruction: scenario.taskSheet.instruction,
+      letter_type: scenario.meta.letterType,
+      must_include: scenario.assessorGuide.mustInclude
+        .map((id) => scenario.caseNotes.find((n) => n.id === id)?.text)
+        .filter(Boolean),
+      should_omit: scenario.assessorGuide.shouldOmit
+        .map((id) => scenario.caseNotes.find((n) => n.id === id)?.text)
+        .filter(Boolean),
+    },
   };
+
+  const detail = buildWritingFeedbackDetail(scenario, letterText, checklist);
 
   let apiFeedback: Record<string, unknown> | null = null;
   let queuedForSync = false;
@@ -77,11 +94,13 @@ export async function submitWritingAttempt(input: WritingSubmitInput): Promise<W
       status: queuedForSync ? "queued" : "offline",
       criterion_scores: criterionScores,
       feedback: queuedForSync
-        ? `Checklist: ${checklist.passedCount}/${checklist.items.length} passed. AI feedback queued — will sync when online.`
-        : `Checklist: ${checklist.passedCount}/${checklist.items.length} passed. Sign in for AI feedback.`,
-      actions: failed.slice(0, 3).map((c) => `Improve ${c}`),
+        ? `${detail.summary} AI polish queued — will sync when online.`
+        : detail.summary,
+      actions: detail.improvements.slice(0, 4),
     };
   }
+
+  apiFeedback = mergeFeedbackWithDetail(apiFeedback, detail);
 
   if (profile?.skillMap) {
     const updated = applyWritingResult(profile.skillMap, criterionScores, weakTags);

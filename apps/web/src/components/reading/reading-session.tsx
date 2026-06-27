@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
 import { ReadingExamBriefing } from "@/components/reading/reading-exam-briefing";
@@ -8,6 +7,7 @@ import { PassagePanel } from "@/components/reading/passage-panel";
 import { QuizQuestionList } from "@/components/reading/quiz-question";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
 import { ReadingTimerBar } from "@/components/reading/reading-timer-bar";
+import { StudyPageHeader } from "@/components/study/study-page-header";
 import type { ReadingBlock } from "@/content/reading";
 import { partBExamStyleTip } from "@/lib/reading/exam-guide";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
@@ -17,9 +17,10 @@ interface ReadingSessionProps {
   timerMode: "part_a" | "part_bc";
   mode: "part_a" | "part_b" | "part_c";
   backHref: string;
+  backLabel?: string;
 }
 
-export function ReadingSession({ block, timerMode, mode, backHref }: ReadingSessionProps) {
+export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "Back" }: ReadingSessionProps) {
   const [responses, setResponses] = useState<Record<string, string | string[]>>({});
   const [locked, setLocked] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -62,9 +63,13 @@ export function ReadingSession({ block, timerMode, mode, backHref }: ReadingSess
 
   return (
     <div className="flex flex-col gap-6 pb-8">
-      <Link href={backHref} className="text-sm text-ink-soft hover:text-ink">
-        ← Reading
-      </Link>
+      <StudyPageHeader
+        backHref={backHref}
+        backLabel={backLabel}
+        skill="reading"
+        eyebrow={`Reading · Part ${block.part}`}
+        title={block.title}
+      />
 
       <ReadingExamBriefing part={block.part} compact />
 
@@ -92,7 +97,7 @@ export function ReadingSession({ block, timerMode, mode, backHref }: ReadingSess
         <p className="text-xs text-ink-soft">{partBExamStyleTip()}</p>
       )}
 
-      <PassagePanel block={block} />
+      <PassagePanel block={block} collapsible defaultOpen />
 
       <section>
         <div className="mb-4 flex items-center justify-between">

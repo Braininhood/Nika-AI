@@ -40,7 +40,9 @@ export function blocksForAccent(accent: ListeningAccent): ListeningBlock[] {
 
 export function accentsInCatalog(): ListeningAccent[] {
   const set = new Set<ListeningAccent>();
-  for (const b of getActiveListeningBlocks()) set.add(b.accent);
+  for (const b of getActiveListeningBlocks()) {
+    if (b.accent) set.add(b.accent);
+  }
   return [...set].sort();
 }
 
@@ -70,8 +72,12 @@ export function blockRoute(part: ListeningPart, blockId: string): string {
 }
 
 export function blockSummary(block: ListeningBlock): string {
-  const accent = block.accent === "mixed" ? "Mixed accents" : `${block.accent} accent`;
-  return `${accent} · ${block.questions.length} Q`;
+  const accent =
+    block.accent === "mixed"
+      ? "Mixed accents"
+      : `${block.accent ?? "UK"} accent`;
+  const questionCount = block.questions?.length ?? 0;
+  return `${accent} · ${questionCount} Q`;
 }
 
 export function formatListeningTagLabel(tag: string): string {
@@ -99,5 +105,8 @@ export function listeningBlockCount(): number {
 }
 
 export function totalListeningQuestionCount(): number {
-  return ALL_LISTENING_BLOCKS.reduce((sum, b) => sum + b.questions.length, 0);
+  return getActiveListeningBlocks().reduce(
+    (sum, b) => sum + (b.questions?.length ?? 0),
+    0,
+  );
 }

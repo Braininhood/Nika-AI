@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { blockRoute, blockSummary } from "@/content/reading";
 import type { ReadingBlock } from "@/content/reading";
+import { StudyPageHeader } from "@/components/study/study-page-header";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { loadReadingContentContext } from "@/lib/reading/content-context";
 
@@ -21,13 +22,14 @@ export default function ReadingPartAListPage() {
 
   return (
     <div className="flex flex-col gap-4 pb-8">
-      <Link href="/reading" className="text-sm text-ink-soft hover:text-ink">
-        ← Reading hub
-      </Link>
-      <h1 className="text-xl font-bold text-ink">Part A — 15 min lock</h1>
-      <p className="text-sm text-ink-soft">
-        Profession-specific Part A blocks appear first, then universal matching texts.
-      </p>
+      <StudyPageHeader
+        backHref="/reading"
+        backLabel="Reading hub"
+        skill="reading"
+        eyebrow="Reading · Part A"
+        title="15 min lock"
+        description="Profession-specific Part A blocks appear first, then universal matching texts."
+      />
       <ul className="space-y-2 text-sm">
         {blocks.map((block) => (
           <li key={block.id} className="rounded-xl border border-border px-3 py-2">

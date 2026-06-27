@@ -19,6 +19,7 @@ class WritingFeedbackRequest(BaseModel):
     scenario_id: str | None = Field(default=None, max_length=128)
     skill_map: dict[str, Any] | None = None
     criterion_scores: dict[str, float] | None = None
+    scenario_context: dict[str, object] | None = None
 
     @field_validator("criterion_scores")
     @classmethod

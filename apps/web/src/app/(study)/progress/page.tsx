@@ -4,9 +4,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { ProgressBadgesGrid } from "@/components/progress/progress-badges-grid";
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
+import {
+  ProgressStatCard,
+  SkillWeekBreakdown,
+} from "@/components/progress/progress-stat-cards";
 import { WeakSkillRadar } from "@/components/dashboard/weak-skill-radar";
 import { ExamCountdownCard } from "@/components/dashboard/exam-countdown-card";
 import { ReadinessCard } from "@/components/readiness/readiness-card";
+import { SkillHubHeader } from "@/components/study/skill-hub-header";
 import { loadReadinessStatus } from "@/lib/adaptive/service";
 import type { ReadinessStatus } from "@/lib/adaptive/types";
 import { getScenario } from "@/content/writing/scenarios";
@@ -14,7 +20,11 @@ import { getProfessionLabel } from "@/lib/domain/professions";
 import { formatTargetGradesSummary } from "@/lib/domain/requirements";
 import type { SkillMap, UserProfile } from "@/lib/domain/types";
 import { recommendedWritingStage } from "@/lib/adaptive/skill-map";
-import { getWritingProgressStats, type WritingProgressStats } from "@/lib/writing/progress-stats";
+import {
+  getStudyProgressStats,
+  type StudyProgressStats,
+} from "@/lib/progress/study-progress-stats";
+import { formatStudyMinutes } from "@/lib/progress/study-streak";
 import { computeExamCountdown, resolveStudyGoal, shouldShowExamCountdown } from "@/lib/exam/countdown";
 import { writingStageLabel } from "@/lib/writing/recommendations";
 import { loadUserProfile } from "@/lib/profile/service";
@@ -29,11 +39,22 @@ function formatDate(ts: number): string {
   });
 }
 
+function skillLabel(skill: string): string {
+  return skill.charAt(0).toUpperCase() + skill.slice(1);
+}
+
+function activityTitle(activity: StudyProgressStats["recentActivity"][number]): string {
+  if (activity.skill === "writing" && activity.scenarioId) {
+    return getScenario(activity.scenarioId)?.meta.title ?? activity.label;
+  }
+  return activity.label;
+}
+
 export default function ProgressPage() {
   const { session, loading } = useAuth();
   const [skillMap, setSkillMap] = useState<SkillMap | undefined>();
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [stats, setStats] = useState<WritingProgressStats | null>(null);
+  const [stats, setStats] = useState<StudyProgressStats | null>(null);
   const [readiness, setReadiness] = useState<ReadinessStatus | null>(null);
 
   useEffect(() => {
@@ -42,7 +63,7 @@ export default function ProgressPage() {
       setProfile(p);
       setSkillMap(p?.skillMap);
     });
-    void getWritingProgressStats().then(setStats);
+    void getStudyProgressStats().then(setStats);
     void loadReadinessStatus().then(setReadiness);
   }, [loading, session?.user?.id]);
 
@@ -54,19 +75,23 @@ export default function ProgressPage() {
     : null;
   const studyGoal = resolveStudyGoal(profile ?? undefined);
 
+  const profileLine = profile?.profession
+    ? `${getProfessionLabel(profile.profession)}${
+        profile.targetGrades
+          ? ` · Target ${formatTargetGradesSummary(profile.targetGrades)}`
+          : ""
+      }`
+    : "Track streaks, study time, and skill growth across all four OET skills.";
+
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-6 px-4 py-8">
-      <header>
-        <h1 className="text-2xl font-bold text-ink">Progress</h1>
-        {profile?.profession && (
-          <p className="mt-1 text-sm text-ink-soft">
-            {getProfessionLabel(profile.profession)}
-            {profile.targetGrades
-              ? ` · Target ${formatTargetGradesSummary(profile.targetGrades)}`
-              : ""}
-          </p>
-        )}
-      </header>
+      <SkillHubHeader
+        eyebrow="Progress"
+        title="Your journey"
+        description={profileLine}
+        backHref="/dashboard"
+        backLabel="← Back to home"
+      />
 
       {examCountdown ? (
         <ExamCountdownCard countdown={examCountdown} compact={false} />
@@ -80,93 +105,108 @@ export default function ProgressPage() {
         </p>
       ) : null}
 
-      {readiness ? <ReadinessCard status={readiness} /> : null}
+      {readiness ? (
+        <ReadinessCard status={readiness} collapsible defaultOpen={false} />
+      ) : null}
+
+      {stats ? (
+        <section className="space-y-3">
+          <div>
+            <h2 className="text-base font-bold text-ink">Study stats</h2>
+            <p className="mt-1 text-sm text-ink-soft">
+              All four skills count — not just writing. Time includes active study in the app.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <ProgressStatCard
+              label="Study streak"
+              value={stats.studyStreakLabel}
+              hint="Days in a row with 10+ min study or a completed activity"
+              accent="brand"
+            />
+            <ProgressStatCard
+              label="Today"
+              value={stats.minutesTodayLabel}
+              hint="Active time in the app plus completed tasks today"
+            />
+            <ProgressStatCard
+              label="This week"
+              value={formatStudyMinutes(stats.minutesThisWeek)}
+              hint="Estimated study time across the last 7 days"
+            />
+            <ProgressStatCard
+              label="Activities (7d)"
+              value={String(stats.attemptsThisWeek)}
+              hint="Quizzes, practice blocks, writing, and speaking sessions"
+            />
+          </div>
+        </section>
+      ) : null}
+
+      {stats ? <SkillWeekBreakdown counts={stats.attemptsBySkillThisWeek} /> : null}
 
       <ProgressBadgesGrid compact />
 
-      {stats && (
-        <section className="grid grid-cols-2 gap-3">
-          <div className="rounded-xl border border-border bg-surface p-4">
-            <p className="text-xs text-ink-soft">Study streak</p>
-            <p className="text-2xl font-bold text-ink">{stats.studyStreakDays} days</p>
-          </div>
-          <div className="rounded-xl border border-border bg-surface p-4">
-            <p className="text-xs text-ink-soft">Today</p>
-            <p className="text-2xl font-bold text-ink">~{stats.minutesTodayEstimate} min</p>
-          </div>
-          <div className="rounded-xl border border-border bg-surface p-4">
-            <p className="text-xs text-ink-soft">Writing attempts (7d)</p>
-            <p className="text-2xl font-bold text-ink">{stats.attemptsThisWeek}</p>
-          </div>
-          <div className="rounded-xl border border-border bg-surface p-4">
-            <p className="text-xs text-ink-soft">Avg criteria score</p>
-            <p className="text-2xl font-bold text-ink">
-              {stats.averageCriterionScore != null
-                ? `${Math.round(stats.averageCriterionScore * 100)}%`
-                : "—"}
-            </p>
-          </div>
+      {stats && stats.writingAverageScore != null ? (
+        <section className="rounded-2xl border border-border bg-surface p-5">
+          <h2 className="text-base font-bold text-ink">Writing feedback average</h2>
+          <p className="mt-1 text-sm text-ink-soft">Mean criteria score across submitted writing letters</p>
+          <p className="mt-3 text-3xl font-bold tabular-nums text-forest">
+            {Math.round(stats.writingAverageScore * 100)}%
+          </p>
         </section>
-      )}
+      ) : null}
 
-      {skillMap && (
-        <section className="rounded-2xl border border-border bg-surface p-4 text-sm">
-          <h2 className="font-semibold text-ink">Writing pathway</h2>
+      {skillMap ? (
+        <section className="rounded-2xl border border-border bg-surface p-5 text-sm">
+          <h2 className="text-base font-bold text-ink">Writing pathway</h2>
           <p className="mt-2 text-ink-soft">
             Stage: <span className="font-medium text-ink">{stage}</span>
             {writingBand ? ` · Estimated band ${writingBand}` : ""}
             {writingGap != null ? ` · ${writingGap} grade step(s) to target` : ""}
           </p>
           <p className="mt-2 text-xs text-ink-soft">
-            Stage:{" "}
             {recommendedWritingStage(skillMap) === "learn"
               ? "Focus on lessons and samples"
               : recommendedWritingStage(skillMap) === "guided"
                 ? "Use guided wizard before independent practice"
                 : "Independent practice and exam timing"}
           </p>
-          <Link
-            href="/dashboard"
-            className="mt-3 inline-block text-sm font-medium text-brand-primary hover:underline"
-          >
+          <SecondaryActionLink href="/dashboard" className="mt-3">
             Open today&apos;s plan →
-          </Link>
+          </SecondaryActionLink>
         </section>
-      )}
+      ) : null}
 
       <WeakSkillRadar skillMap={skillMap} />
 
-      {stats && stats.recentAttempts.length > 0 && (
-        <section className="rounded-2xl border border-border bg-surface p-4">
-          <h2 className="font-semibold text-ink">Recent writing attempts</h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            {stats.recentAttempts.map((attempt) => {
-              const scenario = attempt.scenarioId
-                ? getScenario(attempt.scenarioId)
-                : undefined;
-              return (
-                <li
-                  key={attempt.id}
-                  className="flex items-center justify-between rounded-lg bg-surface-muted px-3 py-2"
-                >
-                  <div>
-                    <p className="font-medium text-ink">
-                      {scenario?.meta.title ?? attempt.scenarioId ?? "Writing"}
-                    </p>
-                    <p className="text-xs text-ink-soft">
-                      {formatDate(attempt.createdAt)} · {attempt.wordCount} words ·{" "}
-                      {attempt.mode}
-                    </p>
-                  </div>
-                  <span className="text-xs font-semibold text-forest">
-                    {Math.round(attempt.avgScore * 100)}%
+      {stats && stats.recentActivity.length > 0 ? (
+        <section className="rounded-2xl border border-border bg-surface p-5">
+          <h2 className="text-base font-bold text-ink">Recent activity</h2>
+          <p className="mt-1 text-sm text-ink-soft">Latest completed study across all skills</p>
+          <ul className="mt-4 space-y-2 text-sm">
+            {stats.recentActivity.map((activity) => (
+              <li
+                key={activity.id}
+                className="flex items-center justify-between gap-3 rounded-xl border border-border px-3 py-2.5"
+              >
+                <div className="min-w-0">
+                  <p className="font-medium text-ink">{activityTitle(activity)}</p>
+                  <p className="text-xs text-ink-soft">
+                    {skillLabel(activity.skill)} · {formatDate(activity.createdAt)}
+                    {activity.mode ? ` · ${activity.mode}` : ""}
+                  </p>
+                </div>
+                {activity.scorePercent != null ? (
+                  <span className="shrink-0 text-xs font-semibold tabular-nums text-forest">
+                    {activity.scorePercent}%
                   </span>
-                </li>
-              );
-            })}
+                ) : null}
+              </li>
+            ))}
           </ul>
         </section>
-      )}
+      ) : null}
 
       <Link
         href="/diagnostic?retake=1"

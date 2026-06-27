@@ -45,12 +45,12 @@ export function poolForSkill(skill: AssessmentSkill): QuizQuestion[] {
 }
 
 export const CLEVER_SKILL_LABELS: Record<AssessmentSkill, string> = {
-  reading: "Reading",
-  listening: "Listening",
-  writing: "Writing criteria",
-  speaking: "Speaking communication",
-  vocab: "Healthcare vocabulary",
-  mixed: "Mixed OET skills",
+  reading: "Reading quick quiz",
+  listening: "Listening quick quiz",
+  writing: "Writing criteria quiz",
+  speaking: "Speaking communication quiz",
+  vocab: "Vocabulary quiz",
+  mixed: "All skills mixed quiz",
 };
 
 export const CLEVER_SKILL_ROUTES: Record<Exclude<AssessmentSkill, "mixed">, string> = {

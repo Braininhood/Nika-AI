@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import {
   OET_READING_OVERVIEW,
   READING_COMMON_MISTAKES,
@@ -16,7 +15,6 @@ interface ReadingExamBriefingProps {
 }
 
 export function ReadingExamBriefing({ part, weakTags = [], compact = false }: ReadingExamBriefingProps) {
-  const [open, setOpen] = useState(!compact);
   const tips = tipsForPart(part, weakTags);
   const partInfo =
     part === "A"
@@ -25,19 +23,14 @@ export function ReadingExamBriefing({ part, weakTags = [], compact = false }: Re
         ? OET_READING_OVERVIEW.parts.B
         : OET_READING_OVERVIEW.parts.C;
 
-  return (
-    <section className="rounded-2xl border border-border bg-surface-muted/40 p-4">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between text-left text-sm font-semibold text-ink"
+  if (compact) {
+    return (
+      <CollapsibleSection
+        title={`Part ${part} briefing`}
+        subtitle={partInfo.label}
+        defaultOpen={false}
       >
-        <span>OET Reading · Part {part} briefing</span>
-        <span className="text-xs text-ink-soft">{open ? "Hide" : "Show"}</span>
-      </button>
-
-      {open && (
-        <div className="mt-3 space-y-3 text-sm text-ink-soft">
+        <div className="space-y-3 text-sm text-ink-soft">
           <p>
             <strong className="text-ink">{partInfo.label}</strong> — real exam:{" "}
             {part === "A"
@@ -48,25 +41,55 @@ export function ReadingExamBriefing({ part, weakTags = [], compact = false }: Re
           </p>
           <ul className="space-y-2">
             {tips.map((tip) => (
-              <li key={tip.title} className="rounded-lg bg-surface px-3 py-2">
+              <li key={tip.title} className="rounded-lg bg-surface-muted px-3 py-2">
                 <p className="font-medium text-ink">{tip.title}</p>
                 <p className="mt-0.5 text-xs">{tip.body}</p>
               </li>
             ))}
           </ul>
         </div>
-      )}
-    </section>
+      </CollapsibleSection>
+    );
+  }
+
+  return (
+    <CollapsibleSection
+      title={`OET Reading · Part ${part} briefing`}
+      subtitle={partInfo.label}
+      defaultOpen={false}
+    >
+      <div className="space-y-3 text-sm text-ink-soft">
+        <p>
+          <strong className="text-ink">{partInfo.label}</strong> — real exam:{" "}
+          {part === "A"
+            ? `${partInfo.questions} questions in ${partInfo.minutes} min (then locked)`
+            : part === "B"
+              ? `${partInfo.questions} texts × 1 MCQ each, within shared 45 min with Part C`
+              : `${partInfo.questions} MCQs on two longer texts (~20 + ~25 min suggested)`}
+        </p>
+        <ul className="space-y-2">
+          {tips.map((tip) => (
+            <li key={tip.title} className="rounded-lg bg-surface-muted px-3 py-2">
+              <p className="font-medium text-ink">{tip.title}</p>
+              <p className="mt-0.5 text-xs">{tip.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </CollapsibleSection>
   );
 }
 
 export function ReadingStudyGuidePanel() {
   return (
-    <section className="rounded-2xl border border-border bg-surface p-5">
-      <h2 className="font-semibold text-ink">How OET Reading works</h2>
-      <p className="mt-2 text-sm text-ink-soft">
-        60 minutes · 42 questions · same format for all 12 professions. Locale-specific vocabulary
-        in our passages matches your destination country.
+    <CollapsibleSection
+      title="How OET Reading works"
+      subtitle="60 min · 42 questions · Parts A, B & C"
+      defaultOpen={false}
+    >
+      <p className="text-sm text-ink-soft">
+        Same format for all 12 professions. Locale-specific vocabulary in our passages matches your
+        destination country.
       </p>
 
       <dl className="mt-4 grid gap-3 text-sm">
@@ -98,6 +121,6 @@ export function ReadingStudyGuidePanel() {
           </li>
         ))}
       </ul>
-    </section>
+    </CollapsibleSection>
   );
 }

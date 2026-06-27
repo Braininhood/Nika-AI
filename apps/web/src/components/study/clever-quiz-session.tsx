@@ -1,16 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { QuizQuestionList } from "@/components/reading/quiz-question";
+import { QuizSourceTip } from "@/components/quiz/quiz-source-tip";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
+import { StudyPageHeader } from "@/components/study/study-page-header";
 import {
   CLEVER_SKILL_LABELS,
   type AssessmentSkill,
 } from "@/content/assessment";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { cleverQuizRationale, selectAssessmentQuestions } from "@/lib/quiz/engine";
+import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
 import { submitAssessmentAttempt } from "@/lib/quiz/submit-assessment";
 import { loadUserProfile } from "@/lib/profile/service";
 
@@ -22,6 +24,7 @@ interface CleverQuizSessionProps {
 
 export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionProps) {
   const { session, loading } = useAuth();
+  const { excludeIds, selectionSeed } = useQuizSelection(session?.user?.id);
   const [weakTags, setWeakTags] = useState<string[]>(["reading:part-c-inference"]);
   const [profession, setProfession] = useState<string | undefined>();
   const [targetCountry, setTargetCountry] = useState<string | undefined>();
@@ -51,13 +54,19 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
         mode: "clever_mix",
         limit: 5,
         assessmentSkill: skill,
+        excludeIds,
+        selectionSeed,
       }),
-    [weakTags, profession, targetCountry, skill],
+    [weakTags, profession, targetCountry, skill, excludeIds, selectionSeed],
   );
 
   const rationale = cleverQuizRationale(weakTags, skill);
   const allAnswered = questions.every((q) => responses[q.id] !== undefined);
   const label = title ?? CLEVER_SKILL_LABELS[skill];
+  const studySkill =
+    skill === "reading" || skill === "listening" || skill === "writing" || skill === "speaking"
+      ? skill
+      : undefined;
 
   const handleSubmit = async () => {
     setSubmitting(true);
@@ -85,22 +94,20 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6 pb-8">
-      <Link href={backHref} className="text-sm text-ink-soft hover:text-ink">
-        ← Back
-      </Link>
+      <StudyPageHeader
+        backHref={backHref}
+        backLabel="Back"
+        skill={studySkill}
+        eyebrow={`Quick quiz · ${label}`}
+        title={label}
+        description={
+          <p className="rounded-xl bg-brand-accent-soft/40 px-3 py-2">
+            <strong className="text-brand-primary">Why this set?</strong> {rationale}
+          </p>
+        }
+      />
 
-      <header>
-        <p className="text-[10px] font-semibold uppercase tracking-wide text-brand-primary">
-          Nika clever quiz
-        </p>
-        <h1 className="text-xl font-bold text-ink">{label}</h1>
-        <p className="mt-2 rounded-xl bg-brand-accent-soft/40 px-3 py-2 text-sm text-ink-soft">
-          <strong className="text-brand-primary">Why this set?</strong> {rationale}
-        </p>
-        <p className="mt-2 text-xs text-ink-soft">
-          Types: true/false · gap-fill · ordering · matching · MCQ
-        </p>
-      </header>
+      <QuizSourceTip />
 
       <QuizQuestionList
         questions={questions}

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
+
 interface PrepTimerProps {
   totalMinutes: number;
   onExpire?: () => void;
@@ -48,13 +50,12 @@ export function PrepTimer({ totalMinutes, onExpire, autoStart = true }: PrepTime
           : "Plan your opening, ICE questions, key information, and close."}
       </p>
       {!expired && (
-        <button
-          type="button"
+        <SecondaryActionButton
+          className="mt-3"
           onClick={() => setRunning((r) => !r)}
-          className="mt-3 text-xs text-brand-primary hover:underline"
         >
           {running ? "Pause prep timer" : "Resume prep timer"}
-        </button>
+        </SecondaryActionButton>
       )}
     </div>
   );

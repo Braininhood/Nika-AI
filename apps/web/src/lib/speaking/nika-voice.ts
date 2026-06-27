@@ -44,7 +44,20 @@ export function nikaVoiceTtsOnly(): boolean {
 }
 
 export function buildNikaVoicePreview(config: NikaVoiceConfig): string {
-  return `Nika plays the ${config.interlocutorRole.toLowerCase()} — ${config.personaSummary}. Use your mic for live turn-taking; Nika responds with voice (browser TTS, free).`;
+  return `In this role-play Nika is the ${config.interlocutorRole.toLowerCase()}. ${config.personaSummary} Take your turn naturally — Nika listens and replies like a real consultation.`;
+}
+
+function formatPersonaConcerns(concerns: string[], fallback: string): string {
+  if (concerns.length === 0) return fallback;
+  return concerns
+    .map((concern) => {
+      const trimmed = concern.trim();
+      if (!trimmed) return "";
+      const sentence = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+      return sentence.endsWith(".") ? sentence : `${sentence}.`;
+    })
+    .filter(Boolean)
+    .join(" ");
 }
 
 /** Map role-card accent to BCP-47 for STT. */
@@ -71,6 +84,9 @@ export function buildNikaVoiceConfig(card: RolePlayCard): NikaVoiceConfig {
     roleCardId: card.id,
     profession: card.profession,
     interlocutorRole: card.interlocutorRole,
-    personaSummary: card.hiddenFromCandidate.patientConcerns.join("; ") || card.setting,
+    personaSummary: formatPersonaConcerns(
+      card.hiddenFromCandidate.patientConcerns,
+      card.setting,
+    ),
   };
 }

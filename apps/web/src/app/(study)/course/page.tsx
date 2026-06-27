@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { courseTransparencyLine, generatePersonalCourse } from "@/lib/adaptive/personal-course";
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import { loadPersonalCourse } from "@/lib/adaptive/service";
 import type { PersonalCourse } from "@/lib/adaptive/types";
 import { loadUserProfile } from "@/lib/profile/service";
@@ -54,21 +55,25 @@ export default function PersonalCoursePage() {
         <p className="mt-4 text-sm text-ink-soft">
           Complete onboarding and diagnostic to generate your individual course.
         </p>
-        <Link href="/diagnostic" className="mt-4 inline-block text-brand-primary hover:underline">
+        <SecondaryActionLink href="/diagnostic" className="mt-4">
           Start diagnostic
-        </Link>
+        </SecondaryActionLink>
       </div>
     );
   }
 
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-6 px-4 py-8">
-      <header>
-        <h1 className="text-2xl font-bold text-ink">Your personal course</h1>
+      <header className="rounded-2xl border border-border bg-surface p-6">
+        <p className="text-sm font-medium text-brand-primary">Adaptive · Phase 5</p>
+        <h1 className="mt-2 text-2xl font-bold text-ink">Your personal course</h1>
         <p className="mt-2 text-sm text-ink-soft">{course.summary}</p>
         <p className="mt-2 text-xs text-ink-soft">
           Version {course.version} · Updated {new Date(course.generatedAt).toLocaleDateString()}
         </p>
+        <SecondaryActionLink href="/study" className="mt-4">
+          ← Back to study hub
+        </SecondaryActionLink>
       </header>
 
       <section className="rounded-2xl border border-border bg-surface p-4 text-sm text-ink-soft">
@@ -111,9 +116,9 @@ export default function PersonalCoursePage() {
         ))}
       </ol>
 
-      <Link href="/dashboard" className="text-center text-sm text-brand-primary hover:underline">
+      <SecondaryActionLink href="/dashboard" className="self-center">
         Back to today&apos;s plan
-      </Link>
+      </SecondaryActionLink>
     </div>
   );
 }

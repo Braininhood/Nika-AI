@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { secondaryActionCompactClassName } from "@/components/ui/secondary-action-button";
 import type { ModelDialogueLine } from "@/content/speaking";
 
 interface ModelDialoguePanelProps {
@@ -29,12 +31,12 @@ export function ModelDialoguePanel({ lines, title = "Model dialogue" }: ModelDia
   };
 
   return (
-    <section className="rounded-2xl border border-border bg-surface p-4">
-      <h3 className="font-semibold text-ink">{title}</h3>
-      <p className="mt-1 text-xs text-ink-soft">
-        Annotated model — clinical communication markers highlighted · browser TTS playback
-      </p>
-      <ol className="mt-4 space-y-3">
+    <CollapsibleSection
+      title={title}
+      subtitle="Grade B example — tap Play on any line"
+      defaultOpen={false}
+    >
+      <ol className="space-y-3">
         {lines.map((line, index) => (
           <li
             key={index}
@@ -57,7 +59,7 @@ export function ModelDialoguePanel({ lines, title = "Model dialogue" }: ModelDia
               <button
                 type="button"
                 onClick={() => speakLine(line.line, index)}
-                className="shrink-0 text-xs text-brand-primary hover:underline"
+                className={secondaryActionCompactClassName}
                 aria-label={`Play line ${index + 1}`}
               >
                 {playingIndex === index ? "▶ …" : "▶ Play"}
@@ -66,6 +68,6 @@ export function ModelDialoguePanel({ lines, title = "Model dialogue" }: ModelDia
           </li>
         ))}
       </ol>
-    </section>
+    </CollapsibleSection>
   );
 }

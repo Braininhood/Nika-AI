@@ -1,0 +1,334 @@
+{
+  "tips": [
+    {
+      "id": "dentistry-gingival-bleeding",
+      "professions": ["dentistry"],
+      "headline": "Dentistry English for OET",
+      "term": "Gingival bleeding",
+      "phonetic": "ˈdʒɪndʒɪvəl ˈbliːdɪŋ",
+      "definition": "Bleeding from the gums, often during brushing or flossing; a common sign of gingival inflammation.",
+      "example": "Gingival bleeding during brushing may indicate early periodontitis.",
+      "speaking": {
+        "opening": ["Have you noticed any bleeding when brushing your teeth?"],
+        "clinical_questions": [
+          "How often do your gums bleed?",
+          "Is the bleeding spontaneous or only during brushing?",
+          "Do you experience any swelling or tenderness?"
+        ],
+        "empathy": [
+          "I understand this can be concerning.",
+          "Bleeding gums are quite common, but they should not be ignored."
+        ],
+        "explanation": [
+          "Gingival bleeding is usually a sign of inflammation.",
+          "It may indicate gingivitis or early periodontal disease."
+        ],
+        "advice": [
+          "Improving oral hygiene is essential.",
+          "Regular professional cleaning will help control the condition."
+        ]
+      },
+      "writing_clinical": [
+        "The patient reports gingival bleeding on brushing.",
+        "There is associated gingival inflammation.",
+        "Findings are consistent with early gingivitis.",
+        "Bleeding occurs predominantly during oral hygiene procedures.",
+        "Oral hygiene is suboptimal."
+      ],
+      "writing_key_phrases": [
+        "The patient presents with gingival bleeding and inflammation.",
+        "Clinical findings suggest early periodontal involvement.",
+        "Improved oral hygiene and regular scaling are recommended."
+      ],
+      "exam_tip_use": ["associated with", "consistent with", "predominantly"],
+      "exam_tip_avoid": ["gums bleed a lot"],
+      "grade_a_phrase": "The patient presents with gingival bleeding on brushing, associated with gingival inflammation, likely due to early periodontal disease.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "gingival bleeding",
+          "meaning": "Bleeding from the gums during brushing or spontaneously",
+          "example": "Gingival bleeding during brushing may indicate early periodontitis."
+        },
+        {
+          "phrase": "periodontitis",
+          "meaning": "Inflammation and infection of the tissues supporting the teeth",
+          "example": "Early periodontitis may present with gingival bleeding and pocketing."
+        },
+        {
+          "phrase": "oral hygiene",
+          "meaning": "Routine care to keep the mouth clean and healthy",
+          "example": "Oral hygiene is suboptimal despite daily brushing."
+        }
+      ]
+    },
+    {
+      "id": "pharmacy-medication-adherence",
+      "professions": ["pharmacy"],
+      "headline": "Pharmacy English for OET",
+      "term": "Medication adherence",
+      "phonetic": "ˌmedɪˈkeɪʃn ədˈhɪərəns",
+      "definition": "The extent to which a patient takes medicines as prescribed — dose, timing, and duration.",
+      "example": "Poor medication adherence may reduce therapeutic benefit and increase hospital admission risk.",
+      "speaking": {
+        "opening": ["Can you tell me how you usually take this medicine at home?"],
+        "clinical_questions": [
+          "Do you ever miss doses or stop early?",
+          "Have you experienced any side effects that make dosing difficult?",
+          "Do you use any other medicines or supplements?"
+        ],
+        "empathy": [
+          "Many patients find it hard to remember every dose.",
+          "It is important we understand what makes adherence difficult for you."
+        ],
+        "explanation": [
+          "Taking medicines as prescribed helps maintain stable drug levels.",
+          "Missed doses can reduce effectiveness or cause rebound symptoms."
+        ],
+        "advice": [
+          "A dosette box or phone reminder may help.",
+          "Contact the pharmacy if side effects are affecting adherence."
+        ]
+      },
+      "writing_clinical": [
+        "The patient reports inconsistent adherence to prescribed therapy.",
+        "Missed doses occur predominantly at weekends.",
+        "No adverse drug reactions were reported.",
+        "Counselling regarding timing and food interactions was provided."
+      ],
+      "writing_key_phrases": [
+        "Medication adherence appears suboptimal.",
+        "The patient was counselled on the importance of regular dosing.",
+        "Follow-up in two weeks is recommended to review compliance."
+      ],
+      "exam_tip_use": ["adherence", "counselled", "prescribed therapy"],
+      "exam_tip_avoid": ["doesn't take pills properly"],
+      "grade_a_phrase": "The patient demonstrates suboptimal medication adherence, with missed doses reported predominantly at weekends; counselling on dosing and follow-up in two weeks is recommended.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "medication adherence",
+          "meaning": "Taking medicines exactly as prescribed",
+          "example": "Poor medication adherence may reduce therapeutic benefit."
+        },
+        {
+          "phrase": "drug interaction",
+          "meaning": "When one medicine alters the effect of another",
+          "example": "Potential drug interactions were discussed with the patient."
+        }
+      ]
+    },
+    {
+      "id": "nursing-falls-risk",
+      "professions": ["nursing"],
+      "headline": "Nursing English for OET",
+      "term": "Falls risk",
+      "phonetic": "fɔːlz rɪsk",
+      "definition": "The likelihood that a patient will fall, based on mobility, cognition, medications, and environment.",
+      "example": "The patient is assessed as high falls risk due to postural hypotension and unsteady gait.",
+      "speaking": {
+        "opening": ["Have you had any falls or near-falls recently?"],
+        "clinical_questions": [
+          "Do you feel dizzy when standing up?",
+          "Do you use mobility aids at home?",
+          "Is there clutter or poor lighting where you live?"
+        ],
+        "empathy": [
+          "Falls can be frightening and affect confidence.",
+          "We want to help you stay safe at home."
+        ],
+        "explanation": [
+          "Several factors can increase falls risk, including blood pressure changes.",
+          "A home safety review can reduce hazards."
+        ],
+        "advice": [
+          "Stand up slowly and wait before walking.",
+          "Ensure call bell is within reach and footwear is secure."
+        ]
+      },
+      "writing_clinical": [
+        "The patient is identified as high falls risk.",
+        "Postural hypotension and unsteady gait were noted on assessment.",
+        "Bed rails and non-slip footwear are in use.",
+        "Falls prevention education was provided."
+      ],
+      "writing_key_phrases": [
+        "Falls risk assessment indicates high risk.",
+        "Environmental and mobility factors were addressed.",
+        "Ongoing monitoring and physiotherapy input are recommended."
+      ],
+      "exam_tip_use": ["identified as", "noted on assessment", "falls prevention"],
+      "exam_tip_avoid": ["might fall over"],
+      "grade_a_phrase": "The patient is identified as high falls risk, with postural hypotension and unsteady gait noted on assessment; falls prevention education and physiotherapy review are recommended.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "falls risk",
+          "meaning": "Likelihood of falling based on clinical assessment",
+          "example": "The patient is assessed as high falls risk."
+        },
+        {
+          "phrase": "postural hypotension",
+          "meaning": "Drop in blood pressure when standing",
+          "example": "Postural hypotension may contribute to falls risk."
+        }
+      ]
+    },
+    {
+      "id": "medicine-chest-pain",
+      "professions": ["medicine"],
+      "headline": "Medicine English for OET",
+      "term": "Exertional chest pain",
+      "phonetic": "ˌɛɡzɜːˈteɪʃənl tʃɛst peɪn",
+      "definition": "Chest discomfort triggered by physical activity and relieved by rest — may suggest angina.",
+      "example": "The patient reports exertional chest pain relieved within five minutes of rest.",
+      "speaking": {
+        "opening": ["Can you describe the chest discomfort and when it occurs?"],
+        "clinical_questions": [
+          "Does the pain radiate to the arm, jaw, or back?",
+          "How long does each episode last?",
+          "Do you have cardiac risk factors such as hypertension or diabetes?"
+        ],
+        "empathy": [
+          "Chest pain can be very worrying.",
+          "It is important we assess this thoroughly."
+        ],
+        "explanation": [
+          "Exertional pain that settles with rest may indicate reduced cardiac blood flow.",
+          "Further investigation such as ECG and troponin may be required."
+        ],
+        "advice": [
+          "Avoid strenuous activity until reviewed.",
+          "Seek urgent care if pain persists or worsens at rest."
+        ]
+      },
+      "writing_clinical": [
+        "The patient reports exertional chest pain relieved by rest.",
+        "Pain is described as tight and non-radiating.",
+        "Cardiovascular risk factors include hypertension and smoking.",
+        "ECG and troponin are pending."
+      ],
+      "writing_key_phrases": [
+        "Exertional chest pain is consistent with possible angina.",
+        "Urgent cardiology review is recommended.",
+        "Risk factor modification was discussed."
+      ],
+      "exam_tip_use": ["exertional", "consistent with", "risk factors"],
+      "exam_tip_avoid": ["heart hurts when running"],
+      "grade_a_phrase": "The patient presents with exertional chest pain relieved by rest, consistent with possible angina; ECG and troponin are pending and cardiology review is recommended.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "exertional chest pain",
+          "meaning": "Chest pain brought on by physical activity",
+          "example": "Exertional chest pain relieved by rest may suggest angina."
+        },
+        {
+          "phrase": "troponin",
+          "meaning": "Blood marker indicating heart muscle injury",
+          "example": "Serial troponin levels will be monitored."
+        }
+      ]
+    },
+    {
+      "id": "physiotherapy-range-of-motion",
+      "professions": ["physiotherapy"],
+      "headline": "Physiotherapy English for OET",
+      "term": "Range of motion",
+      "phonetic": "reɪndʒ əv ˈməʊʃən",
+      "definition": "The amount of movement available at a joint, measured in degrees or described as limited/full.",
+      "example": "Active range of motion at the shoulder is limited to 90 degrees of flexion.",
+      "speaking": {
+        "opening": ["How much movement do you have in the affected joint?"],
+        "clinical_questions": [
+          "Does pain limit your movement?",
+          "Can you perform daily tasks such as dressing independently?",
+          "Have you been doing the home exercise programme?"
+        ],
+        "empathy": [
+          "Reduced movement can be frustrating during recovery.",
+          "Gradual progress is expected with consistent exercises."
+        ],
+        "explanation": [
+          "Range of motion improves with guided exercise and pain control.",
+          "Protecting the joint early helps long-term function."
+        ],
+        "advice": [
+          "Continue prescribed exercises twice daily.",
+          "Avoid movements that sharply increase pain."
+        ]
+      },
+      "writing_clinical": [
+        "Active range of motion is limited at the shoulder.",
+        "Flexion is restricted to 90 degrees with mild pain at end range.",
+        "Strength is reduced compared with the unaffected side.",
+        "A progressive home exercise programme was reinforced."
+      ],
+      "writing_key_phrases": [
+        "Range of motion remains limited but improving.",
+        "Physiotherapy will focus on mobility and strengthening.",
+        "Review in two weeks is planned."
+      ],
+      "exam_tip_use": ["limited to", "at end range", "home exercise programme"],
+      "exam_tip_avoid": ["can't move arm much"],
+      "grade_a_phrase": "Active range of motion at the shoulder is limited to 90 degrees of flexion with pain at end range; a progressive home exercise programme was reinforced and review in two weeks is planned.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "range of motion",
+          "meaning": "Available movement at a joint",
+          "example": "Range of motion is limited to 90 degrees of flexion."
+        }
+      ]
+    },
+    {
+      "id": "all-presenting-complaint",
+      "professions": ["all"],
+      "headline": "Healthcare English for OET",
+      "term": "Presenting complaint",
+      "phonetic": "prɪˈzɛntɪŋ kəmˈpleɪnt",
+      "definition": "The main symptom or reason the patient sought care — stated clearly at the start of clinical communication.",
+      "example": "Her presenting complaint was progressive shortness of breath on exertion.",
+      "speaking": {
+        "opening": ["What brought you in today?"],
+        "clinical_questions": [
+          "When did this start?",
+          "Has it been getting better or worse?",
+          "Is anything making it better or worse?"
+        ],
+        "empathy": [
+          "Thank you for explaining that clearly.",
+          "I can see this has been difficult for you."
+        ],
+        "explanation": [
+          "Understanding the presenting complaint guides further assessment.",
+          "We will examine you and arrange appropriate tests."
+        ],
+        "advice": [
+          "Monitor symptoms and return if they worsen.",
+          "Follow the plan we agree today."
+        ]
+      },
+      "writing_clinical": [
+        "The patient's presenting complaint is shortness of breath on exertion.",
+        "Symptoms have progressed over two weeks.",
+        "Examination and investigations are arranged."
+      ],
+      "writing_key_phrases": [
+        "The presenting complaint is documented clearly in the opening paragraph.",
+        "Relevant history and examination findings follow.",
+        "A clear management plan is outlined."
+      ],
+      "exam_tip_use": ["presenting complaint", "on exertion", "documented"],
+      "exam_tip_avoid": ["main problem is breathing bad"],
+      "grade_a_phrase": "The patient's presenting complaint is progressive shortness of breath on exertion over two weeks; examination is unremarkable and chest X-ray is arranged.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "presenting complaint",
+          "meaning": "Main reason the patient came for care",
+          "example": "Her presenting complaint was chest pain on exertion."
+        },
+        {
+          "phrase": "on admission",
+          "meaning": "When the patient entered hospital or care",
+          "example": "On admission, observations were within normal limits."
+        }
+      ]
+    }
+  ]
+}

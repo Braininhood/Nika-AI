@@ -36,7 +36,8 @@ export function ScenarioList({
         <li key={scenario.id}>
           <Link
             href={`${hrefPrefix}/${scenario.id}`}
-            className="block rounded-xl border border-border bg-surface px-4 py-4 transition hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+            prefetch={false}
+            className="flex min-h-[4.5rem] items-center justify-between rounded-xl border border-border bg-surface px-4 py-4 transition hover:bg-surface-muted active:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
           >
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>

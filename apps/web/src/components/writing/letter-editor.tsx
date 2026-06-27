@@ -5,7 +5,6 @@ import {
   OET_WORD_MIN,
   WORD_COUNT_STATUS_CLASS,
   countWords,
-  wordCountLabel,
   wordCountStatus,
 } from "@/lib/writing/word-count";
 
@@ -22,6 +21,24 @@ interface LetterEditorProps {
   placeholder?: string;
 }
 
+function statusMessage(
+  count: number,
+  min: number,
+  max: number,
+): string {
+  const status = wordCountStatus(count, min, max);
+  switch (status) {
+    case "empty":
+      return `Aim for ${min}–${max} words (OET Grade B range)`;
+    case "low":
+      return `${min - count} more words to reach minimum`;
+    case "high":
+      return `${count - max} words over — trim if you can`;
+    case "ok":
+      return "Word count in target range";
+  }
+}
+
 export function LetterEditor({
   value,
   onChange,
@@ -36,46 +53,74 @@ export function LetterEditor({
 }: LetterEditorProps) {
   const count = countWords(value);
   const status = wordCountStatus(count, minWords, maxWords);
+  const barMax = Math.max(maxWords + 30, count, 1);
+  const fillPct = Math.min(100, (count / barMax) * 100);
+  const minPct = (minWords / barMax) * 100;
+  const maxPct = (maxWords / barMax) * 100;
 
   return (
     <section className="rounded-2xl border border-border bg-surface p-4" aria-labelledby={`${id}-label`}>
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 id={`${id}-label`} className="text-sm font-semibold text-ink">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <h2 id={`${id}-label`} className="text-base font-bold text-ink">
           {label}
         </h2>
-        <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span
-            className={WORD_COUNT_STATUS_CLASS[status]}
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {wordCountLabel(count, minWords, maxWords)}
-          </span>
-          {savedHint && <span className="text-ink-soft">{savedHint}</span>}
+        <div
+          className="flex flex-col items-end gap-0.5"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <p className="flex items-baseline gap-1.5">
+            <span className={`text-3xl font-bold tabular-nums ${WORD_COUNT_STATUS_CLASS[status]}`}>
+              {count}
+            </span>
+            <span className="text-sm font-medium text-ink-soft">words</span>
+          </p>
+          <p className={`text-xs ${WORD_COUNT_STATUS_CLASS[status]}`}>
+            Target {minWords}–{maxWords}
+            {savedHint ? <span className="text-ink-soft"> · {savedHint}</span> : null}
+          </p>
         </div>
       </div>
 
-      <div
-        className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-surface-muted"
-        role="progressbar"
-        aria-valuenow={Math.min(count, maxWords)}
-        aria-valuemin={0}
-        aria-valuemax={maxWords}
-        aria-label="Word count progress toward OET target range"
-      >
-        <div
-          className={`h-full transition-all ${
-            status === "ok"
-              ? "bg-forest"
-              : status === "low"
-                ? "bg-warning"
-                : status === "high"
-                  ? "bg-danger"
-                  : "bg-border"
-          }`}
-          style={{ width: `${Math.min(100, (count / maxWords) * 100)}%` }}
-        />
-      </div>
+      {count > 0 ? (
+        <div className="mt-3">
+          <div
+            className="relative h-2 w-full overflow-hidden rounded-full bg-surface-muted"
+            role="progressbar"
+            aria-valuenow={count}
+            aria-valuemin={0}
+            aria-valuemax={maxWords}
+            aria-label={`${count} words typed. Target range ${minWords} to ${maxWords}.`}
+          >
+            <div
+              className="absolute inset-y-0 rounded-full bg-brand-accent-soft/50"
+              style={{ left: `${minPct}%`, width: `${maxPct - minPct}%` }}
+              aria-hidden
+            />
+            <div
+              className={`relative z-[1] h-full rounded-full transition-all ${
+                status === "ok"
+                  ? "bg-forest"
+                  : status === "low"
+                    ? "bg-warning"
+                    : status === "high"
+                      ? "bg-danger"
+                      : "bg-border"
+              }`}
+              style={{ width: `${fillPct}%` }}
+            />
+          </div>
+          <div className="mt-1 flex justify-between text-[10px] text-ink-soft">
+            <span>0</span>
+            <span>{minWords}–{maxWords} target</span>
+            <span>{barMax}+</span>
+          </div>
+        </div>
+      ) : null}
+
+      <p className={`mt-2 text-xs ${count > 0 ? WORD_COUNT_STATUS_CLASS[status] : "text-ink-soft"}`}>
+        {statusMessage(count, minWords, maxWords)}
+      </p>
 
       <textarea
         id={id}
@@ -89,7 +134,7 @@ export function LetterEditor({
         placeholder={placeholder}
       />
       <p id={`${id}-hint`} className="mt-2 text-xs text-ink-soft">
-        OET letters typically use {minWords}–{maxWords} words. Use formal clinical language.
+        Use formal clinical language. Word count updates as you type.
       </p>
     </section>
   );

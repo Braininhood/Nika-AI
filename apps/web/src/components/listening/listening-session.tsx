@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
 import { AccentContextBanner } from "@/components/content/accent-context-banner";
@@ -10,6 +9,7 @@ import { ListeningResultsPanel } from "@/components/listening/listening-results-
 import { ListeningTimerBar } from "@/components/listening/listening-timer-bar";
 import { NoteCompletionPanel } from "@/components/listening/note-completion-panel";
 import { QuizQuestionField } from "@/components/reading/quiz-question";
+import { StudyPageHeader } from "@/components/study/study-page-header";
 import type { ListeningBlock } from "@/content/listening";
 import { partAExamTip, partBExamStyleTip } from "@/lib/listening/exam-guide";
 import { submitListeningAttempt } from "@/lib/listening/submit-attempt";
@@ -18,6 +18,7 @@ interface ListeningSessionProps {
   block: ListeningBlock;
   mode: "part_a" | "part_b" | "part_c";
   backHref: string;
+  backLabel?: string;
   examMode?: boolean;
   importAudioId?: string;
   importedAnswerKey?: Record<string, string>;
@@ -27,6 +28,7 @@ export function ListeningSession({
   block,
   mode,
   backHref,
+  backLabel = "Back",
   examMode = false,
   importAudioId,
   importedAnswerKey,
@@ -99,14 +101,14 @@ export function ListeningSession({
 
   return (
     <div className="flex flex-col gap-6 pb-8">
-      <Link href={backHref} className="text-sm text-ink-soft hover:text-ink">
-        ← Listening
-      </Link>
-
-      <header>
-        <h1 className="text-xl font-bold text-ink">{block.title}</h1>
-        <ListeningExamBriefing part={block.part} compact />
-      </header>
+      <StudyPageHeader
+        backHref={backHref}
+        backLabel={backLabel}
+        skill="listening"
+        eyebrow={`Listening · Part ${block.part}`}
+        title={block.title}
+        description={<ListeningExamBriefing part={block.part} compact />}
+      />
 
       <AccentContextBanner
         variant="listening"

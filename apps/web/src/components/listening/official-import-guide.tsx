@@ -2,44 +2,48 @@
 
 import Link from "next/link";
 
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { OET_PAPER_HUB, OET_SAMPLE_HUB } from "@/content/media/oet-official-samples";
 
 const STEPS = [
   {
-    title: "Create a free oet.com account",
-    body: "Log in at oet.com — some sample downloads require sign-in.",
+    title: "Sign in at oet.com",
+    body: "Create an account if you need one — sample downloads are on the official site.",
     href: "https://oet.com/login",
   },
   {
-    title: "Pick your profession (all 12 available)",
-    body: "Paper samples: all 12 professions. Computer samples: all 12 professions. Listening MP3 is shared — any one profession pack works for L/R.",
+    title: "Choose your profession",
+    body: "Paper and computer sample packs cover all 12 professions. Listening audio is shared across professions.",
     href: OET_PAPER_HUB,
   },
   {
-    title: "Download sample pack files",
-    body: "Per sample (1–5): Questions PDF, Answer key PDF, Listening MP3. Writing/Speaking are profession-specific.",
+    title: "Download your sample pack",
+    body: "Each pack includes question PDFs, answer keys, and listening MP3 where applicable.",
     href: OET_SAMPLE_HUB,
   },
   {
     title: "Import into OET Coach",
-    body: "Listening → Import → Browse → select MP3 + PDF + key PDF → tick consent → Import.",
+    body: "Listening → Import → select your MP3, question PDF, and answer key.",
     href: "/listening/import",
   },
   {
-    title: "Practice offline",
-    body: "Imported MP3 plays as real audio. Answer key enables auto-marking when formats match.",
+    title: "Practise with real audio",
+    body: "Imported files play on your device. Matching answer keys enable automatic marking.",
     href: "/listening/part-a",
   },
 ];
 
 export function OfficialImportGuide() {
   return (
-    <section className="rounded-2xl border border-brand-primary/30 bg-brand-accent-soft/20 p-5">
-      <h2 className="font-semibold text-ink">Official OET audio (Option B)</h2>
-      <p className="mt-2 text-sm text-ink-soft">
-        Official OET listening audio cannot be hosted in the app — copyright belongs to OET.
-        Download from oet.com and import to your device. Files stay on your phone and are not
-        uploaded to our servers.
+    <CollapsibleSection
+      title="Import official OET listening"
+      subtitle="Use real sample-test audio from oet.com on your device"
+      defaultOpen={false}
+      variant="accent"
+    >
+      <p className="text-sm text-ink-soft">
+        Download official listening files from oet.com, then import them here for timed practice with
+        auto-marking when your answer key matches.
       </p>
       <ol className="mt-4 space-y-4">
         {STEPS.map((step, i) => (
@@ -65,6 +69,6 @@ export function OfficialImportGuide() {
           </li>
         ))}
       </ol>
-    </section>
+    </CollapsibleSection>
   );
 }

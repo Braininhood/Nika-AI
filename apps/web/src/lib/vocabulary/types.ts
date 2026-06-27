@@ -8,7 +8,7 @@ export interface VocabularyEntry {
   nativeLanguage: string;
   phoneticHint?: string;
   tags: string[];
-  source: "manual" | "reading" | "quiz" | "nika";
+  source: "manual" | "reading" | "quiz" | "nika" | "today_tip";
   addedAt: number;
   lastReviewedAt?: number;
 }

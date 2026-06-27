@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import type { ReadinessStatus } from "@/lib/adaptive/types";
 
 const STATE_LABELS: Record<ReadinessStatus["state"], string> = {
@@ -21,39 +22,32 @@ const STATE_COLORS: Record<ReadinessStatus["state"], string> = {
 interface ReadinessCardProps {
   status: ReadinessStatus;
   compact?: boolean;
+  /** Collapse on mobile-heavy pages (e.g. Progress). */
+  collapsible?: boolean;
+  defaultOpen?: boolean;
 }
 
-export function ReadinessCard({ status, compact = false }: ReadinessCardProps) {
+function ReadinessBody({
+  status,
+  compact,
+}: {
+  status: ReadinessStatus;
+  compact: boolean;
+}) {
   const showMockCta =
     status.state === "mock_eligible" ||
     status.state === "mock_pass_pending" ||
     status.state === "exam_ready";
 
   return (
-    <section
-      className={`rounded-2xl border p-4 ${STATE_COLORS[status.state]}`}
-      aria-label="Exam readiness"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">
-            Readiness
-          </p>
-          <h2 className="mt-1 text-lg font-bold text-ink">{STATE_LABELS[status.state]}</h2>
-          {status.state === "mock_pass_pending" && (
-            <p className="mt-1 text-sm text-forest font-medium">
-              {status.consecutiveMockPasses} / 2 consecutive passes
-            </p>
-          )}
-        </div>
-        {status.state === "exam_ready" && (
-          <span className="rounded-full bg-forest px-2 py-1 text-xs font-bold text-white">
-            Ready
-          </span>
-        )}
-      </div>
+    <>
+      {status.state === "mock_pass_pending" && (
+        <p className="text-sm font-medium text-forest">
+          {status.consecutiveMockPasses} / 2 consecutive passes
+        </p>
+      )}
 
-      <p className="mt-3 text-sm text-ink-soft">{status.nikaMessage}</p>
+      <p className="mt-2 text-sm text-ink-soft">{status.nikaMessage}</p>
 
       {status.mlPrediction && (
         <p className="mt-2 text-xs text-ink-soft">
@@ -94,11 +88,56 @@ export function ReadinessCard({ status, compact = false }: ReadinessCardProps) {
       {showMockCta && (
         <Link
           href="/mock"
-          className="mt-4 inline-flex rounded-xl bg-brand-accent px-4 py-2 text-sm font-semibold text-ink hover:opacity-90"
+          className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-brand-accent px-4 py-2 text-sm font-semibold text-ink hover:opacity-90"
         >
           {status.state === "exam_ready" ? "Take a maintenance mock" : "Start OET mock"}
         </Link>
       )}
+    </>
+  );
+}
+
+export function ReadinessCard({
+  status,
+  compact = false,
+  collapsible = false,
+  defaultOpen = true,
+}: ReadinessCardProps) {
+  if (collapsible) {
+    return (
+      <CollapsibleSection
+        title={STATE_LABELS[status.state]}
+        subtitle={status.nikaMessage}
+        defaultOpen={defaultOpen}
+        badge={
+          status.state === "exam_ready"
+            ? "Ready"
+            : "Readiness"
+        }
+        variant={status.state === "exam_ready" ? "accent" : "default"}
+      >
+        <ReadinessBody status={status} compact={compact} />
+      </CollapsibleSection>
+    );
+  }
+
+  return (
+    <section
+      className={`rounded-2xl border p-4 ${STATE_COLORS[status.state]}`}
+      aria-label="Exam readiness"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">Readiness</p>
+          <h2 className="mt-1 text-lg font-bold text-ink">{STATE_LABELS[status.state]}</h2>
+        </div>
+        {status.state === "exam_ready" && (
+          <span className="rounded-full bg-forest px-2 py-1 text-xs font-bold text-white">
+            Ready
+          </span>
+        )}
+      </div>
+      <ReadinessBody status={status} compact={compact} />
     </section>
   );
 }

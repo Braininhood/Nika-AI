@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { AccentContextBanner } from "@/components/content/accent-context-banner";
+import { StudyPageHeader } from "@/components/study/study-page-header";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
 import type { RolePlayCard } from "@/content/speaking";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { CLINICAL_CHECKLIST } from "@/lib/speaking/clinical-checklist";
@@ -18,17 +20,17 @@ import { NikaVoiceLivePanel } from "./nika-voice-live";
 import { NikaVoicePreview } from "./nika-voice-preview";
 import { PrepTimer } from "./prep-timer";
 import { PrepWorksheetForm } from "./prep-worksheet";
-import { SpeakingStudyGuidePanel } from "./speaking-exam-briefing";
 import { SpeakingResultsPanel } from "./speaking-results-panel";
 
 type SessionPhase = "card" | "prep" | "nika-live" | "record" | "review" | "done";
 
-interface SpeakingSessionProps {
+export interface SpeakingSessionProps {
   card: RolePlayCard;
   backHref: string;
+  backLabel?: string;
 }
 
-export function SpeakingSession({ card, backHref }: SpeakingSessionProps) {
+export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: SpeakingSessionProps) {
   const { session } = useAuth();
   const [phase, setPhase] = useState<SessionPhase>("card");
   const [prepSheet, setPrepSheet] = useState<PrepWorksheet>(emptyPrepWorksheet);
@@ -91,17 +93,14 @@ export function SpeakingSession({ card, backHref }: SpeakingSessionProps) {
 
   return (
     <div className="flex flex-col gap-6 pb-8">
-      <Link href={backHref} className="text-sm text-ink-soft hover:text-ink">
-        ← Speaking
-      </Link>
-
-      <header>
-        <p className="text-[10px] font-semibold uppercase text-brand-primary">
-          {card.candidateRole} · {card.interlocutorRole}
-        </p>
-        <h1 className="mt-1 text-xl font-bold text-ink">{card.setting}</h1>
-        <p className="mt-1 text-sm text-ink-soft">{card.cardText.overview}</p>
-      </header>
+      <StudyPageHeader
+        backHref={backHref}
+        backLabel={backLabel}
+        skill="speaking"
+        eyebrow={`Speaking · ${card.candidateRole} / ${card.interlocutorRole}`}
+        title={card.setting}
+        description={card.cardText.overview}
+      />
 
       <AccentContextBanner
         variant="speaking"
@@ -114,7 +113,6 @@ export function SpeakingSession({ card, backHref }: SpeakingSessionProps) {
           <RoleCardPanel card={card} />
           <ModelDialoguePanel lines={card.modelDialogue} />
           <NikaVoicePreview card={card} onStartLive={() => setPhase("nika-live")} />
-          <SpeakingStudyGuidePanel compact />
           <button
             type="button"
             onClick={() => setPhase("prep")}
@@ -196,13 +194,9 @@ export function SpeakingSession({ card, backHref }: SpeakingSessionProps) {
               placeholder="Your role-play transcript…"
             />
             {transcriptAnalysis && (
-              <button
-                type="button"
-                onClick={applyTranscriptSuggestions}
-                className="mt-2 text-xs text-brand-primary hover:underline"
-              >
+              <SecondaryActionButton className="mt-2" onClick={applyTranscriptSuggestions}>
                 Apply transcript suggestions to checklist
-              </button>
+              </SecondaryActionButton>
             )}
           </section>
 
@@ -227,10 +221,9 @@ export function SpeakingSession({ card, backHref }: SpeakingSessionProps) {
 }
 
 function RoleCardPanel({ card, compact }: { card: RolePlayCard; compact?: boolean }) {
-  return (
-    <section className="rounded-2xl border border-brand-primary/30 bg-surface p-4">
-      <h3 className="font-semibold text-ink">Role card</h3>
-      <p className="mt-2 text-sm text-ink">{card.cardText.patientDetails}</p>
+  const body = (
+    <>
+      <p className="text-sm text-ink">{card.cardText.patientDetails}</p>
       <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-ink-soft">
         {card.cardText.yourTasks.map((task) => (
           <li key={task}>{task}</li>
@@ -242,6 +235,24 @@ function RoleCardPanel({ card, compact }: { card: RolePlayCard; compact?: boolea
           <p className="mt-1">ICE: {card.coaching.iceQuestions.join(" · ")}</p>
         </div>
       )}
-    </section>
+    </>
+  );
+
+  if (compact) {
+    return (
+      <CollapsibleSection
+        title="Role card"
+        subtitle={card.cardText.patientDetails.slice(0, 64)}
+        defaultOpen={false}
+      >
+        {body}
+      </CollapsibleSection>
+    );
+  }
+
+  return (
+    <CollapsibleSection title="Role card" subtitle="Patient details & your tasks" defaultOpen>
+      {body}
+    </CollapsibleSection>
   );
 }

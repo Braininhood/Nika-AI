@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { StudyMediaPanel } from "@/components/listening/study-media-panel";
+import { SecondaryActionAnchor, SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import { ContentDisclaimer } from "@/components/legal/content-disclaimer";
 import { OetProfessionSamplesPanel } from "@/components/media/oet-profession-samples-panel";
+import { SkillHubHeader } from "@/components/study/skill-hub-header";
 import {
   knowledgeForPhase,
   importChecklistForProfession,
@@ -30,21 +32,16 @@ export default function MaterialsPage() {
   const checklist = importChecklistForProfession(profession);
 
   return (
-    <div className="mx-auto max-w-lg space-y-6 px-4 py-6">
-      <header>
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-ink">Materials Hub</h1>
-          <Link href="/nika" className="text-xs font-medium text-brand-primary hover:underline">
-            Ask Nika →
-          </Link>
-        </div>
-        <p className="mt-2 text-sm text-ink-soft">
-          Official OET links, criteria PDFs, and import steps — the same sources Nika references
-          for study advice. We link to public OET resources; we do not host copyrighted test
-          content.
-        </p>
-        <ContentDisclaimer className="mt-3" />
-      </header>
+    <div className="mx-auto flex max-w-lg flex-col gap-6 px-4 py-8">
+      <SkillHubHeader
+        eyebrow="Resources"
+        title="Materials hub"
+        description="Official OET links, criteria PDFs, and import steps — the same sources Nika references for study advice. We link to public OET resources; we do not host copyrighted test content."
+        backHref="/study"
+        backLabel="← Back to study hub"
+      />
+
+      <ContentDisclaimer />
 
       <div className="flex flex-wrap gap-2">
         {(
@@ -59,9 +56,9 @@ export default function MaterialsPage() {
             key={id}
             type="button"
             onClick={() => setTab(id)}
-            className={`rounded-full px-3 py-1.5 text-xs font-medium ${
+            className={`min-h-9 rounded-full px-3 py-1.5 text-xs font-medium transition ${
               tab === id
-                ? "bg-brand-primary text-white"
+                ? "bg-brand-accent font-semibold text-ink"
                 : "border border-border bg-surface text-ink-soft"
             }`}
           >
@@ -69,6 +66,8 @@ export default function MaterialsPage() {
           </button>
         ))}
       </div>
+
+      <SecondaryActionLink href="/nika">Ask Nika about materials →</SecondaryActionLink>
 
       {tab === "official" && (
         <>
@@ -82,22 +81,19 @@ export default function MaterialsPage() {
       {tab === "import" && (
         <ul className="space-y-3">
           {checklist.map((item) => (
-            <li key={item.id} className="rounded-xl border border-border bg-surface p-4">
+            <li key={item.id} className="rounded-2xl border border-border bg-surface p-5">
               <p className="text-[10px] font-semibold uppercase text-brand-primary">
                 {item.skill} · phase {item.phase}
               </p>
               <h2 className="mt-1 font-semibold text-ink">{item.label}</h2>
               <p className="mt-1 text-sm text-ink-soft">{item.detail}</p>
               <p className="mt-2 text-xs text-ink-soft">Files: {item.fileHint}</p>
-              <Link
-                href={item.route}
-                className="mt-3 inline-block text-sm font-medium text-brand-primary hover:underline"
-              >
+              <SecondaryActionLink href={item.route} className="mt-3">
                 Open in app →
-              </Link>
+              </SecondaryActionLink>
             </li>
           ))}
-          <li className="rounded-xl border border-dashed border-border p-4 text-sm text-ink-soft">
+          <li className="rounded-2xl border border-dashed border-border p-5 text-sm text-ink-soft">
             <Link href="/listening/import" className="font-medium text-brand-primary hover:underline">
               PLV import flow →
             </Link>{" "}
@@ -110,7 +106,7 @@ export default function MaterialsPage() {
         <ul className="space-y-3">
           {([1, 2, 3] as const).flatMap((phase) =>
             knowledgeForPhase(phase).slice(0, 6).map((entry) => (
-              <li key={entry.id} className="rounded-xl border border-border bg-surface p-4">
+              <li key={entry.id} className="rounded-2xl border border-border bg-surface p-5">
                 <p className="text-[10px] font-semibold uppercase text-brand-primary">
                   Phase {phase} · {entry.category}
                 </p>
@@ -118,14 +114,14 @@ export default function MaterialsPage() {
                 <p className="mt-1 text-sm text-ink-soft">{entry.summary}</p>
                 <p className="mt-2 text-xs italic text-ink-soft">Nika: {entry.nikaAdvice}</p>
                 {entry.href && (
-                  <a
+                  <SecondaryActionAnchor
                     href={entry.href}
                     target={entry.href.startsWith("http") ? "_blank" : undefined}
                     rel={entry.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="mt-2 inline-block text-sm font-medium text-brand-primary hover:underline"
+                    className="mt-2"
                   >
                     Open →
-                  </a>
+                  </SecondaryActionAnchor>
                 )}
               </li>
             )),

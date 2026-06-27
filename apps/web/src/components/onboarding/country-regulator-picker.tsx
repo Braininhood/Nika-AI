@@ -5,6 +5,7 @@ import {
   getRegulatorsForProfession,
   getTargetGrades,
 } from "@/lib/domain/requirements";
+import { SecondaryActionAnchor } from "@/components/ui/secondary-action-button";
 import type { OetProfession } from "@/lib/domain/types";
 
 interface CountryRegulatorPickerProps {
@@ -64,14 +65,14 @@ export function CountryRegulatorPicker({
             </p>
           )}
           {selected.officialUrl && (
-            <a
+            <SecondaryActionAnchor
               href={selected.officialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-xs text-brand-primary hover:underline"
+              className="mt-2"
             >
               Verify on official regulator site →
-            </a>
+            </SecondaryActionAnchor>
           )}
         </div>
       )}

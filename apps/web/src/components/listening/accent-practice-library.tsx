@@ -33,7 +33,7 @@ export function AccentPracticeLibrary() {
       <div className="mt-3 flex flex-wrap gap-2">
         {accents.map((a) => (
           <button
-            key={a}
+            key={`accent-${a}`}
             type="button"
             onClick={() => setAccent(a)}
             className={`rounded-full px-3 py-1 text-xs ${
@@ -48,7 +48,7 @@ export function AccentPracticeLibrary() {
       <div className="mt-2 flex flex-wrap gap-2 text-xs">
         {(["all", "A", "B", "C"] as const).map((p) => (
           <button
-            key={p}
+            key={`part-${p}`}
             type="button"
             onClick={() => setPart(p)}
             className={`rounded-full px-3 py-1 ${
@@ -61,8 +61,8 @@ export function AccentPracticeLibrary() {
       </div>
 
       <ul className="mt-4 space-y-2 text-sm">
-        {blocks.map((block) => (
-          <li key={block.id}>
+        {blocks.map((block, index) => (
+          <li key={`${block.id}-${index}`}>
             <Link href={blockRoute(block.part, block.id)} className="text-brand-primary hover:underline">
               {block.title}
             </Link>

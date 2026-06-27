@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
+import { SecondaryActionAnchor, SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import {
   importChecklistForProfession,
   COMPUTER_SAMPLE_FAQ,
@@ -34,9 +33,9 @@ export function ImportPostChecklist({ pack }: ImportPostChecklistProps) {
             </p>
             <p className="mt-1 text-ink-soft">{item.detail}</p>
             <p className="mt-1 text-xs text-ink-soft">File: {item.fileHint}</p>
-            <Link href={item.route} className="mt-2 inline-block text-sm font-medium text-brand-primary hover:underline">
+            <SecondaryActionLink href={item.route} className="mt-2">
               Open in app →
-            </Link>
+            </SecondaryActionLink>
           </li>
         ))}
       </ol>
@@ -54,14 +53,14 @@ export function ImportPostChecklist({ pack }: ImportPostChecklistProps) {
       <div className="mt-4 rounded-lg border border-border bg-surface-muted/40 px-3 py-3 text-xs text-ink-soft">
         <p className="font-medium text-ink">{COMPUTER_SAMPLE_FAQ.title}</p>
         <p className="mt-1">{COMPUTER_SAMPLE_FAQ.body}</p>
-        <a
+        <SecondaryActionAnchor
           href={COMPUTER_SAMPLE_FAQ.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-block text-brand-primary hover:underline"
+          className="mt-2"
         >
           Computer sample hub →
-        </a>
+        </SecondaryActionAnchor>
       </div>
     </section>
   );

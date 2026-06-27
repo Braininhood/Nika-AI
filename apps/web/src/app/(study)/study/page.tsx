@@ -1,365 +1,202 @@
 "use client";
 
-
-
-import Link from "next/link";
-
 import { useEffect, useState } from "react";
 
-
-
 import { NextStepCard } from "@/components/dashboard/next-step-card";
-
+import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
+import { StudyQuickSkills } from "@/components/study/study-quick-skills";
+import { StudySectionCard, type StudyLinkItem } from "@/components/study/study-section-card";
 import { fullQuizPool } from "@/content/reading";
-
 import { getProfessionLabel } from "@/lib/domain/professions";
-
 import { useAuth } from "@/lib/auth/auth-provider";
-
 import { dueFlashcardCount } from "@/lib/quiz/flashcards";
-
 import { loadUserProfile } from "@/lib/profile/service";
-
 import {
-
   primaryReadingRecommendation,
   readingStageLabel,
   type ReadingRecommendation,
 } from "@/lib/reading/recommendations";
-
 import { loadWritingContentContext } from "@/lib/writing/content-context";
-
 import {
-
   primaryWritingRecommendation,
-
   writingStageLabel,
-
   type WritingRecommendation,
-
 } from "@/lib/writing/recommendations";
-
-
 
 type HubRecommendation = WritingRecommendation | ReadingRecommendation;
 
-
-
 export default function StudyHubPage() {
-
   const { session, loading } = useAuth();
-
   const [nextStep, setNextStep] = useState<HubRecommendation | null>(null);
-
   const [skillLabel, setSkillLabel] = useState("writing");
-
   const [stageLabel, setStageLabel] = useState<string>("");
-
   const [professionLabel, setProfessionLabel] = useState<string | null>(null);
-
   const [flashcardsDue, setFlashcardsDue] = useState(0);
 
   const questionCount = fullQuizPool().length;
 
-
-
   useEffect(() => {
-
     if (loading) return;
-
     void loadUserProfile(session?.user?.id).then((profile) => {
-
       const priority = profile?.skillMap?.priority?.[0] ?? "writing";
-
       setSkillLabel(priority);
-
       if (priority === "reading") {
-
-        const rec = primaryReadingRecommendation(
-          profile?.skillMap,
-          profile?.profession,
-          profile?.targetCountry,
+        setNextStep(
+          primaryReadingRecommendation(
+            profile?.skillMap,
+            profile?.profession,
+            profile?.targetCountry,
+          ),
         );
-
-        setNextStep(rec);
-
         setStageLabel(readingStageLabel(profile?.skillMap));
-
       }
-
       if (profile?.profession) {
-
         setProfessionLabel(getProfessionLabel(profile.profession));
-
       }
-
     });
-
     void loadWritingContentContext(session?.user?.id).then((ctx) => {
-
       const priority = ctx.profile?.skillMap?.priority?.[0] ?? "writing";
-
       if (priority !== "reading") {
-
         setNextStep(primaryWritingRecommendation(ctx));
-
         setStageLabel(writingStageLabel(ctx.profile?.skillMap));
-
       }
-
     });
-
     void dueFlashcardCount().then(setFlashcardsDue);
-
   }, [loading, session?.user?.id]);
 
+  const readingItems: StudyLinkItem[] = [
+    {
+      href: "/study/clever/reading",
+      label: "Quick quiz",
+      hint: "5 mixed question types from your weak areas",
+    },
+    { href: "/reading/quiz", label: "Adaptive reading quiz", hint: "Tagged questions matched to your gaps" },
+    {
+      href: "/reading/flashcards",
+      label: "Flashcard review",
+      hint: "SM-2 spaced repetition",
+      badge: flashcardsDue > 0 ? `${flashcardsDue} due` : undefined,
+    },
+    { href: "/reading/part-a", label: "Part A — timed notes", hint: "15 min lock" },
+    { href: "/reading/exam", label: "Exam mode", hint: "Parts B & C" },
+  ];
 
+  const writingItems: StudyLinkItem[] = [
+    {
+      href: "/study/clever/writing",
+      label: "Quick quiz",
+      hint: "Writing criteria — 5 mixed questions",
+    },
+    { href: "/writing/learn/samples", label: "Graded sample letters" },
+    { href: "/writing/learn/drills", label: "Content-selection drills" },
+    { href: "/writing/guided", label: "Guided writing wizard" },
+    { href: "/writing/practice", label: "Independent practice" },
+    { href: "/writing/exam", label: "Exam mode", hint: "5 + 40 min" },
+  ];
+
+  const toolsItems: StudyLinkItem[] = [
+    { href: "/course", label: "Personal course", hint: "Adaptive path for your profession" },
+    { href: "/mock", label: "OET mock exam", hint: "Full timed simulation" },
+    { href: "/nika", label: "Ask Nika", hint: "OET + regulator coach" },
+    { href: "/materials", label: "Materials hub", hint: "Official OET links" },
+    { href: "/vocabulary", label: "Vocabulary", hint: "Translate & pronunciation" },
+  ];
+
+  const progressItems: StudyLinkItem[] = [
+    { href: "/progress", label: "Progress & attempt history" },
+    { href: "/diagnostic", label: "Re-run diagnostic" },
+  ];
 
   return (
-
-    <div className="mx-auto max-w-lg px-4 py-8">
-
-      <h1 className="text-2xl font-bold text-ink">Study</h1>
-
-      <p className="mt-2 text-sm text-ink-soft">
-
-        All four OET skills for {professionLabel ?? "your profession"} — adaptive plan updates from
-
-        every attempt.
-
-      </p>
-
-
+    <div className="mx-auto flex max-w-lg flex-col gap-6 px-4 py-8">
+      <header className="rounded-2xl border border-border bg-surface p-6">
+        <p className="text-sm font-medium text-brand-primary">Study hub</p>
+        <h1 className="mt-2 text-2xl font-bold text-ink">All OET skills</h1>
+        <p className="mt-2 text-sm text-ink-soft">
+          {professionLabel
+            ? `Practice paths for ${professionLabel} — your plan updates after every attempt.`
+            : "Complete onboarding to unlock profession-matched practice."}
+        </p>
+        <SecondaryActionLink href="/dashboard" className="mt-4">
+          ← Back to home
+        </SecondaryActionLink>
+      </header>
 
       {nextStep && professionLabel ? (
-
-        <div className="mt-6">
-
-          <NextStepCard recommendation={nextStep} stageLabel={stageLabel} skillLabel={skillLabel} />
-
-        </div>
-
+        <NextStepCard
+          recommendation={nextStep}
+          stageLabel={stageLabel}
+          skillLabel={skillLabel}
+        />
       ) : null}
 
-
-
-      <ul className="mt-6 space-y-2 text-sm">
-
-        <li className="pt-2 font-medium text-ink">Reading · Phase 2</li>
-
-        <li>
-
-          <Link href="/reading" className="text-brand-primary hover:underline">
-
-            Reading hub
-
-          </Link>
-
-          <span className="text-ink-soft"> · {questionCount} tagged questions</span>
-
-        </li>
-
-        <li>
-
-          <Link href="/reading/quiz" className="text-brand-primary hover:underline">
-
-            Adaptive reading quiz
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/reading/flashcards" className="text-brand-primary hover:underline">
-
-            Flashcard review (SM-2)
-
-            {flashcardsDue > 0 ? ` · ${flashcardsDue} due` : ""}
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/reading/part-a" className="text-brand-primary hover:underline">
-
-            Part A — 15 min lock
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/reading/exam" className="text-brand-primary hover:underline">
-
-            Exam mode — Parts B &amp; C
-
-          </Link>
-
-        </li>
-
-
-
-        <li className="pt-2 font-medium text-ink">Writing · Phase 1</li>
-
-        <li>
-
-          <Link href="/writing/learn" className="text-brand-primary hover:underline">
-
-            Writing Academy (Learn)
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/writing/learn/samples" className="text-brand-primary hover:underline">
-
-            Graded sample letters
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/writing/learn/drills" className="text-brand-primary hover:underline">
-
-            Content-selection drills
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/writing/guided" className="text-brand-primary hover:underline">
-
-            Guided writing wizard
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/writing/practice" className="text-brand-primary hover:underline">
-
-            Independent practice
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/writing/exam" className="text-brand-primary hover:underline">
-
-            Exam mode (5 + 40 min)
-
-          </Link>
-
-        </li>
-
-
-
-        <li className="pt-2 font-medium text-ink-soft">Listening</li>
-
-        <li>
-
-          <Link href="/listening" className="text-brand-primary hover:underline">
-
-            Listening hub
-
-          </Link>
-
-          <span className="text-ink-soft"> — offline audio + PLV import</span>
-
-        </li>
-
-
-
-        <li className="pt-2 font-medium text-ink">Speaking · Phase 4</li>
-
-        <li>
-
-          <Link href="/speaking" className="text-brand-primary hover:underline">
-
-            Speaking hub
-
-          </Link>
-
-          <span className="text-ink-soft"> — role cards · prep · record · AI feedback</span>
-
-        </li>
-
-
-
-        <li className="pt-2 font-medium text-ink">Phase 5 — Adaptive</li>
-        <li>
-          <Link href="/course" className="text-brand-primary hover:underline">
-            Personal course
-          </Link>
-        </li>
-        <li>
-          <Link href="/mock" className="text-brand-primary hover:underline">
-            OET mock exam
-          </Link>
-        </li>
-
-        <li className="pt-2 font-medium text-ink">Phase 6 — Nika tutor</li>
-        <li>
-          <Link href="/nika" className="text-brand-primary hover:underline">
-            Ask Nika (OET + regulator coach)
-          </Link>
-        </li>
-        <li>
-          <Link href="/materials" className="text-brand-primary hover:underline">
-            Materials Hub — official OET links
-          </Link>
-        </li>
-        <li>
-          <Link href="/study/clever" className="text-brand-primary hover:underline">
-            Clever assessments — all skills
-          </Link>
-        </li>
-        <li>
-          <Link href="/vocabulary" className="text-brand-primary hover:underline">
-            Vocabulary — translate &amp; pronunciation
-          </Link>
-        </li>
-
-        <li className="pt-2 font-medium text-ink">Progress</li>
-
-        <li>
-
-          <Link href="/progress" className="text-brand-primary hover:underline">
-
-            Progress & attempt history
-
-          </Link>
-
-        </li>
-
-        <li>
-
-          <Link href="/diagnostic" className="text-brand-primary hover:underline">
-
-            Re-run diagnostic
-
-          </Link>
-
-        </li>
-
-      </ul>
-
+      <StudyQuickSkills />
+
+      <StudySectionCard
+        skill="reading"
+        title="Reading"
+        phase="Phase 2"
+        hubHref="/reading"
+        hubLabel="Open reading hub"
+        hubHint={`${questionCount} tagged questions`}
+        items={readingItems}
+        highlighted={skillLabel === "reading"}
+      />
+
+      <StudySectionCard
+        skill="writing"
+        title="Writing"
+        phase="Phase 1"
+        hubHref="/writing/learn"
+        hubLabel="Writing Academy"
+        hubHint="Learn → practice → exam"
+        items={writingItems}
+        highlighted={skillLabel === "writing"}
+      />
+
+      <StudySectionCard
+        skill="listening"
+        title="Listening"
+        hubHref="/listening"
+        hubLabel="Open listening hub"
+        hubHint="Offline audio + official import"
+        items={[
+          {
+            href: "/study/clever/listening",
+            label: "Quick quiz",
+            hint: "5 mixed questions from your weak areas",
+          },
+          { href: "/listening/import", label: "Import official audio", hint: "Personal Local Vault" },
+          { href: "/listening/exam", label: "Exam mode", hint: "Parts B & C flow" },
+          { href: "/listening/packs", label: "Manage offline packs" },
+        ]}
+        highlighted={skillLabel === "listening"}
+      />
+
+      <StudySectionCard
+        skill="speaking"
+        title="Speaking"
+        phase="Phase 4"
+        hubHref="/speaking"
+        hubLabel="Open speaking hub"
+        hubHint="Role cards · prep · record · AI feedback"
+        items={[
+          {
+            href: "/study/clever/speaking",
+            label: "Quick quiz",
+            hint: "Clinical communication — 5 mixed questions",
+          },
+        ]}
+        highlighted={skillLabel === "speaking"}
+      />
+
+      <StudySectionCard
+        title="Tools & adaptive"
+        phase="Phase 5–6"
+        items={toolsItems}
+      />
+
+      <StudySectionCard title="Progress" items={progressItems} />
     </div>
-
   );
-
 }
-

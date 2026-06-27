@@ -8,6 +8,7 @@ import { DiagnosticListenPlayer } from "@/components/diagnostic/diagnostic-liste
 import { NikaAvatar } from "@/components/nika/nika-avatar";
 import { useAuth } from "@/lib/auth/auth-provider";
 import type { OetSkill, SkillMap } from "@/lib/domain/types";
+import { diagnosticExplanation } from "@/lib/diagnostic/coaching";
 import {
   startDiagnosticSession,
   submitDiagnosticAnswer,
@@ -59,6 +60,10 @@ export function DiagnosticFlow() {
   const [skillMap, setSkillMap] = useState<SkillMap | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [answerFeedback, setAnswerFeedback] = useState<{
+    item: DiagnosticItem;
+    selectedIndex: number;
+  } | null>(null);
 
   const persist = useCallback(async (next: NonNullable<typeof diagSession>) => {
     await saveDiagnosticSession({ ...next, updatedAt: Date.now() });
@@ -120,8 +125,14 @@ export function DiagnosticFlow() {
     await persist({ ...diagSession, step: nextStep });
   };
 
-  const handleAnswer = async () => {
+  const handleAnswer = () => {
     if (!diagSession || !currentItem || selected === null) return;
+    setAnswerFeedback({ item: currentItem, selectedIndex: selected });
+  };
+
+  const handleContinueAfterFeedback = async () => {
+    if (!diagSession || !answerFeedback) return;
+    const { item: currentItem, selectedIndex: selected } = answerFeedback;
     const skill = currentItem.skill;
     const block = diagSession.blocks[skill] ?? createBlockState();
     const correct = selected === currentItem.correctIndex;
@@ -149,7 +160,10 @@ export function DiagnosticFlow() {
       blocks: { ...diagSession.blocks, [skill]: nextBlock },
     };
 
-    const nextItem = getNextItem(skill, nextBlock);
+    const nextItem = getNextItem(skill, nextBlock, diagSession.sessionId);
+    setAnswerFeedback(null);
+    setSelected(null);
+
     if (nextItem) {
       await persist(nextSession);
     } else {
@@ -203,10 +217,16 @@ export function DiagnosticFlow() {
     const profile = await loadUserProfile();
     if (!profile) return;
     await clearDiagnosticSession();
-    const fresh = createSession(profile.id);
+    let sessionId = crypto.randomUUID();
+    if (accessToken && navigator.onLine) {
+      const apiId = await startDiagnosticSession(accessToken);
+      if (apiId) sessionId = apiId;
+    }
+    const fresh = { ...createSession(profile.id), sessionId };
     await saveDiagnosticSession(fresh);
     setDiagSession(fresh);
     setSkillMap(null);
+    setAnswerFeedback(null);
   };
 
   if (loading || !diagSession) {
@@ -260,7 +280,7 @@ export function DiagnosticFlow() {
         </section>
       )}
 
-      {active?.skill && currentItem && (
+      {active?.skill && currentItem && !answerFeedback && (
         <section className="rounded-2xl border border-border bg-surface p-5">
           <p className="text-xs font-medium uppercase tracking-wide text-brand-primary">
             {SKILL_LABELS[active.skill]} · tier {currentItem.tier}
@@ -295,11 +315,57 @@ export function DiagnosticFlow() {
           <button
             type="button"
             disabled={selected === null}
-            onClick={() => void handleAnswer()}
+            onClick={handleAnswer}
             className="mt-6 w-full rounded-xl bg-brand-accent px-4 py-3 text-sm font-semibold text-ink disabled:opacity-40"
           >
-            Submit answer
+            Check answer
           </button>
+        </section>
+      )}
+
+      {answerFeedback && (
+        <section
+          className={`rounded-2xl border p-5 ${
+            diagnosticExplanation(answerFeedback.item, answerFeedback.selectedIndex).correct
+              ? "border-forest/40 bg-forest/5"
+              : "border-danger/40 bg-danger/5"
+          }`}
+        >
+          {(() => {
+            const fb = diagnosticExplanation(answerFeedback.item, answerFeedback.selectedIndex);
+            return (
+              <>
+                <div className="flex items-start gap-3">
+                  <NikaAvatar
+                    size="sm"
+                    state={fb.correct ? "proud" : "thinking"}
+                    glow={0.5}
+                  />
+                  <div className="min-w-0">
+                    <p className="font-semibold text-ink">
+                      {fb.correct ? "Correct" : "Not quite"}
+                    </p>
+                    <p className="mt-1 text-sm text-ink-soft">{fb.explanation}</p>
+                    {!fb.correct ? (
+                      <p className="mt-2 text-xs text-ink-soft">
+                        <span className="font-semibold text-ink">Your answer:</span> {fb.userAnswer}
+                      </p>
+                    ) : null}
+                    <p className="mt-3 rounded-xl bg-surface-muted/80 px-3 py-2 text-xs text-ink-soft">
+                      <span className="font-semibold text-brand-primary">Nika:</span> {fb.nikaTip}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void handleContinueAfterFeedback()}
+                  className="mt-5 w-full rounded-xl bg-brand-accent px-4 py-3 text-sm font-semibold text-ink"
+                >
+                  Continue
+                </button>
+              </>
+            );
+          })()}
         </section>
       )}
 

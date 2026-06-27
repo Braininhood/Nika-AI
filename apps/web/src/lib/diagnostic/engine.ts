@@ -6,31 +6,13 @@ import {
 } from "@/lib/domain/grades";
 import type { OetGrade, OetSkill, SkillMap, TargetGrades } from "@/lib/domain/types";
 
+import { hashString, shuffleWithSeed } from "@/lib/quiz/shuffle-seed";
+
 import { itemsForSkill } from "./items";
 import type { BlockAnswer, DiagnosticSessionState, SkillBlockState } from "./types";
 
 const MIN_ITEMS = 4;
 const MAX_ITEMS = 8;
-
-function hashString(value: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < value.length; i += 1) {
-    h ^= value.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-}
-
-function shuffleWithSeed<T>(items: T[], seed: number): T[] {
-  const out = [...items];
-  let s = seed || 1;
-  for (let i = out.length - 1; i > 0; i -= 1) {
-    s = (Math.imul(s, 1103515245) + 12345) >>> 0;
-    const j = s % (i + 1);
-    [out[i], out[j]] = [out[j]!, out[i]!];
-  }
-  return out;
-}
 
 export function createBlockState(): SkillBlockState {
   return { tier: 2, consecutiveCorrect: 0, consecutiveWrong: 0, answers: [] };
@@ -74,18 +56,20 @@ export function getNextItem(skill: OetSkill, block: SkillBlockState, sessionId =
       !block.answers.some((a) => a.itemId === item.id),
   );
 
-  const seed = hashString(`${sessionId}:${skill}:${block.tier}`);
+  const seed = hashString(
+    `${sessionId}:${skill}:${block.tier}:${block.answers.length}:${block.answers.map((a) => a.itemId).join("|")}`,
+  );
 
   if (pool.length === 0) {
     const fallback = itemsForSkill(skill).filter(
       (item) => !block.answers.some((a) => a.itemId === item.id),
     );
     const shuffled = shuffleWithSeed(fallback, seed);
-    return shuffled[block.answers.length % Math.max(shuffled.length, 1)] ?? null;
+    return shuffled[0] ?? null;
   }
 
   const shuffled = shuffleWithSeed(pool, seed);
-  return shuffled[block.answers.length % shuffled.length] ?? null;
+  return shuffled[0] ?? null;
 }
 
 function weakTagsFromAnswers(answers: BlockAnswer[]): string[] {

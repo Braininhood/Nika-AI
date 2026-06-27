@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { NikaAvatar } from "@/components/nika/nika-avatar";
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
 import type { RolePlayCard } from "@/content/speaking";
 import { speakTranscript, stopSpeaking } from "@/lib/media/browser-tts";
 import { localOpeningLine, fetchInterlocutorLine } from "@/lib/speaking/fetch-interlocutor-line";
@@ -67,7 +68,7 @@ export function NikaVoiceLivePanel({ card, accessToken, onComplete, onCancel }: 
           signal: speakSignal.current,
         });
       } catch {
-        setError("Could not play voice — check browser speech settings.");
+        setError("Could not play audio — check your device volume and permissions.");
       }
       setState("user-speaking");
     },
@@ -107,7 +108,7 @@ export function NikaVoiceLivePanel({ card, accessToken, onComplete, onCancel }: 
           signal: speakSignal.current,
         });
       } catch {
-        if (active) setError("Could not play voice — check browser speech settings.");
+        if (active) setError("Could not play audio — check your device volume and permissions.");
       }
       if (active) setState("user-speaking");
     })();
@@ -185,11 +186,11 @@ export function NikaVoiceLivePanel({ card, accessToken, onComplete, onCancel }: 
     return (
       <section className="rounded-2xl border border-border bg-surface p-4 text-sm">
         <p className="text-ink-soft">
-          Live voice needs a browser with speech synthesis. Try Chrome or Edge on desktop.
+          Live role-play needs a modern browser with voice support. Try Chrome or Edge on desktop or mobile.
         </p>
-        <button type="button" onClick={onCancel} className="mt-3 text-brand-primary hover:underline">
+        <SecondaryActionButton className="mt-3" onClick={onCancel}>
           ← Back
-        </button>
+        </SecondaryActionButton>
       </section>
     );
   }
@@ -212,13 +213,15 @@ export function NikaVoiceLivePanel({ card, accessToken, onComplete, onCancel }: 
         />
         <div className="min-w-0 flex-1">
           <p className="text-[10px] font-semibold uppercase tracking-wide text-brand-primary">
-            Live with Nika · free voice
+            Live role-play
           </p>
           <h3 className="font-semibold text-ink">
             Nika as {interlocutor} · you as {card.candidateRole}
           </h3>
           <p className="mt-1 text-xs text-ink-soft">
-            Browser voice (no API cost). {sttOk ? "Tap the mic when it is your turn." : "Type your lines if mic is unavailable."}
+            {sttOk
+              ? "Tap the mic when it is your turn to speak."
+              : "Type your response when it is your turn."}
           </p>
         </div>
       </div>

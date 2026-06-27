@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { SecondaryActionButton } from "@/components/ui/secondary-action-button";
 import {
-  OET_COMPUTER_HUB,
   OET_OFFICIAL_SAMPLE_LINKS,
-  OET_PAPER_HUB,
   OET_SAMPLE_HUB,
   officialSamplesForProfession,
   PHASE_OFFICIAL_SAMPLE_USAGE,
@@ -24,7 +24,7 @@ function SampleCard({ link }: { link: OetOfficialSampleLink }) {
       <p className="text-[10px] font-semibold uppercase text-brand-primary">OET official</p>
       <h3 className="mt-1 font-semibold text-ink">{link.label}</h3>
       <p className="mt-1 text-xs text-ink-soft">
-        Listening/Reading shared · import MP3 on{" "}
+        Shared listening &amp; reading · import audio on{" "}
         <Link href="/listening/import" className="text-brand-primary hover:underline">
           Listening → Import
         </Link>
@@ -57,64 +57,55 @@ interface OetProfessionSamplesPanelProps {
   /** Show all 12 or match logged-in user profession */
   filterByProfile?: boolean;
   compact?: boolean;
+  /** When nested inside Study resources, skip outer collapsible */
+  embedded?: boolean;
 }
 
-export function OetProfessionSamplesPanel({
-  filterByProfile = true,
-  compact = false,
-}: OetProfessionSamplesPanelProps) {
-  const { session, loading } = useAuth();
-  const [profession, setProfession] = useState<OetProfession | undefined>();
-  const [showAll, setShowAll] = useState(!filterByProfile);
-
-  useEffect(() => {
-    if (!filterByProfile || loading) return;
-    void loadUserProfile(session?.user?.id).then((p) =>
-      setProfession(p?.profession as OetProfession | undefined),
-    );
-  }, [filterByProfile, loading, session?.user?.id]);
-
-  const links = showAll ? OET_OFFICIAL_SAMPLE_LINKS : officialSamplesForProfession(profession);
-  const professionLabel = profession ? getProfessionLabel(profession) : null;
-
+function PanelBody({
+  filterByProfile,
+  compact,
+  professionLabel,
+  showAll,
+  setShowAll,
+  links,
+}: {
+  filterByProfile: boolean;
+  compact: boolean;
+  professionLabel: string | null;
+  showAll: boolean;
+  setShowAll: (fn: (v: boolean) => boolean) => void;
+  links: OetOfficialSampleLink[];
+}) {
   return (
-    <section className="rounded-2xl border border-border bg-surface-muted/30 p-5">
-      <h2 className="font-semibold text-ink">Official OET sample tests — all 12 professions</h2>
-      <p className="mt-1 text-sm text-ink-soft">
-        Free downloads from{" "}
+    <>
+      <p className="text-sm text-ink-soft">
+        Download sample tests from{" "}
         <a href={OET_SAMPLE_HUB} target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline">
-          oet.com sample tests
+          oet.com
         </a>
-        . Paper ({""}
-        <a href={OET_PAPER_HUB} target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline">
-          all 12 professions
-        </a>
-        ) and Computer ({""}
-        <a href={OET_COMPUTER_HUB} target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline">
-          all 12 professions
-        </a>
-        ). Import MP3/PDF to your device — never hosted on our servers.
+        . Paper and computer formats cover all 12 professions — import listening files into the app
+        when you are ready to practise.
       </p>
 
-      <div className="mt-3 rounded-lg border border-border bg-surface px-3 py-2 text-xs text-ink-soft">
-        <p className="font-medium text-ink">{COMPUTER_SAMPLE_FAQ.title}</p>
-        <p className="mt-1">{COMPUTER_SAMPLE_FAQ.body}</p>
-      </div>
+      <CollapsibleSection
+        title={COMPUTER_SAMPLE_FAQ.title}
+        subtitle="Tip for computer-format samples on oet.com"
+        defaultOpen={false}
+        variant="accent"
+      >
+        <p className="text-sm text-ink-soft">{COMPUTER_SAMPLE_FAQ.body}</p>
+      </CollapsibleSection>
 
       {filterByProfile && professionLabel && !showAll && (
-        <p className="mt-2 text-sm text-ink">
+        <p className="mt-3 text-sm text-ink">
           Matched to your profession: <strong>{professionLabel}</strong>
         </p>
       )}
 
       {filterByProfile && (
-        <button
-          type="button"
-          onClick={() => setShowAll((v) => !v)}
-          className="mt-3 text-xs text-brand-primary hover:underline"
-        >
+        <SecondaryActionButton className="mt-3" onClick={() => setShowAll((v) => !v)}>
           {showAll ? "Show my profession only" : "Show all 12 professions"}
-        </button>
+        </SecondaryActionButton>
       )}
 
       {!compact && (
@@ -135,6 +126,51 @@ export function OetProfessionSamplesPanel({
           <SampleCard key={link.profession} link={link} />
         ))}
       </ul>
-    </section>
+    </>
+  );
+}
+
+export function OetProfessionSamplesPanel({
+  filterByProfile = true,
+  compact = false,
+  embedded = false,
+}: OetProfessionSamplesPanelProps) {
+  const { session, loading } = useAuth();
+  const [profession, setProfession] = useState<OetProfession | undefined>();
+  const [showAll, setShowAll] = useState(!filterByProfile);
+
+  useEffect(() => {
+    if (!filterByProfile || loading) return;
+    void loadUserProfile(session?.user?.id).then((p) =>
+      setProfession(p?.profession as OetProfession | undefined),
+    );
+  }, [filterByProfile, loading, session?.user?.id]);
+
+  const links = showAll ? OET_OFFICIAL_SAMPLE_LINKS : officialSamplesForProfession(profession);
+  const professionLabel = profession ? getProfessionLabel(profession) : null;
+
+  const body = (
+    <PanelBody
+      filterByProfile={filterByProfile}
+      compact={compact}
+      professionLabel={professionLabel}
+      showAll={showAll}
+      setShowAll={setShowAll}
+      links={links}
+    />
+  );
+
+  if (embedded) {
+    return body;
+  }
+
+  return (
+    <CollapsibleSection
+      title="Official OET sample tests"
+      subtitle="Paper & computer samples for all 12 professions"
+      defaultOpen={false}
+    >
+      {body}
+    </CollapsibleSection>
   );
 }

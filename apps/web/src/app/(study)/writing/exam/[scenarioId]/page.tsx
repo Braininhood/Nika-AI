@@ -8,6 +8,7 @@ import { CaseNotesPanel } from "@/components/writing/case-notes-panel";
 import { ExamTimerBar, useExamPhase } from "@/components/writing/exam-timer-bar";
 import { FeedbackPanel } from "@/components/writing/feedback-panel";
 import { LetterEditor } from "@/components/writing/letter-editor";
+import { StudyPageHeader } from "@/components/study/study-page-header";
 import { getScenario } from "@/content/writing/scenarios";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { db } from "@/lib/db";
@@ -77,27 +78,36 @@ export default function ExamScenarioPage() {
 
   if (result) {
     return (
-      <FeedbackPanel
-        feedback={result.feedback}
-        checklist={result.checklist.items}
-        queuedForSync={result.queuedForSync}
-        criterionScores={(result.feedback.criterion_scores ?? {}) as Record<string, number>}
-        scenarioId={scenario.id}
-      />
+      <div className="flex flex-col gap-6 pb-8">
+        <StudyPageHeader
+          backHref="/writing/exam"
+          backLabel="Exam mode"
+          skill="writing"
+          eyebrow="Writing · Exam · Results"
+          title={`${scenario.meta.letterType} letter — feedback`}
+        />
+        <FeedbackPanel
+          feedback={result.feedback}
+          checklist={result.checklist.items}
+          queuedForSync={result.queuedForSync}
+          criterionScores={(result.feedback.criterion_scores ?? {}) as Record<string, number>}
+          scenarioId={scenario.id}
+        />
+      </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-6 pb-8">
-      <Link href="/writing/exam" className="text-sm text-ink-soft hover:text-ink">
-        ← Exam mode
-      </Link>
+      <StudyPageHeader
+        backHref="/writing/exam"
+        backLabel="Exam mode"
+        skill="writing"
+        eyebrow="Writing · Exam"
+        title={`${scenario.meta.letterType} letter`}
+      />
 
       <ExamTimerBar phase={phase} onPhaseChange={setPhase} />
-
-      <header>
-        <h1 className="text-xl font-bold text-ink capitalize">{scenario.meta.letterType} — exam</h1>
-      </header>
 
       {!hideCaseNotes && <CaseNotesPanel scenario={scenario} title="Case notes (reading phase)" />}
 

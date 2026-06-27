@@ -22,5 +22,5 @@ export default function ListeningPartASessionPage() {
     );
   }
 
-  return <ListeningSession block={block} mode="part_a" backHref="/listening/part-a" />;
+  return <ListeningSession block={block} mode="part_a" backHref="/listening/part-a" backLabel="Part A list" />;
 }

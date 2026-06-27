@@ -28,6 +28,7 @@ export default function ReadingPartBPage() {
       timerMode="part_bc"
       mode="part_b"
       backHref="/reading/part-b"
+      backLabel="Part B list"
     />
   );
 }

@@ -28,7 +28,11 @@ export function ChunkLoadRecovery() {
       const reason = event.reason;
       const name = reason && typeof reason === "object" && "name" in reason ? String(reason.name) : "";
       const message = reason instanceof Error ? reason.message : String(reason ?? "");
-      if (name === "ChunkLoadError" || message.includes("Loading chunk")) {
+      if (
+        name === "ChunkLoadError" ||
+        message.includes("Loading chunk") ||
+        message.includes("Failed to fetch RSC payload")
+      ) {
         reloadOnce();
       }
     };

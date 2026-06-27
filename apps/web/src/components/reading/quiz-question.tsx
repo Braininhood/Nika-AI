@@ -11,6 +11,11 @@ interface QuizQuestionFieldProps {
   onChange: (value: string | string[]) => void;
 }
 
+function correctAnswerDisplay(question: QuizQuestion): string {
+  if (typeof question.correctAnswer === "string") return question.correctAnswer;
+  return question.correctAnswer.join(", ");
+}
+
 export function QuizQuestionField({
   question,
   index,
@@ -19,74 +24,103 @@ export function QuizQuestionField({
   showFeedback = false,
   onChange,
 }: QuizQuestionFieldProps) {
-  const correctStr =
-    typeof question.correctAnswer === "string"
-      ? question.correctAnswer
-      : question.correctAnswer.join(", ");
+  const correctStr = correctAnswerDisplay(question);
+  const isCorrect =
+    value !== undefined &&
+    String(Array.isArray(value) ? value.join(", ") : value).toLowerCase() ===
+      correctStr.toLowerCase();
+  const options = question.options ?? [];
+  const isChoiceQuestion =
+    question.type === "mcq" ||
+    question.type === "matching" ||
+    question.type === "gap_fill" ||
+    question.type === "true_false" ||
+    question.type === "ordering";
 
   return (
-    <fieldset
-      className={`rounded-xl border p-4 ${
+    <article
+      className={`overflow-hidden rounded-2xl border shadow-sm ${
         showFeedback
-          ? value !== undefined &&
-            String(value).toLowerCase() === correctStr.toLowerCase()
+          ? isCorrect
             ? "border-forest/40 bg-forest/5"
             : "border-danger/30 bg-danger/5"
           : "border-border bg-surface"
       }`}
     >
-      <legend className="text-sm font-medium text-ink">
-        {index + 1}. {question.prompt}
-      </legend>
+      <header className="border-b border-border/70 bg-surface-muted/25 px-4 py-3">
+        <div className="flex items-start gap-3">
+          <span
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent-soft text-sm font-bold text-brand-primary"
+            aria-hidden
+          >
+            {index + 1}
+          </span>
+          <h2
+            id={`question-${question.id}-prompt`}
+            className="min-w-0 flex-1 break-words text-base font-semibold leading-snug text-ink [overflow-wrap:anywhere]"
+          >
+            {question.prompt}
+          </h2>
+        </div>
+      </header>
 
-      {question.type === "mcq" ||
-      question.type === "matching" ||
-      question.type === "gap_fill" ||
-      question.type === "true_false" ||
-      question.type === "ordering" ? (
-        <ul className="mt-3 space-y-2">
-          {(question.options ?? []).map((opt) => (
-            <li key={opt}>
-              <label className="flex cursor-pointer items-start gap-2 text-sm">
-                <input
-                  type="radio"
-                  name={question.id}
-                  checked={value === opt}
-                  disabled={disabled}
-                  onChange={() => onChange(opt)}
-                  className="mt-1 accent-brand-primary"
-                />
-                <span
-                  className={
-                    showFeedback && opt === correctStr ? "font-medium text-forest" : undefined
-                  }
-                >
-                  {opt}
-                </span>
-              </label>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <input
-          type="text"
-          value={typeof value === "string" ? value : ""}
-          disabled={disabled}
-          onChange={(e) => onChange(e.target.value)}
-          className="mt-3 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm"
-          placeholder="Your answer"
-        />
-      )}
+      <div className="p-4">
+        {isChoiceQuestion ? (
+          <ul
+            className="space-y-2"
+            role="radiogroup"
+            aria-labelledby={`question-${question.id}-prompt`}
+          >
+            {options.map((opt) => {
+              const selected = value === opt;
+              return (
+                <li key={opt}>
+                  <label
+                    className={`flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-xl border px-3 py-2.5 text-base transition active:scale-[0.99] ${
+                      selected
+                        ? "border-brand-primary bg-brand-accent-soft/50 font-medium text-ink"
+                        : "border-border bg-surface-muted/30 text-ink hover:bg-surface-muted/60"
+                    } ${disabled ? "pointer-events-none opacity-60" : ""} ${
+                      showFeedback && opt === correctStr ? "ring-1 ring-forest/50" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name={question.id}
+                      checked={selected}
+                      disabled={disabled}
+                      onChange={() => onChange(opt)}
+                      className="h-4 w-4 shrink-0 accent-brand-primary"
+                    />
+                    <span className="min-w-0 flex-1 break-words leading-snug [overflow-wrap:anywhere]">
+                      {opt}
+                    </span>
+                  </label>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <input
+            type="text"
+            id={`question-${question.id}-input`}
+            aria-labelledby={`question-${question.id}-prompt`}
+            value={typeof value === "string" ? value : ""}
+            disabled={disabled}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-full rounded-xl border border-border bg-surface px-3 py-3 text-base"
+            placeholder="Type your answer"
+          />
+        )}
 
-      {showFeedback && (
-        <p className="mt-2 text-xs text-ink-soft">
-          {value === correctStr || String(value).toLowerCase() === correctStr.toLowerCase()
-            ? "Correct. "
-            : `Correct answer: ${correctStr}. `}
-          {question.explanation}
-        </p>
-      )}
-    </fieldset>
+        {showFeedback && (
+          <p className="mt-3 break-words rounded-lg bg-surface-muted/80 px-3 py-2 text-sm leading-relaxed text-ink-soft">
+            {isCorrect ? "Correct. " : `Correct answer: ${correctStr}. `}
+            {question.explanation}
+          </p>
+        )}
+      </div>
+    </article>
   );
 }
 
@@ -106,7 +140,7 @@ export function QuizQuestionList({
   onChange,
 }: QuizQuestionListProps) {
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-5">
       {questions.map((q, i) => (
         <QuizQuestionField
           key={q.id}
