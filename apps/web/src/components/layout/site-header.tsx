@@ -9,6 +9,7 @@ import { AuthStatus } from "@/components/auth-status";
 import { OnlineStatus } from "@/components/online-status";
 import { SyncBadge } from "@/components/sync-badge";
 import { APP_HOME_PATH } from "@/lib/navigation/home";
+import { isStudyRoute } from "@/lib/navigation/study-routes";
 import { useAuth } from "@/lib/auth/auth-provider";
 
 const MARKETING_LINKS = [
@@ -16,31 +17,6 @@ const MARKETING_LINKS = [
   { href: "/privacy", label: "Privacy" },
   { href: "/contact", label: "Contact" },
 ] as const;
-
-const STUDY_PREFIXES = [
-  "/dashboard",
-  "/study",
-  "/nika",
-  "/progress",
-  "/profile",
-  "/diagnostic",
-  "/onboarding",
-  "/writing",
-  "/reading",
-  "/listening",
-  "/speaking",
-  "/mock",
-  "/course",
-  "/materials",
-  "/vocabulary",
-  "/study",
-];
-
-function isStudyRoute(pathname: string): boolean {
-  return STUDY_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-}
 
 export function SiteHeader() {
   const pathname = usePathname() ?? "/";

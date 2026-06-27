@@ -3,29 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-const STUDY_PREFIXES = [
-  "/dashboard",
-  "/study",
-  "/nika",
-  "/progress",
-  "/profile",
-  "/diagnostic",
-  "/onboarding",
-  "/writing",
-  "/reading",
-  "/listening",
-  "/speaking",
-  "/mock",
-  "/course",
-  "/materials",
-];
-
-function isStudyRoute(pathname: string): boolean {
-  return STUDY_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-}
+import { isStudyRoute } from "@/lib/navigation/study-routes";
 
 const STORAGE_KEY = "oet-coach-cookie-consent";
 

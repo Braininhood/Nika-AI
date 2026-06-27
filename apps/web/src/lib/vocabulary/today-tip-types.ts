@@ -42,13 +42,15 @@ export function cacheTodayTip(tip: TodayTip): void {
   }
 }
 
-export function loadCachedTodayTip(): TodayTip | null {
+export function loadCachedTodayTip(expectedProfession?: string): TodayTip | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = localStorage.getItem(TODAY_TIP_CACHE_KEY);
     if (!raw) return null;
     const tip = JSON.parse(raw) as TodayTip;
     if (tip.date !== new Date().toISOString().slice(0, 10)) return null;
+    const expected = expectedProfession?.trim().toLowerCase().replace(/-/g, "_");
+    if (expected && tip.profession !== expected) return null;
     return tip;
   } catch {
     return null;

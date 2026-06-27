@@ -13,6 +13,8 @@
 - Listening, Reading, Writing, and Speaking practice
 - Nika AI tutor with topic guardrails and daily usage quota
 - **Nika knowledge brain** — healthcare vocabulary for all 12 OET professions (auto-sync on API startup)
+- **Today's tip** — daily profession-based OET vocabulary, speaking phrases, and writing tips (Home → Today's tip)
+- **Healthcare vocabulary** — explain, translate (DeepL), pronounce (Nika TTS), and one-click save from tips or common OET phrases
 - Offline PWA (IndexedDB + service worker)
 - GDPR tooling: data export, account deletion, AI processing consent
 - Optional local LLM via Ollama; cloud fallback (Gemini / Groq)
@@ -99,7 +101,40 @@ pnpm setup:ollama:check
 pnpm verify:phase0
 curl http://localhost:8000/health
 # → includes nika_knowledge stats (glossary, harvested phrases, profession_packs: 12)
+# With auth: GET /api/v1/vocabulary/today-tip → daily profession tip (JWT required)
 ```
+
+---
+
+## Vocabulary & daily tips
+
+### Today's tip
+
+Curated **one tip per OET profession per calendar day** — term, IPA, definition, example, speaking scripts, writing phrases, exam tips, and add-to-vocabulary phrases.
+
+| Surface | Route / endpoint |
+| ------- | ---------------- |
+| Home button | `/today-tip` (Dashboard → **Today's tip**) |
+| Vocabulary shortcuts | `/vocabulary` → **From today's tip** section |
+| API | `GET /api/v1/vocabulary/today-tip` (uses profile `profession`) |
+
+**Content:** `apps/api/app/data/daily_tips.json` — tips tagged by profession (`dentistry`, `nursing`, …) or `"all"` as fallback. Selection is stable for the day (date + profession hash).
+
+**Frontend cache:** localStorage key `oet-today-tip-cache` (refreshed when online).
+
+### Vocabulary list
+
+Saved words live in **IndexedDB** (offline). Users can add from:
+
+- **Today's tip** — one-click **Add to my list** (`source: today_tip`, tag `vocab:today-tip`)
+- **Common OET phrases** — starter healthcare English (`source: manual`, tag `vocab:starter`)
+- **Manual form** — explain via Nika + translate via DeepL
+
+Requires sign-in for AI explain/translate; pronunciation uses browser TTS (Nika voice profile).
+
+**Related API routes** (all JWT): `/api/v1/vocabulary/translate`, `/api/v1/vocabulary/explain`, `/api/v1/vocabulary/knowledge/stats`.
+
+**Tests:** `cd apps/api && PYTHONPATH=. python -m pytest tests/test_daily_tip.py` (or `python tests/test_daily_tip.py`).
 
 ---
 
@@ -117,6 +152,7 @@ curl http://localhost:8000/health
 | `./scripts/deploy-ec2.sh` | Redeploy on EC2 (production; restarts API → Nika auto-sync) |
 | `python scripts/harvest_oet_vocabulary.py` | Optional: manual vocabulary harvest (dev/CI) |
 | `python scripts/ingest_rag.py` | Optional: embed docs into pgvector RAG |
+| `cd apps/api && PYTHONPATH=. python tests/test_daily_tip.py` | Daily tip service smoke tests |
 
 ---
 
@@ -124,13 +160,16 @@ curl http://localhost:8000/health
 
 ```
 apps/web/       Next.js PWA (auth, study UI, Nika, offline storage)
+                └── src/app/(study)/  dashboard, today-tip, vocabulary, R/L/W/S
+                └── src/components/vocabulary/  today-tip-panel, vocabulary-panel
 apps/api/       FastAPI (AI, diagnostic scoring, profile, Nika knowledge sync)
-                └── app/data/  glossary, profession_phrases/, oet_phrases_index.json
+                └── app/data/  daily_tips.json, glossary, profession_phrases/, oet_phrases_index.json
+                └── app/services/daily_tip.py  daily tip selection
 content/        Original scenario JSON (not official OET materials)
 deploy/         Caddy, systemd units for EC2
 scripts/        Setup, deploy, and verification scripts
 supabase/       SQL migrations and auth email templates
-docs/           OET research, AI tutor, AWS deploy guides
+docs/           OET research, AI tutor, AWS deploy guides (local only — not in git)
 ```
 
 ---

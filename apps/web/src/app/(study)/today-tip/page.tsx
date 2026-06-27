@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { TodayTipPanel } from "@/components/vocabulary/today-tip-panel";
-import { StudyPageHeader } from "@/components/study/study-page-header";
+import { SkillHubHeader } from "@/components/study/skill-hub-header";
 import { SecondaryActionLink } from "@/components/ui/secondary-action-button";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { getProfessionLabel } from "@/lib/domain/professions";
@@ -20,25 +20,27 @@ export default function TodayTipPage() {
 
   useEffect(() => {
     if (loading) return;
-    void loadUserProfile(session?.user?.id).then((profile) => {
-      if (profile?.profession) {
-        setProfessionLabel(getProfessionLabel(profile.profession as OetProfession));
+    void (async () => {
+      const profile = await loadUserProfile(session?.user?.id);
+      const profession = profile?.profession;
+      if (profession) {
+        setProfessionLabel(getProfessionLabel(profession as OetProfession));
       }
-    });
-    void fetchTodayTip(session?.access_token).then((result) => {
+      const result = await fetchTodayTip(session?.access_token, profession);
       setTip(result);
       setFetching(false);
-    });
+    })();
   }, [loading, session?.access_token, session?.user?.id]);
 
   if (loading || fetching) {
     return (
       <div className="mx-auto max-w-lg px-4 py-8">
-        <StudyPageHeader
-          backHref="/dashboard"
-          backLabel="Home"
+        <SkillHubHeader
           eyebrow="Daily tip"
           title="Loading today&apos;s tip…"
+          description="Fetching your profession tip from Nika."
+          backHref="/dashboard"
+          backLabel="← Home"
         />
       </div>
     );
@@ -47,12 +49,12 @@ export default function TodayTipPage() {
   if (!tip) {
     return (
       <div className="mx-auto max-w-lg px-4 py-8">
-        <StudyPageHeader
-          backHref="/dashboard"
-          backLabel="Home"
+        <SkillHubHeader
           eyebrow="Daily tip"
           title="Today&apos;s tip unavailable"
           description="Sign in while online to load your profession tip from Nika."
+          backHref="/dashboard"
+          backLabel="← Home"
         />
         <SecondaryActionLink href="/vocabulary" className="mt-4">
           Open vocabulary
@@ -61,18 +63,17 @@ export default function TodayTipPage() {
     );
   }
 
+  const tailoredLabel =
+    professionLabel ?? tip.profession_label ?? "your OET profession";
+
   return (
     <div className="mx-auto flex w-full min-w-0 max-w-lg flex-col gap-4 px-4 py-6">
-      <StudyPageHeader
-        backHref="/dashboard"
-        backLabel="Home"
+      <SkillHubHeader
         eyebrow={`Daily tip · ${tip.date}`}
         title={tip.headline}
-        description={
-          professionLabel
-            ? `Tailored for ${professionLabel}. New tip every day — add phrases to your vocabulary list.`
-            : "Complete onboarding to match tips to your OET profession."
-        }
+        description={`Tailored for ${tailoredLabel}. New tip every day — add phrases to your vocabulary list.`}
+        backHref="/dashboard"
+        backLabel="← Home"
       />
       <Link
         href="/vocabulary"

@@ -8,12 +8,16 @@ import {
 
 export type { TodayTip, TodayTipPhrase, TodayTipSpeaking } from "./today-tip-types";
 
-export async function fetchTodayTip(accessToken?: string): Promise<TodayTip | null> {
-  const cached = loadCachedTodayTip();
+export async function fetchTodayTip(
+  accessToken?: string,
+  expectedProfession?: string,
+): Promise<TodayTip | null> {
+  const profession = expectedProfession?.trim().toLowerCase().replace(/-/g, "_");
+  const cached = loadCachedTodayTip(profession);
   if (cached) return cached;
 
   if (!accessToken || !navigator.onLine) {
-    return cached;
+    return null;
   }
 
   try {

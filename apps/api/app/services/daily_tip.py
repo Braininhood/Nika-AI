@@ -1,4 +1,12 @@
-"""Daily profession tip — one curated OET tip per profession per calendar day."""
+"""Daily profession tip — one curated OET tip per profession per calendar day.
+
+Tip pool: ``app/data/daily_tips.json``. Each entry lists ``professions`` (or
+``"all"`` for generic tips). Selection is ``hash(date + profession)`` so the
+same tip is returned all day for a given profession.
+
+API: ``GET /api/v1/vocabulary/today-tip`` (profile profession).
+Tests: ``tests/test_daily_tip.py``.
+"""
 
 from __future__ import annotations
 

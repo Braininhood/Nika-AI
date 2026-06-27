@@ -30,29 +30,7 @@ export function isKnownAdminEmail(email: string): boolean {
   return email.trim().toLowerCase() === configured;
 }
 
-const STUDY_ROUTE_PREFIXES = [
-  "/dashboard",
-  "/study",
-  "/nika",
-  "/progress",
-  "/profile",
-  "/diagnostic",
-  "/onboarding",
-  "/writing",
-  "/reading",
-  "/listening",
-  "/speaking",
-  "/mock",
-  "/course",
-  "/materials",
-  "/vocabulary",
-] as const;
-
-export function isLearnerStudyPath(pathname: string): boolean {
-  return STUDY_ROUTE_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-}
+export { isStudyRoute as isLearnerStudyPath } from "@/lib/navigation/study-routes";
 
 export function isAdminPath(pathname: string): boolean {
   return pathname === "/admin" || pathname.startsWith("/admin/");

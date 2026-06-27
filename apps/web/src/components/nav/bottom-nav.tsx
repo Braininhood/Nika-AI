@@ -62,7 +62,9 @@ export function BottomNav() {
       <ul className="mx-auto flex max-w-lg items-stretch justify-around px-1 pb-[env(safe-area-inset-bottom)]">
         {NAV_ITEMS.map((item) => {
           const active =
-            pathname === item.href || pathname.startsWith(`${item.href}/`);
+            pathname === item.href ||
+            pathname.startsWith(`${item.href}/`) ||
+            (item.href === "/vocabulary" && pathname === "/today-tip");
           const isNika = item.icon === "nika";
           return (
             <li key={item.href} className="flex-1">

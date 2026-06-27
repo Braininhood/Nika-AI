@@ -10,31 +10,7 @@ import { NIKA_COMPANION_IMAGE } from "@/lib/nika/assets";
 import { useAuth } from "@/lib/auth/auth-provider";
 import type { UserProfile } from "@/lib/domain/types";
 import { loadUserProfile } from "@/lib/profile/service";
-
-const STUDY_PREFIXES = [
-  "/dashboard",
-  "/study",
-  "/nika",
-  "/progress",
-  "/profile",
-  "/diagnostic",
-  "/onboarding",
-  "/writing",
-  "/reading",
-  "/listening",
-  "/speaking",
-  "/mock",
-  "/course",
-  "/materials",
-  "/vocabulary",
-  "/study",
-];
-
-function isStudyRoute(pathname: string): boolean {
-  return STUDY_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-}
+import { isStudyRoute } from "@/lib/navigation/study-routes";
 
 function shouldHideCompanion(pathname: string): boolean {
   return (

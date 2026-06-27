@@ -86,11 +86,11 @@ export function VocabularyPanel() {
   );
 
   const refresh = useCallback(async () => {
-    const [list, profile, tip] = await Promise.all([
+    const [list, profile] = await Promise.all([
       listVocabulary(),
       loadUserProfile(session?.user?.id),
-      fetchTodayTip(session?.access_token),
     ]);
+    const tip = await fetchTodayTip(session?.access_token, profile?.profession);
     setEntries(list);
     setTodayTip(tip);
     setNativeLang(defaultNativeLanguage(profile?.nativeLanguage));
