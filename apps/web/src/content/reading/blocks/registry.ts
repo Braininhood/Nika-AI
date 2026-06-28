@@ -52,7 +52,25 @@ function matchesProfession(block: ReadingBlock, profession?: string): boolean {
 }
 
 export function getReadingBlock(id: string): ReadingBlock | undefined {
-  return getActiveReadingBlocks().find((block) => block.id === id);
+  const block = getActiveReadingBlocks().find((b) => b.id === id);
+  return block ? normalizeReadingBlock(block) : undefined;
+}
+
+/** Ensure catalog merges never drop embedded questions. */
+export function normalizeReadingBlock(block: ReadingBlock): ReadingBlock {
+  const staticBlock = ALL_READING_BLOCKS.find((b) => b.id === block.id);
+  return {
+    ...block,
+    paragraphs: block.paragraphs?.length
+      ? block.paragraphs
+      : (staticBlock?.paragraphs ?? []),
+    questions: block.questions?.length
+      ? block.questions
+      : (staticBlock?.questions ?? []),
+    durationMinutes: block.durationMinutes ?? staticBlock?.durationMinutes ?? 15,
+    difficulty: block.difficulty ?? staticBlock?.difficulty ?? 2,
+    tags: block.tags?.length ? block.tags : (staticBlock?.tags ?? []),
+  };
 }
 
 export function blocksForPart(part: ReadingPart): ReadingBlock[] {

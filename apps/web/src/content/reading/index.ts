@@ -20,6 +20,7 @@ export {
   blocksForUserPart,
   formatReadingTagLabel,
   getReadingBlock,
+  normalizeReadingBlock,
   normalizeReadingCountry,
   partFromWeakTag,
   pickPlanReadingBlock,

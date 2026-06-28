@@ -25,7 +25,6 @@ export default function ReadingPartBPage() {
   return (
     <ReadingSession
       block={block}
-      timerMode="part_bc"
       mode="part_b"
       backHref="/reading/part-b"
       backLabel="Part B list"

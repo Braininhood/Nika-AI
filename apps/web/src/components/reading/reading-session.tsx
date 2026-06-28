@@ -9,18 +9,37 @@ import { ReadingResultsPanel } from "@/components/reading/reading-results-panel"
 import { ReadingTimerBar } from "@/components/reading/reading-timer-bar";
 import { StudyPageHeader } from "@/components/study/study-page-header";
 import type { ReadingBlock } from "@/content/reading";
+import { normalizeReadingBlock } from "@/content/reading/blocks/registry";
 import { partBExamStyleTip } from "@/lib/reading/exam-guide";
+import type { ReadingTimerMode } from "@/components/reading/reading-timer-bar";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
 
 interface ReadingSessionProps {
   block: ReadingBlock;
-  timerMode: "part_a" | "part_bc";
+  timerMode?: ReadingTimerMode;
   mode: "part_a" | "part_b" | "part_c";
   backHref: string;
   backLabel?: string;
 }
 
-export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "Back" }: ReadingSessionProps) {
+export function ReadingSession({
+  block: rawBlock,
+  timerMode,
+  mode,
+  backHref,
+  backLabel = "Back",
+}: ReadingSessionProps) {
+  const block = normalizeReadingBlock(rawBlock);
+  const questions = block.questions ?? [];
+  const resolvedTimer: ReadingTimerMode =
+    timerMode ??
+    (block.part === "A" ? "part_a" : block.part === "C" ? "part_c_drill" : "part_b_drill");
+  const drillDuration =
+    block.part === "B"
+      ? Math.max(8 * 60, questions.length * 4 * 60)
+      : block.part === "C"
+        ? Math.max(15 * 60, questions.length * 5 * 60)
+        : undefined;
   const [responses, setResponses] = useState<Record<string, string | string[]>>({});
   const [locked, setLocked] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -30,17 +49,17 @@ export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "
     null,
   );
 
-  const allAnswered = block.questions.every((q) => responses[q.id] !== undefined);
+  const allAnswered = questions.length > 0 && questions.every((q) => responses[q.id] !== undefined);
   const visibleQuestions =
     examStyle && block.part === "B"
-      ? block.questions.slice(questionIndex, questionIndex + 1)
-      : block.questions;
+      ? questions.slice(questionIndex, questionIndex + 1)
+      : questions;
 
   const handleSubmit = async () => {
     setSubmitting(true);
     const res = await submitReadingAttempt({
       block,
-      questions: block.questions,
+      questions,
       responses,
       mode,
     });
@@ -56,7 +75,7 @@ export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "
         skillMapUpdated={result.skillMapUpdated}
         backHref={backHref}
         block={block}
-        questions={block.questions}
+        questions={questions}
       />
     );
   }
@@ -69,12 +88,18 @@ export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "
         skill="reading"
         eyebrow={`Reading · Part ${block.part}`}
         title={block.title}
+        description={
+          <p className="text-sm text-ink-soft">
+            {questions.length} question{questions.length === 1 ? "" : "s"} · practice mode
+          </p>
+        }
       />
 
       <ReadingExamBriefing part={block.part} compact />
 
       <ReadingTimerBar
-        mode={timerMode}
+        mode={resolvedTimer}
+        durationSeconds={drillDuration}
         locked={locked}
         onExpire={() => setLocked(true)}
       />
@@ -102,9 +127,9 @@ export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "
       <section>
         <div className="mb-4 flex items-center justify-between">
           <h3 className="font-semibold text-ink">Questions</h3>
-          {examStyle && block.part === "B" && block.questions.length > 1 && (
+          {examStyle && block.part === "B" && questions.length > 1 && (
             <span className="text-xs text-ink-soft">
-              {questionIndex + 1} / {block.questions.length}
+              {questionIndex + 1} / {questions.length}
             </span>
           )}
         </div>
@@ -114,7 +139,7 @@ export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "
           disabled={locked}
           onChange={(id, value) => setResponses((prev) => ({ ...prev, [id]: value }))}
         />
-        {examStyle && block.part === "B" && block.questions.length > 1 && (
+        {examStyle && block.part === "B" && questions.length > 1 && (
           <div className="mt-4 flex gap-2">
             <button
               type="button"
@@ -126,9 +151,9 @@ export function ReadingSession({ block, timerMode, mode, backHref, backLabel = "
             </button>
             <button
               type="button"
-              disabled={questionIndex >= block.questions.length - 1}
+              disabled={questionIndex >= questions.length - 1}
               onClick={() =>
-                setQuestionIndex((i) => Math.min(block.questions.length - 1, i + 1))
+                setQuestionIndex((i) => Math.min(questions.length - 1, i + 1))
               }
               className="rounded-lg border border-border px-3 py-1.5 text-xs disabled:opacity-40"
             >

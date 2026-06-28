@@ -60,7 +60,7 @@ class Settings(BaseSettings):
     nika_enrich_limit: int = 8  # max new terms per startup enrich cycle
     nika_merge_glossary_stubs: bool = False  # stub entries; prefer --enrich / auto-enrich
     nika_merge_min_occurrences: int = 8  # if stubs enabled, only very frequent terms
-    api_rate_limit_per_minute: int = 120
+    api_rate_limit_per_minute: int = 300
     data_retention_days: int = 365
 
     admin_emails: str = ""  # deprecated — use Supabase app_metadata.role

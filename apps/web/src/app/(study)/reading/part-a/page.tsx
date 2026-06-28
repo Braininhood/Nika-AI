@@ -37,7 +37,7 @@ export default function ReadingPartAListPage() {
               {block.title}
             </Link>
             <p className="text-xs text-ink-soft">
-              {block.questions.length} questions · {blockSummary(block)}
+              {(block.questions?.length ?? 0)} questions · {blockSummary(block)}
             </p>
           </li>
         ))}

@@ -1,10 +1,18 @@
 import {
+  blocksForUserPart,
   formatReadingTagLabel,
   fullQuizPool,
   getReadingBlock,
   normalizeReadingCountry,
   partFromWeakTag,
 } from "@/content/reading";
+import {
+  OET_PART_B_EXTRACT_COUNT,
+  selectPartAExamQuestions,
+  selectPartBExamQuestions,
+  selectPartCExamQuestions,
+  type PartBExtract,
+} from "@/lib/reading/exam-assembly";
 import { fullAssessmentPool, poolForSkill, type AssessmentSkill } from "@/content/assessment";
 import { tipsForPart } from "@/lib/reading/exam-guide";
 import type { QuizQuestion, ReadingBlock, ReadingPart } from "@/content/reading";
@@ -116,6 +124,28 @@ function selectCleverMix(
   return shuffleWithSeed(picked.slice(0, limit), seed + 17);
 }
 
+/** Exam-faithful reading quiz — one part per session, realistic question counts. */
+function selectExamFaithfulReadingQuiz(input: QuizSelectionInput): QuizQuestion[] {
+  const seed = input.selectionSeed ?? createSelectionSeed();
+  const focus =
+    input.part ??
+    partFromWeakTag(input.weakTags[0] ?? "") ??
+    (input.weakTags.some((t) => t.includes("part-a"))
+      ? "A"
+      : input.weakTags.some((t) => t.includes("part-c"))
+        ? "C"
+        : "B");
+
+  if (focus === "A") {
+    return selectPartAExamQuestions(input.profession, input.targetCountry, seed);
+  }
+  if (focus === "C") {
+    return selectPartCExamQuestions(input.profession, input.targetCountry, seed);
+  }
+  const limit = Math.max(input.limit ?? OET_PART_B_EXTRACT_COUNT, OET_PART_B_EXTRACT_COUNT);
+  return selectPartBExamQuestions(input.profession, input.targetCountry, seed, limit);
+}
+
 function rankPool(
   pool: QuizQuestion[],
   weakTags: string[],
@@ -221,6 +251,10 @@ export function selectAssessmentQuestions(input: QuizSelectionInput): QuizQuesti
         )
       : poolForSkill(skill).filter((q) => matchesProfession(q, input.profession));
 
+  if (input.mode === "clever_mix" && skill === "reading") {
+    return selectExamFaithfulReadingQuiz({ ...input, limit: input.limit ?? 5 });
+  }
+
   if (input.mode === "clever_mix") {
     return selectCleverMix(basePool, input.weakTags, input.targetCountry, input.limit ?? 5, seed);
   }
@@ -267,16 +301,50 @@ export function selectQuizQuestions(input: QuizSelectionInput): QuizQuestion[] {
   }
 
   if (mode === "clever_mix") {
-    return selectCleverMix(pool, weakTags, targetCountry, limit, selectionSeed);
+    return selectExamFaithfulReadingQuiz({ ...input, limit: input.limit ?? 5 });
+  }
+
+  if (mode === "adaptive") {
+    return selectExamFaithfulReadingQuiz(input);
   }
 
   return pickFromRanked(ranked, limit, excludeIds, selectionSeed);
+}
+
+/** Part B extracts for quiz UI — one short text per MCQ like the real exam. */
+export function partBExtractsForQuiz(questions: QuizQuestion[]): PartBExtract[] {
+  const partB = questions.filter((q) => q.part === "B" && q.passageId);
+  return partB.map((question, index) => {
+    const block = getReadingBlock(question.passageId!);
+    if (!block) {
+      return {
+        key: question.id,
+        index: index + 1,
+        sourceBlockId: question.passageId!,
+        title: "Part B extract",
+        countryCode: "ALL" as const,
+        paragraph: "",
+        question,
+      };
+    }
+    return {
+      key: `${block.id}-${question.id}`,
+      index: index + 1,
+      sourceBlockId: block.id,
+      title: block.title,
+      localeContext: block.localeContext,
+      countryCode: block.countryCode,
+      paragraph: block.paragraphs[0] ?? block.paragraphs.join("\n\n"),
+      question,
+    };
+  });
 }
 
 /** Reading passages needed to answer passage-linked quiz questions (Part A/B/C blocks). */
 export function passageBlocksForQuiz(questions: QuizQuestion[]): ReadingBlock[] {
   const seen = new Set<string>();
   const blocks: ReadingBlock[] = [];
+  const partOrder: Record<ReadingPart, number> = { A: 0, B: 1, C: 2 };
 
   for (const q of questions) {
     if (!q.passageId || seen.has(q.passageId)) continue;
@@ -287,7 +355,60 @@ export function passageBlocksForQuiz(questions: QuizQuestion[]): ReadingBlock[] 
     }
   }
 
-  return blocks;
+  return blocks.sort((a, b) => partOrder[a.part] - partOrder[b.part]);
+}
+
+/** Hint text for the reading-texts panel above quiz questions. */
+export function passageSectionHint(
+  blocks: ReadingBlock[],
+  questions: QuizQuestion[],
+  partBExtractCount = 0,
+): string {
+  if (!blocks.length && !partBExtractCount) return "";
+
+  const hasMatching = questions.some((q) => q.type === "matching");
+  const partABlock = blocks.find((b) => b.part === "A");
+
+  if (hasMatching && partABlock) {
+    return (
+      "Part A includes four short workplace texts labelled Text A–D in the passage below. " +
+      "Read all four before answering the matching questions."
+    );
+  }
+
+  if (partBExtractCount > 0 && !blocks.length) {
+    return (
+      `Part B — ${partBExtractCount} short extract${partBExtractCount === 1 ? "" : "s"} ` +
+      `(real exam: 6 texts × 1 MCQ each). Read each extract, then answer its question below.`
+    );
+  }
+
+  if (partBExtractCount > 0 && blocks.length) {
+    return (
+      "Part B extracts and longer Part C passages below. " +
+      "In the exam, Part B and C share 45 minutes (~15–20 min for B, ~25–30 min for C)."
+    );
+  }
+
+  const parts = [...new Set(blocks.map((b) => b.part))].sort();
+  const partLabel = parts.length === 1 ? `Part ${parts[0]}` : `Parts ${parts.join(", ")}`;
+  return `Read the passage${blocks.length > 1 ? "s" : ""} below (${partLabel}), then answer the questions.`;
+}
+
+export function quizHasReadingPassages(questions: QuizQuestion[]): boolean {
+  return (
+    partBExtractsForQuiz(questions).length > 0 ||
+    passageBlocksForQuiz(questions).some((b) => b.part !== "B")
+  );
+}
+
+/** Open Part A by default when matching questions reference its Text A–D extracts. */
+export function passagePanelDefaultOpen(
+  block: ReadingBlock,
+  questions: QuizQuestion[],
+): boolean {
+  if (block.part !== "A") return false;
+  return questions.some((q) => q.passageId === block.id && q.type === "matching");
 }
 
 export function quizBriefingPart(

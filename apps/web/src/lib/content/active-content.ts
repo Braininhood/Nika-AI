@@ -1,5 +1,5 @@
 import { ALL_LISTENING_BLOCKS } from "@/content/listening";
-import { ALL_READING_BLOCKS } from "@/content/reading/blocks/registry";
+import { ALL_READING_BLOCKS, normalizeReadingBlock } from "@/content/reading/blocks/registry";
 import { ROLE_PLAY_CARDS } from "@/content/speaking";
 import type { ListeningBlock } from "@/content/listening";
 import type { ReadingBlock } from "@/content/reading/types";
@@ -24,7 +24,7 @@ export function setActiveWritingScenarios(list: WritingScenario[]): void {
 }
 
 export function setActiveReadingBlocks(list: ReadingBlock[]): void {
-  caches.reading = list;
+  caches.reading = list.map((b) => normalizeReadingBlock(b));
 }
 
 export function setActiveListeningBlocks(list: ListeningBlock[]): void {

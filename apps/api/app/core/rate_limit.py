@@ -76,6 +76,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             return JSONResponse(
                 status_code=429,
                 content={"detail": "Too many requests. Please slow down."},
+                headers={"Retry-After": str(_WINDOW_SECONDS)},
             )
 
         return await call_next(request)

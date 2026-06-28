@@ -11,7 +11,7 @@ import { ReadingResultsPanel } from "@/components/reading/reading-results-panel"
 import { useAuth } from "@/lib/auth/auth-provider";
 import { loadUserProfile } from "@/lib/profile/service";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
-import { cleverQuizRationale, passageBlocksForQuiz, quizBriefingPart, selectQuizQuestions } from "@/lib/quiz/engine";
+import { cleverQuizRationale, quizBriefingPart, quizHasReadingPassages, selectQuizQuestions } from "@/lib/quiz/engine";
 import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
 import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
 
@@ -52,7 +52,7 @@ export default function CleverQuizPage() {
   );
 
   const rationale = cleverQuizRationale(weakTags);
-  const passageBlocks = useMemo(() => passageBlocksForQuiz(questions), [questions]);
+  const hasPassages = quizHasReadingPassages(questions);
   const briefingPart = useMemo(() => quizBriefingPart(weakTags, questions), [weakTags, questions]);
   const allAnswered = allQuestionsAnswered(questions, responses);
 
@@ -99,10 +99,10 @@ export default function CleverQuizPage() {
         </p>
       </header>
 
-      <QuizPassageSection blocks={passageBlocks} />
+      <QuizPassageSection questions={questions} />
 
       <section>
-        {passageBlocks.length > 0 ? (
+        {hasPassages ? (
           <h2 className="mb-4 text-sm font-semibold text-ink">Questions</h2>
         ) : null}
         <QuizQuestionList

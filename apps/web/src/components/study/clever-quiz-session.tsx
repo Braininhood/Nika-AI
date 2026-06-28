@@ -12,7 +12,7 @@ import {
   type AssessmentSkill,
 } from "@/content/assessment";
 import { useAuth } from "@/lib/auth/auth-provider";
-import { cleverQuizRationale, passageBlocksForQuiz, selectAssessmentQuestions } from "@/lib/quiz/engine";
+import { cleverQuizRationale, quizHasReadingPassages, selectAssessmentQuestions } from "@/lib/quiz/engine";
 import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
 import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
 import { submitAssessmentAttempt } from "@/lib/quiz/submit-assessment";
@@ -63,7 +63,7 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
   );
 
   const rationale = cleverQuizRationale(weakTags, skill);
-  const passageBlocks = useMemo(() => passageBlocksForQuiz(questions), [questions]);
+  const hasPassages = quizHasReadingPassages(questions);
   const allAnswered = allQuestionsAnswered(questions, responses);
   const label = title ?? CLEVER_SKILL_LABELS[skill];
   const studySkill =
@@ -112,10 +112,10 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
 
       <QuizSourceTip />
 
-      <QuizPassageSection blocks={passageBlocks} />
+      <QuizPassageSection questions={questions} />
 
       <section>
-        {passageBlocks.length > 0 ? (
+        {hasPassages ? (
           <h2 className="mb-4 text-sm font-semibold text-ink">Questions</h2>
         ) : null}
         <QuizQuestionList

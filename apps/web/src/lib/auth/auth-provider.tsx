@@ -114,7 +114,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("online", onReconnect);
       document.removeEventListener("visibilitychange", onReconnect);
     };
-  }, [session, loading]);
+  }, [session?.access_token, session?.user?.id, loading]);
 
   useEffect(() => {
     if (!session?.access_token) {

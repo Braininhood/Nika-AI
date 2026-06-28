@@ -354,41 +354,50 @@ async function buildSyncPayload(userId: string) {
   };
 }
 
+let syncInFlight: Promise<void> | null = null;
+
 export async function syncStudyDataWithCloud(
   userId: string,
   accessToken: string,
 ): Promise<void> {
   if (!navigator.onLine) return;
+  if (syncInFlight) return syncInFlight;
 
-  try {
-    const remote = await fetchApiJson<StudyPullResponse>(
-      "/api/v1/progress/pull",
-      accessToken,
-    );
-    await mergeRemoteStudyData(userId, remote);
-  } catch {
-    // Pull failed — still try push
-  }
-
-  try {
-    const payload = await buildSyncPayload(userId);
-    const res = await fetch(apiUrl("/api/v1/progress/sync"), {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) return;
-
-    const unsynced = await db.attempts.filter((a) => !a.synced).toArray();
-    for (const a of unsynced) {
-      await db.attempts.update(a.id, { synced: true });
+  syncInFlight = (async () => {
+    try {
+      const remote = await fetchApiJson<StudyPullResponse>(
+        "/api/v1/progress/pull",
+        accessToken,
+      );
+      await mergeRemoteStudyData(userId, remote);
+    } catch {
+      // Pull failed — still try push
     }
-  } catch {
-    // Retry on next sign-in
-  }
+
+    try {
+      const payload = await buildSyncPayload(userId);
+      const res = await fetch(apiUrl("/api/v1/progress/sync"), {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) return;
+
+      const unsynced = await db.attempts.filter((a) => !a.synced).toArray();
+      for (const a of unsynced) {
+        await db.attempts.update(a.id, { synced: true });
+      }
+    } catch {
+      // Retry on next sign-in
+    }
+  })().finally(() => {
+    syncInFlight = null;
+  });
+
+  return syncInFlight;
 }
 
 let syncTimer: ReturnType<typeof setTimeout> | null = null;
@@ -398,5 +407,5 @@ export function scheduleStudyDataSync(userId?: string, accessToken?: string): vo
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(() => {
     void syncStudyDataWithCloud(userId, accessToken);
-  }, 2500);
+  }, 8000);
 }

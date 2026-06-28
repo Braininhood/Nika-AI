@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { PassagePanel } from "@/components/reading/passage-panel";
+import { QuizPassageSection } from "@/components/quiz/quiz-passage-section";
 import { ReadingExamBriefing } from "@/components/reading/reading-exam-briefing";
 import { QuizQuestionList } from "@/components/reading/quiz-question";
 import { QuizSourceTip } from "@/components/quiz/quiz-source-tip";
@@ -12,8 +12,8 @@ import { useAuth } from "@/lib/auth/auth-provider";
 import { loadUserProfile } from "@/lib/profile/service";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
 import {
-  passageBlocksForQuiz,
   quizBriefingPart,
+  quizHasReadingPassages,
   quizRationale,
   selectQuizQuestions,
 } from "@/lib/quiz/engine";
@@ -57,7 +57,7 @@ export default function AdaptiveQuizPage() {
   );
 
   const rationale = quizRationale(weakTags, questions);
-  const passageBlocks = useMemo(() => passageBlocksForQuiz(questions), [questions]);
+  const hasPassages = quizHasReadingPassages(questions);
   const briefingPart = useMemo(() => quizBriefingPart(weakTags, questions), [weakTags, questions]);
   const allAnswered = allQuestionsAnswered(questions, responses);
 
@@ -103,17 +103,10 @@ export default function AdaptiveQuizPage() {
 
       <QuizSourceTip />
 
-      {passageBlocks.length > 0 ? (
-        <section className="flex flex-col gap-4">
-          <h2 className="text-sm font-semibold text-ink">Reading texts</h2>
-          {passageBlocks.map((block) => (
-            <PassagePanel key={block.id} block={block} collapsible defaultOpen={false} />
-          ))}
-        </section>
-      ) : null}
+      <QuizPassageSection questions={questions} />
 
       <section>
-        {passageBlocks.length > 0 ? (
+        {hasPassages ? (
           <h2 className="mb-4 text-sm font-semibold text-ink">Questions</h2>
         ) : null}
         <QuizQuestionList

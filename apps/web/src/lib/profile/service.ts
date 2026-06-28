@@ -141,6 +141,20 @@ async function pushSkillMapToCloud(
   }
 }
 
+let skillMapPushTimer: ReturnType<typeof setTimeout> | null = null;
+let pendingSkillMapPush: { map: SkillMap; token: string } | null = null;
+
+function scheduleSkillMapPush(skillMap: SkillMap, accessToken: string): void {
+  pendingSkillMapPush = { map: skillMap, token: accessToken };
+  if (skillMapPushTimer) clearTimeout(skillMapPushTimer);
+  skillMapPushTimer = setTimeout(() => {
+    skillMapPushTimer = null;
+    const pending = pendingSkillMapPush;
+    pendingSkillMapPush = null;
+    if (pending) void pushSkillMapToCloud(pending.map, pending.token);
+  }, 4000);
+}
+
 /** Two-way profile + skill-map sync — runs automatically on sign-in and reconnect. */
 export async function syncAccountWithCloud(
   userId: string,
@@ -190,11 +204,11 @@ export async function syncAccountWithCloud(
       computedAt: Number.isFinite(computedAt) ? computedAt : Date.now(),
     });
   } else if (localSkill && !remoteSkill?.skill_map) {
-    await pushSkillMapToCloud(localSkill.snapshot as unknown as SkillMap, accessToken);
+    scheduleSkillMapPush(localSkill.snapshot as unknown as SkillMap, accessToken);
   } else if (localSkill && remoteSkill?.skill_map) {
     const remoteAt = remoteSkill.computed_at ? Date.parse(remoteSkill.computed_at) : 0;
     if (localSkill.computedAt > remoteAt) {
-      await pushSkillMapToCloud(localSkill.snapshot as unknown as SkillMap, accessToken);
+      scheduleSkillMapPush(localSkill.snapshot as unknown as SkillMap, accessToken);
     } else if (remoteAt > localSkill.computedAt) {
       await db.skillMaps.put({
         userId,
@@ -422,7 +436,7 @@ export async function saveSkillMap(skillMap: SkillMap, accessToken?: string): Pr
   }
 
   if (token) {
-    await pushSkillMapToCloud(skillMap, token);
+    scheduleSkillMapPush(skillMap, token);
   }
 
   void import("@/lib/progress/badge-store").then(({ afterStudyActivity }) => afterStudyActivity());

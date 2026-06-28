@@ -6,6 +6,7 @@ import {
   applyReadingResult,
   isAnswerCorrect,
   passageBlocksForQuiz,
+  passageSectionHint,
   quizBriefingPart,
   quizRationale,
   scoreQuiz,
@@ -33,14 +34,23 @@ function testSkillMap(overrides: Partial<SkillMap> & Pick<SkillMap, "diagnostic"
 }
 
 describe("selectQuizQuestions", () => {
-  it("prefers questions matching weak tags", () => {
+  it("returns exam-faithful Part C set for inference weak tags", () => {
     const questions = selectQuizQuestions({
       weakTags: ["reading:part-c-inference"],
       mode: "adaptive",
       limit: 3,
     });
-    expect(questions.length).toBe(3);
-    expect(questions.some((q) => q.tags.some((t) => t.includes("inference")))).toBe(true);
+    expect(questions.length).toBeGreaterThanOrEqual(2);
+    expect(questions.every((q) => q.part === "C")).toBe(true);
+  });
+
+  it("returns six Part B extracts when Part B is the focus", () => {
+    const questions = selectQuizQuestions({
+      weakTags: ["reading:part-b-gist"],
+      mode: "adaptive",
+    });
+    expect(questions.length).toBe(6);
+    expect(questions.every((q) => q.part === "B")).toBe(true);
   });
 
   it("filters by part in part_focus mode", () => {
@@ -87,6 +97,22 @@ describe("applyReadingResult", () => {
     const updated = applyReadingResult(map, 0.9, [], ["reading:part-b-gist"]);
     expect(updated.diagnostic.reading.estBand).toBe("B");
     expect(updated.diagnostic.reading.gap).toBe(0);
+  });
+});
+
+describe("passageSectionHint", () => {
+  it("explains Text A–D live inside Part A passage", () => {
+    const questions = selectQuizQuestions({
+      weakTags: ["reading:part-a-speed"],
+      profession: "pharmacy",
+      mode: "adaptive",
+      limit: 4,
+    });
+    const blocks = passageBlocksForQuiz(questions);
+    const hint = passageSectionHint(blocks, questions, 0);
+    if (blocks.some((b) => b.part === "A") && questions.some((q) => q.type === "matching")) {
+      expect(hint.toLowerCase()).toContain("text a");
+    }
   });
 });
 

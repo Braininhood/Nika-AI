@@ -72,7 +72,8 @@ export function FlashcardReview() {
       <section className="rounded-2xl border border-border bg-surface p-6 text-center">
         <h2 className="text-lg font-bold text-ink">No flashcards yet</h2>
         <p className="mt-2 text-sm text-ink-soft">
-          Wrong answers in reading quizzes and passages are saved here automatically.
+          Wrong answers in reading quizzes and passages are saved here automatically (on this
+          device). Complete a quiz and submit — cards appear after incorrect answers.
         </p>
         <Link
           href="/reading/quiz"
@@ -80,6 +81,32 @@ export function FlashcardReview() {
         >
           Take an adaptive quiz →
         </Link>
+      </section>
+    );
+  }
+
+  if (queue.length === 0) {
+    return (
+      <section className="rounded-2xl border border-border bg-surface p-6">
+        <h2 className="text-lg font-bold text-ink">Nothing due right now</h2>
+        <p className="mt-2 text-sm text-ink-soft">
+          Your deck has {stats.total} card{stats.total === 1 ? "" : "s"}. SM-2 schedules the next
+          review when intervals elapse — check back later or keep practising reading.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            href="/reading/quiz"
+            className="rounded-xl bg-brand-accent px-4 py-2.5 text-sm font-semibold text-ink"
+          >
+            Take a quiz →
+          </Link>
+          <Link
+            href="/reading"
+            className="rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-ink"
+          >
+            Back to Reading
+          </Link>
+        </div>
       </section>
     );
   }
