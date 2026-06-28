@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { ReadingExamBriefing } from "@/components/reading/reading-exam-briefing";
@@ -11,6 +12,7 @@ import { StudyPageHeader } from "@/components/study/study-page-header";
 import type { ReadingBlock } from "@/content/reading";
 import { normalizeReadingBlock } from "@/content/reading/blocks/registry";
 import { partBExamStyleTip } from "@/lib/reading/exam-guide";
+import { OET_READING } from "@/lib/exam/oet-counts";
 import type { ReadingTimerMode } from "@/components/reading/reading-timer-bar";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
 
@@ -91,6 +93,23 @@ export function ReadingSession({
         description={
           <p className="text-sm text-ink-soft">
             {questions.length} question{questions.length === 1 ? "" : "s"} · practice mode
+            {block.part === "A" ? (
+              <>
+                {" "}
+                (1 text set · real exam: {OET_READING.partA} questions in{" "}
+                {OET_READING.partAMinutes} min)
+              </>
+            ) : null}
+            {block.part === "B" ? (
+              <> (real exam: {OET_READING.partB} extracts)</>
+            ) : null}
+            {block.part === "C" ? (
+              <> (real exam: {OET_READING.partC} questions on 2 texts)</>
+            ) : null}
+            {" · "}
+            <Link href={`/reading/exam${block.part === "A" ? "/part-a" : ""}`} className="text-brand-primary underline">
+              Full exam mode
+            </Link>
           </p>
         }
       />

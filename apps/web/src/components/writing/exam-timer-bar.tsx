@@ -18,9 +18,11 @@ function formatTime(seconds: number): string {
 interface ExamTimerBarProps {
   phase: ExamPhase;
   onPhaseChange: (phase: ExamPhase) => void;
+  /** Hide skip-to-writing — real exam conditions. */
+  strict?: boolean;
 }
 
-export function ExamTimerBar({ phase, onPhaseChange }: ExamTimerBarProps) {
+export function ExamTimerBar({ phase, onPhaseChange, strict = false }: ExamTimerBarProps) {
   const [readingLeft, setReadingLeft] = useState(READ_SECONDS);
   const [writingLeft, setWritingLeft] = useState(WRITE_SECONDS);
   const [running, setRunning] = useState(false);
@@ -86,7 +88,7 @@ export function ExamTimerBar({ phase, onPhaseChange }: ExamTimerBarProps) {
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface-muted">
             <div className="h-full bg-brand-primary transition-all" style={{ width: `${pct}%` }} />
           </div>
-          {phase === "reading" && (
+          {phase === "reading" && !strict && (
             <SecondaryActionButton className="mt-2" onClick={skipToWriting}>
               Skip to writing phase →
             </SecondaryActionButton>

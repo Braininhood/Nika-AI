@@ -80,7 +80,7 @@ export default function ReadingHubPage() {
           {
             href: "/study/clever/reading",
             label: "Quick quiz",
-            hint: "5 mixed question types from your weak areas",
+            hint: "Exam-faithful Part A/B/C counts from weak areas",
           },
           {
             href: "/reading/quiz",
@@ -94,14 +94,19 @@ export default function ReadingHubPage() {
             badge: flashcardsDue > 0 ? `${flashcardsDue} due` : undefined,
           },
           {
-            href: "/reading/part-a",
-            label: "Part A — timed notes",
-            hint: "15 min lock",
+            href: "/reading/exam/part-a",
+            label: "Part A exam",
+            hint: "20 matching · 15 min lock",
           },
           {
             href: "/reading/exam",
-            label: "Exam mode",
-            hint: "Parts B & C · 45 min",
+            label: "Parts B & C exam",
+            hint: "6 + 16 MCQ · 45 min",
+          },
+          {
+            href: "/reading/exam/full",
+            label: "Full reading exam",
+            hint: "All parts · 60 min",
           },
         ]}
         highlighted

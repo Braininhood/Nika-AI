@@ -28,11 +28,24 @@ export interface SpeakingSessionProps {
   card: RolePlayCard;
   backHref: string;
   backLabel?: string;
+  /** Exam mode: no model dialogue, no Nika live, start at prep, hide coaching hints. */
+  examMode?: boolean;
+  rolePlayIndex?: number;
+  rolePlayTotal?: number;
+  onExamRolePlayComplete?: (result: Awaited<ReturnType<typeof submitSpeakingAttempt>>) => void;
 }
 
-export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: SpeakingSessionProps) {
+export function SpeakingSession({
+  card,
+  backHref,
+  backLabel = "Speaking hub",
+  examMode = false,
+  rolePlayIndex,
+  rolePlayTotal,
+  onExamRolePlayComplete,
+}: SpeakingSessionProps) {
   const { session } = useAuth();
-  const [phase, setPhase] = useState<SessionPhase>("card");
+  const [phase, setPhase] = useState<SessionPhase>(examMode ? "prep" : "card");
   const [prepSheet, setPrepSheet] = useState<PrepWorksheet>(emptyPrepWorksheet);
   const [transcript, setTranscript] = useState("");
   const [durationSeconds, setDurationSeconds] = useState(0);
@@ -80,8 +93,12 @@ export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: 
       durationSeconds,
       recordingId,
       accessToken: session?.access_token,
-      mode: conversationLog ? "nika_live" : "practice",
+      mode: examMode ? "exam" : conversationLog ? "nika_live" : "practice",
     });
+    if (examMode && onExamRolePlayComplete) {
+      onExamRolePlayComplete(res);
+      return;
+    }
     setResult(res);
     setPhase("done");
     setSubmitting(false);
@@ -99,7 +116,16 @@ export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: 
         skill="speaking"
         eyebrow={`Speaking · ${card.candidateRole} / ${card.interlocutorRole}`}
         title={card.setting}
-        description={card.cardText.overview}
+        description={
+          examMode && rolePlayIndex && rolePlayTotal ? (
+            <p className="text-sm text-ink-soft">
+              Role-play {rolePlayIndex} of {rolePlayTotal} · {card.prepMinutes} min prep ·{" "}
+              {card.durationMinutes} min recording · exam mode
+            </p>
+          ) : (
+            card.cardText.overview
+          )
+        }
       />
 
       <AccentContextBanner
@@ -108,7 +134,7 @@ export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: 
         accentContext={card.accentContext}
       />
 
-      {phase === "card" && (
+      {phase === "card" && !examMode && (
         <>
           <RoleCardPanel card={card} />
           <ModelDialoguePanel lines={card.modelDialogue} />
@@ -125,7 +151,7 @@ export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: 
 
       {phase === "nika-live" && (
         <>
-          <RoleCardPanel card={card} compact />
+          <RoleCardPanel card={card} examMode={examMode} />
           <NikaVoiceLivePanel
             card={card}
             accessToken={session?.access_token}
@@ -159,7 +185,7 @@ export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: 
 
       {phase === "record" && (
         <>
-          <RoleCardPanel card={card} compact />
+          <RoleCardPanel card={card} examMode={examMode} />
           <AudioRecorder
             roleCardId={card.id}
             maxMinutes={card.durationMinutes}
@@ -220,7 +246,15 @@ export function SpeakingSession({ card, backHref, backLabel = "Speaking hub" }: 
   );
 }
 
-function RoleCardPanel({ card, compact }: { card: RolePlayCard; compact?: boolean }) {
+function RoleCardPanel({
+  card,
+  compact,
+  examMode,
+}: {
+  card: RolePlayCard;
+  compact?: boolean;
+  examMode?: boolean;
+}) {
   const body = (
     <>
       <p className="text-sm text-ink">{card.cardText.patientDetails}</p>
@@ -229,7 +263,7 @@ function RoleCardPanel({ card, compact }: { card: RolePlayCard; compact?: boolea
           <li key={task}>{task}</li>
         ))}
       </ul>
-      {!compact && (
+      {!compact && !examMode && (
         <div className="mt-4 rounded-xl bg-surface-muted/40 p-3 text-xs text-ink-soft">
           <p className="font-medium text-ink">Coaching hints (not on real exam card)</p>
           <p className="mt-1">ICE: {card.coaching.iceQuestions.join(" · ")}</p>

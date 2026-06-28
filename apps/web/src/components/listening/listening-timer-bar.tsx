@@ -8,16 +8,20 @@ interface ListeningTimerBarProps {
   totalMinutes: number;
   onExpire?: () => void;
   label?: string;
+  /** Exam mode: no pause, lock when time runs out. */
+  examMode?: boolean;
 }
 
 export function ListeningTimerBar({
   totalMinutes,
   onExpire,
   label = "Session timer",
+  examMode = false,
 }: ListeningTimerBarProps) {
   const totalSec = totalMinutes * 60;
   const [remaining, setRemaining] = useState(totalSec);
-  const [running, setRunning] = useState(true);
+  const [running, setRunning] = useState(examMode);
+  const [expired, setExpired] = useState(false);
 
   useEffect(() => {
     if (!running || remaining <= 0) return;
@@ -25,6 +29,7 @@ export function ListeningTimerBar({
       setRemaining((r) => {
         if (r <= 1) {
           setRunning(false);
+          setExpired(true);
           onExpire?.();
           return 0;
         }
@@ -53,9 +58,14 @@ export function ListeningTimerBar({
           style={{ width: `${pct}%` }}
         />
       </div>
-      <SecondaryActionButton className="mt-2" onClick={() => setRunning((r) => !r)}>
-        {running ? "Pause timer" : "Resume timer"}
-      </SecondaryActionButton>
+      {examMode && expired && (
+        <p className="mt-2 text-xs font-medium text-danger">Time up — exam locked.</p>
+      )}
+      {!examMode && (
+        <SecondaryActionButton className="mt-2" onClick={() => setRunning((r) => !r)}>
+          {running ? "Pause timer" : "Resume timer"}
+        </SecondaryActionButton>
+      )}
     </div>
   );
 }

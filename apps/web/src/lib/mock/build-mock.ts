@@ -42,8 +42,8 @@ export function buildFullMockBlueprint(
     },
     {
       skill: "reading",
-      title: `Reading — ${reading.title}`,
-      route: `/reading/exam?mock=1`,
+      title: `Reading — full test (A + B + C)`,
+      route: `/reading/exam/full?mock=1`,
       durationMinutes: 60,
       instructions: "Part A (15 min lock) then Parts B & C (45 min). Strict timers apply.",
     },
@@ -57,7 +57,7 @@ export function buildFullMockBlueprint(
     {
       skill: "speaking",
       title: speaking.cardText.overview.slice(0, 60),
-      route: `/speaking/${speaking.id}?mock=1`,
+      route: `/speaking/exam?mock=1`,
       durationMinutes: 20,
       instructions: "Dual role-play: prep timer, record both roles, submit checklist.",
     },

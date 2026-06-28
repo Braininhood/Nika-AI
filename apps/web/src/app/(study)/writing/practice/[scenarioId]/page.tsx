@@ -71,12 +71,21 @@ export default function WritingPracticeScenarioPage() {
 
   if (!scenario) {
     return (
-      <p className="mx-auto max-w-lg px-4 py-8 text-sm text-ink-soft">
-        Scenario not found.{" "}
-        <Link href="/writing/practice" className="text-brand-primary">
-          Back
-        </Link>
-      </p>
+      <div className="mx-auto max-w-lg px-4 py-8">
+        <p className="text-sm text-ink-soft">
+          Scenario <strong className="text-ink">{scenarioId}</strong> could not be loaded. It may
+          still be syncing — try again in a moment.
+        </p>
+        <p className="mt-3 text-sm">
+          <Link href="/writing/practice" className="text-brand-primary underline">
+            ← All practice scenarios
+          </Link>
+          {" · "}
+          <Link href="/writing" className="text-brand-primary underline">
+            Writing hub
+          </Link>
+        </p>
+      </div>
     );
   }
 

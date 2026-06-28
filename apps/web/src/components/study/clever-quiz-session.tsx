@@ -11,6 +11,7 @@ import {
   CLEVER_SKILL_LABELS,
   type AssessmentSkill,
 } from "@/content/assessment";
+import { cleverQuizQuestionLimit } from "@/lib/exam/oet-counts";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { cleverQuizRationale, quizHasReadingPassages, selectAssessmentQuestions } from "@/lib/quiz/engine";
 import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
@@ -54,7 +55,7 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
         profession,
         targetCountry,
         mode: "clever_mix",
-        limit: 5,
+        limit: cleverQuizQuestionLimit(skill),
         assessmentSkill: skill,
         excludeIds,
         selectionSeed,

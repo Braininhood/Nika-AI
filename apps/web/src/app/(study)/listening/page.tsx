@@ -67,14 +67,21 @@ export default function ListeningHubPage() {
         skillLabel="listening"
       />
 
+      <OfflinePacksPanel variant="featured" />
+
       <StudySectionCard
         skill="listening"
         title="Tools & exam"
         items={[
           {
+            href: "/listening/packs",
+            label: "Offline audio & imports",
+            hint: "Download pack · manage files",
+          },
+          {
             href: "/study/clever/listening",
             label: "Quick quiz",
-            hint: "5 mixed questions from your weak areas",
+            hint: "Exam-faithful Part A/B/C counts",
           },
           {
             href: "/listening/import",
@@ -83,13 +90,8 @@ export default function ListeningHubPage() {
           },
           {
             href: "/listening/exam",
-            label: "Exam mode",
-            hint: "Parts B & C flow",
-          },
-          {
-            href: "/listening/packs",
-            label: "Manage offline packs",
-            hint: "Download practice audio",
+            label: "Full listening exam",
+            hint: "24 + 6 + 12 · 40 min",
           },
         ]}
         highlighted
@@ -112,8 +114,6 @@ export default function ListeningHubPage() {
           emptyMessage: "No blocks for this part yet.",
         }))}
       />
-
-      <OfflinePacksPanel />
 
       <StudyMediaPanel skill="listening" />
     </div>

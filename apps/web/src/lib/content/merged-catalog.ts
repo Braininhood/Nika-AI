@@ -44,6 +44,30 @@ function mergeById<T extends { id: string }>(
   return [...fromBundled, ...fromCustom, ...fromStatic];
 }
 
+function mergeWritingScenariosValidated(
+  staticItems: WritingScenario[],
+  catalog: CatalogResponse | null,
+): WritingScenario[] {
+  const merged = mergeById(staticItems, catalog, ["scenario"]);
+  const byId = new Map<string, WritingScenario>();
+
+  for (const item of staticItems) {
+    if (isValidWritingScenario(item)) byId.set(item.id, item);
+  }
+
+  for (const item of merged) {
+    if (isValidWritingScenario(item)) {
+      byId.set(item.id, item);
+    } else if (typeof item === "object" && item && "id" in item) {
+      const id = String((item as { id: string }).id);
+      const fallback = staticItems.find((s) => s.id === id);
+      if (isValidWritingScenario(fallback)) byId.set(id, fallback);
+    }
+  }
+
+  return [...byId.values()];
+}
+
 async function loadCatalog(
   accessToken: string,
   skill: ContentSkill,
@@ -65,9 +89,9 @@ async function loadCatalog(
 }
 
 export async function mergedWritingScenarios(accessToken?: string): Promise<WritingScenario[]> {
-  if (!accessToken) return WRITING_SCENARIOS;
+  if (!accessToken) return WRITING_SCENARIOS.filter(isValidWritingScenario);
   const catalog = await loadCatalog(accessToken, "writing");
-  return mergeById(WRITING_SCENARIOS, catalog, ["scenario"]).filter(isValidWritingScenario);
+  return mergeWritingScenariosValidated(WRITING_SCENARIOS, catalog);
 }
 
 export async function mergedReadingBlocks(accessToken?: string): Promise<ReadingBlock[]> {

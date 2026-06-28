@@ -1,12 +1,11 @@
 "use client";
 
 import { CLEVER_SKILL_LABELS, CLEVER_SKILL_ROUTES } from "@/content/assessment";
+import { cleverQuizHint } from "@/lib/exam/oet-counts";
 import { SkillHubHeader } from "@/components/study/skill-hub-header";
 import { StudySectionCard } from "@/components/study/study-section-card";
 
 const SKILLS = ["reading", "listening", "writing", "speaking", "vocab"] as const;
-
-const QUIZ_HINT = "5 mixed questions · MCQ, gap-fill, matching — from your weak areas";
 
 export default function QuickQuizHubPage() {
   return (
@@ -14,7 +13,7 @@ export default function QuickQuizHubPage() {
       <SkillHubHeader
         eyebrow="Practice"
         title="Quick quizzes"
-        description="Short 5-question sets — not a full OET mock. Questions mix types (true/false, gap-fill, matching, MCQ) and are picked from your Skill Map weak tags."
+        description="Exam-faithful simulations for Reading & Listening (full part counts). Writing, Speaking & Vocabulary use expanded criteria/phrase banks (12–15 questions)."
         backHref="/study"
         backLabel="← Back to study hub"
       />
@@ -29,7 +28,7 @@ export default function QuickQuizHubPage() {
         items={SKILLS.map((skill) => ({
           href: CLEVER_SKILL_ROUTES[skill],
           label: CLEVER_SKILL_LABELS[skill],
-          hint: QUIZ_HINT,
+          hint: cleverQuizHint(skill),
         }))}
         highlighted
       />

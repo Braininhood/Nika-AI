@@ -6,13 +6,18 @@ import {
   normalizeReadingCountry,
   partFromWeakTag,
 } from "@/content/reading";
+import { cleverQuizQuestionLimit } from "@/lib/exam/oet-counts";
 import {
+  OET_PART_A_QUESTION_COUNT,
   OET_PART_B_EXTRACT_COUNT,
+  OET_PART_C_QUESTION_COUNT,
   selectPartAExamQuestions,
   selectPartBExamQuestions,
   selectPartCExamQuestions,
   type PartBExtract,
 } from "@/lib/reading/exam-assembly";
+import { assembleListeningExamA, assembleListeningExamBC } from "@/lib/listening/exam-assembly";
+import { partFromWeakTag as listeningPartFromWeakTag } from "@/content/listening";
 import { fullAssessmentPool, poolForSkill, type AssessmentSkill } from "@/content/assessment";
 import { tipsForPart } from "@/lib/reading/exam-guide";
 import type { QuizQuestion, ReadingBlock, ReadingPart } from "@/content/reading";
@@ -124,6 +129,33 @@ function selectCleverMix(
   return shuffleWithSeed(picked.slice(0, limit), seed + 17);
 }
 
+/** Exam-faithful listening quiz — block-based questions at real OET counts. */
+function selectExamFaithfulListeningQuiz(input: QuizSelectionInput): QuizQuestion[] {
+  const seed = input.selectionSeed ?? createSelectionSeed();
+  const focus =
+    input.part ??
+    listeningPartFromWeakTag(input.weakTags[0] ?? "") ??
+    (input.weakTags.some((t) => t.includes("part-a"))
+      ? "A"
+      : input.weakTags.some((t) => t.includes("part-c"))
+        ? "C"
+        : "B");
+
+  if (focus === "A") {
+    return assembleListeningExamA(input.profession, input.targetCountry, seed).allQuestions.map(
+      (q) => ({ ...q, skill: "listening" as const }),
+    );
+  }
+  if (focus === "C") {
+    const bc = assembleListeningExamBC(input.profession, input.targetCountry, seed);
+    return bc.partCBlocks.flatMap((b) =>
+      b.questions.map((q) => ({ ...q, skill: "listening" as const })),
+    );
+  }
+  const bc = assembleListeningExamBC(input.profession, input.targetCountry, seed);
+  return bc.partBExtracts.map((e) => ({ ...e.question, skill: "listening" as const }));
+}
+
 /** Exam-faithful reading quiz — one part per session, realistic question counts. */
 function selectExamFaithfulReadingQuiz(input: QuizSelectionInput): QuizQuestion[] {
   const seed = input.selectionSeed ?? createSelectionSeed();
@@ -216,7 +248,7 @@ export function selectAssessmentQuestions(input: QuizSelectionInput): QuizQuesti
   const seed = input.selectionSeed ?? createSelectionSeed();
   const skill = input.assessmentSkill ?? "reading";
   if (skill === "mixed") {
-    const limit = input.limit ?? 5;
+    const limit = input.limit ?? cleverQuizQuestionLimit("mixed") ?? 5;
     const skills: AssessmentSkill[] = ["reading", "listening", "writing", "speaking", "vocab"];
     const picked: QuizQuestion[] = [];
     const used = new Set<string>();
@@ -252,15 +284,29 @@ export function selectAssessmentQuestions(input: QuizSelectionInput): QuizQuesti
       : poolForSkill(skill).filter((q) => matchesProfession(q, input.profession));
 
   if (input.mode === "clever_mix" && skill === "reading") {
-    return selectExamFaithfulReadingQuiz({ ...input, limit: input.limit ?? 5 });
+    return selectExamFaithfulReadingQuiz(input);
+  }
+
+  if (input.mode === "clever_mix" && skill === "listening") {
+    return selectExamFaithfulListeningQuiz(input);
   }
 
   if (input.mode === "clever_mix") {
-    return selectCleverMix(basePool, input.weakTags, input.targetCountry, input.limit ?? 5, seed);
+    const limit = input.limit ?? cleverQuizQuestionLimit(skill) ?? 5;
+    return selectCleverMix(basePool, input.weakTags, input.targetCountry, limit, seed);
+  }
+
+  if (input.mode === "adaptive" && skill === "listening") {
+    return selectExamFaithfulListeningQuiz(input);
+  }
+
+  if (input.mode === "adaptive" && skill === "reading") {
+    return selectExamFaithfulReadingQuiz(input);
   }
 
   const ranked = rankPool(basePool, input.weakTags, input.targetCountry);
-  return pickFromRanked(ranked, input.limit ?? 5, input.excludeIds ?? [], seed);
+  const fallbackLimit = input.limit ?? cleverQuizQuestionLimit(skill) ?? 5;
+  return pickFromRanked(ranked, fallbackLimit, input.excludeIds ?? [], seed);
 }
 
 export function selectQuizQuestions(input: QuizSelectionInput): QuizQuestion[] {
@@ -301,7 +347,7 @@ export function selectQuizQuestions(input: QuizSelectionInput): QuizQuestion[] {
   }
 
   if (mode === "clever_mix") {
-    return selectExamFaithfulReadingQuiz({ ...input, limit: input.limit ?? 5 });
+    return selectExamFaithfulReadingQuiz(input);
   }
 
   if (mode === "adaptive") {
@@ -370,6 +416,13 @@ export function passageSectionHint(
   const partABlock = blocks.find((b) => b.part === "A");
 
   if (hasMatching && partABlock) {
+    const partABlocks = blocks.filter((b) => b.part === "A");
+    if (partABlocks.length > 1) {
+      return (
+        `Part A exam — ${partABlocks.length} text sets (Text A–D each). ` +
+        `Real exam: ${OET_PART_A_QUESTION_COUNT} matching questions in 15 minutes.`
+      );
+    }
     return (
       "Part A includes four short workplace texts labelled Text A–D in the passage below. " +
       "Read all four before answering the matching questions."

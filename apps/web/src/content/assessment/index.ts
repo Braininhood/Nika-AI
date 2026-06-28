@@ -8,9 +8,12 @@ import {
   WRITING_QUIZ_BANK,
 } from "./skill-banks";
 import { VOCAB_BANK } from "./vocab-bank";
+import { fullVocabQuizPool } from "./glossary-quiz-pool";
 
 export type AssessmentSkill = OetSkill | "vocab" | "mixed";
 
+export { ALL_SKILL_PHRASES, phrasesForSkill } from "./skill-vocab-phrases";
+export { fullVocabQuizPool, glossaryQuizCount } from "./glossary-quiz-pool";
 export { VOCAB_BANK, VOCAB_PHRASES } from "./vocab-bank";
 export type { VocabPhrase } from "./vocab-bank";
 
@@ -25,7 +28,7 @@ export function fullAssessmentPool(): QuizQuestion[] {
     ...LISTENING_QUIZ_BANK,
     ...WRITING_QUIZ_BANK,
     ...SPEAKING_QUIZ_BANK,
-    ...VOCAB_BANK,
+    ...fullVocabQuizPool(),
   ]) {
     if (seen.has(q.id)) continue;
     seen.add(q.id);
@@ -36,7 +39,7 @@ export function fullAssessmentPool(): QuizQuestion[] {
 
 export function poolForSkill(skill: AssessmentSkill): QuizQuestion[] {
   if (skill === "mixed") return fullAssessmentPool();
-  if (skill === "vocab") return VOCAB_BANK;
+  if (skill === "vocab") return fullVocabQuizPool();
   if (skill === "reading") return fullQuizPool();
   if (skill === "listening") return LISTENING_QUIZ_BANK;
   if (skill === "writing") return WRITING_QUIZ_BANK;

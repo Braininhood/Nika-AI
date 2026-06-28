@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync:glossary": "node scripts/sync-glossary-quiz.mjs",
+    "predev": "node scripts/sync-glossary-quiz.mjs",
+    "prebuild": "node scripts/sync-glossary-quiz.mjs",
     "dev": "next dev --webpack",
     "dev:api": "pnpm -C ../.. dev:api",
     "dev:all": "pnpm -C ../.. dev:all",

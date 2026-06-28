@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   turbopack: {},
+  /** Allow importing shared API data (e.g. healthcare_vocabulary.json) into quiz pool. */
+  experimental: {
+    externalDir: true,
+  },
   allowedDevOrigins: [
     "127.0.0.1",
     "localhost",

@@ -1,0 +1,2106 @@
+{
+  "egfr": {
+    "display": "eGFR",
+    "full_name": "estimated glomerular filtration rate",
+    "explanation": "eGFR estimates how well the kidneys filter waste from the blood, measured in mL/min. Normal is usually above 90; values below 60 for three months suggest chronic kidney disease (CKD). In OET Reading and Writing you often see eGFR with a number (e.g. eGFR 58 mL/min) when discussing renal function, contrast safety, or dose adjustments.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "His eGFR is 58 mL/min; review metformin and contrast protocols.",
+    "aliases": [
+      "egfr",
+      "gfr"
+    ]
+  },
+  "ckd": {
+    "display": "CKD",
+    "full_name": "chronic kidney disease",
+    "explanation": "Long-term loss of kidney function, staged by eGFR. Common in OET referral letters and dietetic or pharmacy counselling scenarios. Stage 3a is roughly eGFR 45–59; stage 4 is 15–29.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "She has stage 3a CKD with an eGFR of 52 mL/min.",
+    "aliases": [
+      "ckd"
+    ]
+  },
+  "prn": {
+    "display": "PRN",
+    "full_name": "pro re nata (as needed)",
+    "explanation": "Give the medicine only when the patient requires it, not on a fixed schedule. Appears on drug charts and in Listening Part A note completion.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing"
+    ],
+    "example": "Paracetamol 1 g PRN for pain, maximum four doses in 24 hours.",
+    "aliases": [
+      "prn"
+    ]
+  },
+  "stat": {
+    "display": "stat",
+    "full_name": "statim (immediately)",
+    "explanation": "From Latin statim — do now, without delay. Used in clinical orders and handover language.",
+    "oet_skills": [
+      "listening",
+      "reading"
+    ],
+    "example": "Please administer hydrocortisone stat and repeat observations in 30 minutes.",
+    "aliases": [
+      "stat"
+    ]
+  },
+  "nbm": {
+    "display": "NBM",
+    "full_name": "nil by mouth",
+    "explanation": "The patient must not eat or drink. Same meaning as NPO (nil per os). Common pre-operatively and before some procedures.",
+    "oet_skills": [
+      "listening",
+      "writing",
+      "speaking"
+    ],
+    "example": "The patient is NBM from midnight for theatre tomorrow.",
+    "aliases": [
+      "nbm",
+      "npo",
+      "nil by mouth"
+    ]
+  },
+  "hba1c": {
+    "display": "HbA1c",
+    "full_name": "glycated haemoglobin",
+    "explanation": "Blood test showing average blood glucose over roughly three months, reported in mmol/mol or %. Used in diabetes monitoring in OET case notes and counselling role-plays.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "His HbA1c is 64 mmol/mol, above the target of 53.",
+    "aliases": [
+      "hba1c",
+      "a1c"
+    ]
+  },
+  "bp": {
+    "display": "BP",
+    "full_name": "blood pressure",
+    "explanation": "Usually written as systolic/diastolic (e.g. 142/88 mmHg). Hypertension and antihypertensive counselling appear frequently in pharmacy and nursing OET tasks.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "BP on admission was 158/94 mmHg despite amlodipine 10 mg daily.",
+    "aliases": [
+      "bp",
+      "blood pressure"
+    ]
+  },
+  "af": {
+    "display": "AF",
+    "full_name": "atrial fibrillation",
+    "explanation": "Irregular heart rhythm; anticoagulation (e.g. apixaban, warfarin) and rate control are common OET writing topics.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "He has non-valvular AF and was started on apixaban 5 mg twice daily.",
+    "aliases": [
+      "af",
+      "atrial fibrillation"
+    ]
+  },
+  "bnp": {
+    "display": "BNP",
+    "full_name": "B-type natriuretic peptide",
+    "explanation": "Blood marker for heart strain or heart failure. Elevated BNP supports a diagnosis of heart failure in case notes.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "BNP was 420 pg/mL, consistent with decompensated heart failure.",
+    "aliases": [
+      "bnp"
+    ]
+  },
+  "spo2": {
+    "display": "SpO2",
+    "full_name": "peripheral oxygen saturation",
+    "explanation": "Oxygen level measured by pulse oximetry, shown as a percentage. Normal is typically 94–98% on room air.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "speaking"
+    ],
+    "example": "SpO2 is 91% on room air; commence supplemental oxygen.",
+    "aliases": [
+      "spo2",
+      "o2 sats"
+    ]
+  },
+  "ice": {
+    "display": "ICE",
+    "full_name": "Ideas, Concerns, Expectations",
+    "explanation": "Framework for patient-centred communication in OET Speaking: elicit what the patient thinks is wrong, what worries them, and what they hope for from the consultation.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I explored her ideas, concerns, and expectations about starting insulin.",
+    "aliases": [
+      "ice"
+    ]
+  },
+  "differential diagnosis": {
+    "display": "differential diagnosis",
+    "full_name": "differential diagnosis",
+    "explanation": "A working list of possible conditions while tests rule options in or out — not the final confirmed diagnosis.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "The differential diagnosis includes PE, pneumonia, and musculoskeletal pain.",
+    "aliases": [
+      "differential",
+      "differential diagnosis"
+    ]
+  },
+  "presenting complaint": {
+    "display": "presenting complaint",
+    "full_name": "presenting complaint",
+    "explanation": "The main reason the patient sought care — often the opening clinical detail in letters and handovers.",
+    "oet_skills": [
+      "writing",
+      "speaking"
+    ],
+    "example": "Her presenting complaint was progressive shortness of breath on exertion.",
+    "aliases": [
+      "presenting complaint",
+      "pc"
+    ]
+  },
+  "bilateral": {
+    "display": "bilateral",
+    "full_name": "bilateral",
+    "explanation": "Affecting both sides of the body. Opposite: unilateral (one side only).",
+    "oet_skills": [
+      "listening",
+      "reading"
+    ],
+    "example": "Bilateral ankle oedema was noted on examination.",
+    "aliases": [
+      "bilateral"
+    ]
+  },
+  "hyperkalaemia": {
+    "display": "hyperkalaemia",
+    "full_name": "hyperkalaemia",
+    "explanation": "High blood potassium. Important in renal and cardiac scenarios; may require medication review or urgent treatment.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Hyperkalaemia (K+ 6.1 mmol/L) was corrected before discharge.",
+    "aliases": [
+      "hyperkalaemia",
+      "hyperkalemia"
+    ]
+  },
+  "nsaid": {
+    "display": "NSAID",
+    "full_name": "non-steroidal anti-inflammatory drug",
+    "explanation": "Pain/anti-inflammatory medicines such as ibuprofen or naproxen. Often contraindicated in CKD, anticoagulation, or GI bleed risk — common counselling point in pharmacy OET.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "Avoid NSAIDs while on apixaban unless the GP agrees.",
+    "aliases": [
+      "nsaid",
+      "nsaids"
+    ]
+  },
+  "bd": {
+    "display": "BD",
+    "full_name": "bis die (twice daily)",
+    "explanation": "Twice a day dosing. Also written b.d. Appears on prescriptions and in Listening note completion.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing"
+    ],
+    "example": "Apixaban 5 mg BD with food.",
+    "aliases": [
+      "bd",
+      "b.d."
+    ]
+  },
+  "tds": {
+    "display": "TDS",
+    "full_name": "ter die sumendum (three times daily)",
+    "explanation": "Three times a day. Common on UK drug charts.",
+    "oet_skills": [
+      "listening",
+      "reading"
+    ],
+    "example": "Paracetamol 1 g TDS after food.",
+    "aliases": [
+      "tds",
+      "t.d.s."
+    ],
+    "professions": [
+      "all"
+    ]
+  },
+  "inr": {
+    "display": "INR",
+    "full_name": "international normalised ratio",
+    "explanation": "Blood test measuring warfarin effect and clotting. Pharmacy and nursing OET tasks often include INR targets (e.g. 2.0–3.0) and monitoring plans after dose changes or drug interactions.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "INR 2.4 — repeat in 3–5 days after antibiotic course.",
+    "aliases": [
+      "inr"
+    ],
+    "professions": [
+      "pharmacy",
+      "nursing",
+      "medicine"
+    ]
+  },
+  "copd": {
+    "display": "COPD",
+    "full_name": "chronic obstructive pulmonary disease",
+    "explanation": "Long-term lung condition causing breathlessness and exacerbations. Common in nursing handovers, physiotherapy pulmonary rehab referrals, and pharmacy inhaler counselling.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "speaking",
+      "listening"
+    ],
+    "example": "COPD GOLD stage 2 — salbutamol PRN and tiotropium daily.",
+    "aliases": [
+      "copd"
+    ],
+    "professions": [
+      "medicine",
+      "nursing",
+      "physiotherapy",
+      "pharmacy"
+    ]
+  },
+  "news2": {
+    "display": "NEWS2",
+    "full_name": "National Early Warning Score 2",
+    "explanation": "UK track-and-trigger score from observations (BP, pulse, SpO2, etc.). Elevated scores trigger medical review — frequent in nursing Reading and handover language.",
+    "oet_skills": [
+      "reading",
+      "listening"
+    ],
+    "example": "NEWS2 score 7 — medical review requested.",
+    "aliases": [
+      "news2",
+      "news 2"
+    ],
+    "professions": [
+      "nursing",
+      "medicine"
+    ]
+  },
+  "mdt": {
+    "display": "MDT",
+    "full_name": "multidisciplinary team",
+    "explanation": "Meeting of different healthcare professionals to plan patient care. Appears in medicine Reading texts and oncology or surgical pathways.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "MDT discussed oncology referral for Tuesday 08:30.",
+    "aliases": [
+      "mdt",
+      "multidisciplinary team"
+    ],
+    "professions": [
+      "medicine",
+      "nursing",
+      "radiography"
+    ]
+  },
+  "fbc": {
+    "display": "FBC",
+    "full_name": "full blood count",
+    "explanation": "Routine blood test including haemoglobin and white cells. Pharmacy OET may request urgent FBC after suspected adverse drug reaction.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Urgent FBC requested within one week.",
+    "aliases": [
+      "fbc",
+      "full blood count"
+    ],
+    "professions": [
+      "all"
+    ]
+  },
+  "lft": {
+    "display": "LFT",
+    "full_name": "liver function test",
+    "explanation": "Blood tests for liver enzymes. Medicine writing tasks may refer abnormal LFTs and hepatology referral.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Abnormal LFTs — refer to hepatology for review.",
+    "aliases": [
+      "lft",
+      "lfts"
+    ],
+    "professions": [
+      "medicine",
+      "pharmacy",
+      "nursing"
+    ]
+  },
+  "iop": {
+    "display": "IOP",
+    "full_name": "intraocular pressure",
+    "explanation": "Pressure inside the eye, measured in mmHg. Core optometry OET vocabulary for glaucoma monitoring and ophthalmology referral.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "IOP 24/26 mmHg; latanoprost commenced.",
+    "aliases": [
+      "iop"
+    ],
+    "professions": [
+      "optometry"
+    ]
+  },
+  "dysphagia": {
+    "display": "dysphagia",
+    "full_name": "difficulty swallowing",
+    "explanation": "Swallowing difficulty — speech pathology and dietetics scenarios. Modified fluids and videofluoroscopy appear in case notes.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "Bed 11 dysphagia — modified fluids until videofluoroscopy review.",
+    "aliases": [
+      "dysphagia"
+    ],
+    "professions": [
+      "speech_pathology",
+      "dietetics",
+      "nursing"
+    ]
+  },
+  "hypertension": {
+    "display": "hypertension",
+    "full_name": "high blood pressure",
+    "explanation": "Persistently raised BP. Pharmacy referrals for BP review and medicine counselling are among the most common OET pharmacy writing tasks.",
+    "oet_skills": [
+      "writing",
+      "speaking",
+      "reading"
+    ],
+    "example": "History of hypertension despite amlodipine 10 mg daily.",
+    "aliases": [
+      "hypertension",
+      "htn"
+    ],
+    "professions": [
+      "pharmacy",
+      "medicine",
+      "nursing"
+    ]
+  },
+  "dyspnoea": {
+    "display": "dyspnoea",
+    "full_name": "shortness of breath",
+    "explanation": "Breathlessness — formal term used in letters to doctors; explain in plain English when speaking to patients.",
+    "oet_skills": [
+      "writing",
+      "speaking",
+      "reading"
+    ],
+    "example": "Progressive dyspnoea on exertion over six weeks.",
+    "aliases": [
+      "dyspnoea",
+      "dyspnea",
+      "sob"
+    ],
+    "professions": [
+      "all"
+    ]
+  },
+  "oedema": {
+    "display": "oedema",
+    "full_name": "swelling from fluid retention",
+    "explanation": "Fluid swelling, often ankle or pulmonary. Nursing and medicine case notes use oedema; US spelling is edema.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Bilateral ankle oedema noted on examination.",
+    "aliases": [
+      "oedema",
+      "edema"
+    ],
+    "professions": [
+      "nursing",
+      "medicine",
+      "pharmacy"
+    ]
+  },
+  "anticoagulant": {
+    "display": "anticoagulant",
+    "full_name": "blood-thinning medicine",
+    "explanation": "Medicines that reduce clotting (warfarin, apixaban, enoxaparin). Pharmacy and nursing OET focus on bleeding risks, INR, and patient counselling.",
+    "oet_skills": [
+      "writing",
+      "speaking",
+      "reading"
+    ],
+    "example": "Anticoagulant commenced for non-valvular AF.",
+    "aliases": [
+      "anticoagulant",
+      "blood thinner"
+    ],
+    "professions": [
+      "pharmacy",
+      "nursing",
+      "medicine"
+    ]
+  },
+  "contraindication": {
+    "display": "contraindication",
+    "full_name": "reason not to use a treatment",
+    "explanation": "A factor that makes a medicine or procedure unsafe. Key pharmacy counselling vocabulary — e.g. NSAIDs contraindicated in severe CKD.",
+    "oet_skills": [
+      "writing",
+      "speaking"
+    ],
+    "example": "NSAIDs are contraindicated while on anticoagulation.",
+    "aliases": [
+      "contraindication"
+    ],
+    "professions": [
+      "pharmacy",
+      "medicine",
+      "nursing"
+    ]
+  },
+  "vital signs": {
+    "display": "vital signs",
+    "full_name": "key clinical measurements",
+    "explanation": "Temperature, pulse, BP, respiration rate, and often SpO2. Nursing Listening and handover tasks use this phrase constantly.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "speaking"
+    ],
+    "example": "Vital signs within normal limits on admission.",
+    "aliases": [
+      "vital signs",
+      "observations"
+    ],
+    "professions": [
+      "nursing",
+      "medicine"
+    ]
+  },
+  "handover": {
+    "display": "handover",
+    "full_name": "clinical handover",
+    "explanation": "Structured transfer of patient information between shifts or teams. Nursing OET Reading and Speaking emphasise safe handover structure.",
+    "oet_skills": [
+      "reading",
+      "speaking",
+      "writing"
+    ],
+    "example": "Handover: confirm identity, state current problem, list pending actions.",
+    "aliases": [
+      "handover"
+    ],
+    "professions": [
+      "nursing",
+      "medicine",
+      "all"
+    ]
+  },
+  "referral": {
+    "display": "referral",
+    "full_name": "referral to another professional",
+    "explanation": "Sending a patient to another clinician or service. The most common OET Writing task type across all 12 professions.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "I am writing to refer Mr Holt for review of his blood pressure management.",
+    "aliases": [
+      "referral",
+      "refer"
+    ],
+    "professions": [
+      "all"
+    ]
+  },
+  "dvt": {
+    "display": "DVT",
+    "full_name": "deep vein thrombosis",
+    "explanation": "Blood clot in a deep vein, often leg. Post-operative prophylaxis and anticoagulation appear in medicine and nursing scenarios.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "DVT prophylaxis with enoxaparin until INR therapeutic.",
+    "aliases": [
+      "dvt"
+    ],
+    "professions": [
+      "medicine",
+      "nursing",
+      "physiotherapy"
+    ]
+  },
+  "pe": {
+    "display": "PE",
+    "full_name": "pulmonary embolism",
+    "explanation": "Clot in the lung arteries. Radiography CT pulmonary angiography reports and medicine differential diagnosis lists include PE.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "CT PA investigated for suspected PE.",
+    "aliases": [
+      "pe",
+      "pulmonary embolism"
+    ],
+    "professions": [
+      "medicine",
+      "radiography",
+      "nursing"
+    ]
+  },
+  "ecg": {
+    "display": "ECG",
+    "full_name": "electrocardiogram",
+    "explanation": "Heart rhythm tracing. OET accepts ECG (and EKG). Common in medicine case notes and pre-operative assessment.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "listening"
+    ],
+    "example": "ECG normal; cleared for surgery.",
+    "aliases": [
+      "ecg",
+      "ekg"
+    ],
+    "professions": [
+      "medicine",
+      "nursing"
+    ]
+  },
+  "adls": {
+    "display": "ADLs",
+    "full_name": "activities of daily living",
+    "explanation": "Basic self-care tasks (washing, dressing, feeding). Occupational therapy OET focuses on ADL assessment before discharge.",
+    "oet_skills": [
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "OT to assess ADLs before discharge destination agreed.",
+    "aliases": [
+      "adls",
+      "adl",
+      "activities of daily living"
+    ],
+    "professions": [
+      "occupational_therapy",
+      "nursing",
+      "physiotherapy"
+    ]
+  },
+  "pvd": {
+    "display": "PVD",
+    "full_name": "peripheral vascular disease",
+    "explanation": "Poor circulation to limbs. Podiatry referrals for absent pedal pulses and vascular review are common in OET writing.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Vascular referral for absent pedal pulses.",
+    "aliases": [
+      "pvd"
+    ],
+    "professions": [
+      "podiatry",
+      "medicine"
+    ]
+  },
+  "videofluoroscopy": {
+    "display": "videofluoroscopy",
+    "full_name": "swallowing X-ray study",
+    "explanation": "Imaging test for swallowing safety. Speech pathology case notes specify modified diets until videofluoroscopy review.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Modified fluids until videofluoroscopy Wednesday.",
+    "aliases": [
+      "videofluoroscopy",
+      "vfs"
+    ],
+    "professions": [
+      "speech_pathology",
+      "dietetics"
+    ]
+  },
+  "uti": {
+    "display": "UTI",
+    "full_name": "urinary tract infection",
+    "explanation": "Bladder or kidney infection. Common in nursing and medicine case notes and elderly care scenarios.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "UTI treated with trimethoprim; culture pending.",
+    "aliases": [
+      "uti"
+    ],
+    "professions": [
+      "nursing",
+      "medicine",
+      "pharmacy"
+    ]
+  },
+  "po": {
+    "display": "PO",
+    "full_name": "per os (by mouth)",
+    "explanation": "Medicine taken orally. Appears on drug charts alongside IV, IM, SC routes in Listening note completion.",
+    "oet_skills": [
+      "listening",
+      "reading"
+    ],
+    "example": "Paracetamol 1 g PO QDS.",
+    "aliases": [
+      "po",
+      "per os"
+    ],
+    "professions": [
+      "pharmacy",
+      "nursing"
+    ]
+  },
+  "iv": {
+    "display": "IV",
+    "full_name": "intravenous",
+    "explanation": "Into a vein — route for fluids or medicines. Universal hospital English in all professions.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing"
+    ],
+    "example": "IV antibiotics commenced on admission.",
+    "aliases": [
+      "iv",
+      "intravenous"
+    ],
+    "professions": [
+      "all"
+    ]
+  },
+  "fyi": {
+    "display": "FYI",
+    "full_name": "for your information",
+    "explanation": "Sharing information without requiring action from the reader. Standard OET Writing phrase — expand for non-medical recipients.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "For your information, the patient declined the flu vaccine.",
+    "aliases": [
+      "fyi",
+      "for your information"
+    ],
+    "professions": [
+      "all"
+    ]
+  },
+  "discharge summary": {
+    "display": "discharge summary",
+    "full_name": "discharge summary",
+    "explanation": "Letter or document summarising hospital stay and follow-up plan. Nursing and medicine writing tasks often simulate discharge communication.",
+    "oet_skills": [
+      "writing",
+      "reading"
+    ],
+    "example": "Discharge summary sent to GP within 24 hours.",
+    "aliases": [
+      "discharge summary"
+    ],
+    "professions": [
+      "nursing",
+      "medicine"
+    ]
+  },
+  "pulmonary rehab": {
+    "display": "pulmonary rehabilitation",
+    "full_name": "pulmonary rehabilitation",
+    "explanation": "Structured exercise and education programme for chronic lung disease. Physiotherapy and nursing Listening/Writing referrals.",
+    "oet_skills": [
+      "listening",
+      "writing",
+      "reading"
+    ],
+    "example": "Pulmonary rehab referral sent to community centre.",
+    "aliases": [
+      "pulmonary rehab",
+      "pulmonary rehabilitation"
+    ],
+    "professions": [
+      "physiotherapy",
+      "nursing",
+      "medicine"
+    ]
+  },
+  "mets": {
+    "display": "METs",
+    "full_name": "metabolic equivalents",
+    "explanation": "Measure of exercise capacity used in pre-operative fitness assessment. Medicine peri-operative case notes.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "METs greater than 4; cleared for surgery.",
+    "aliases": [
+      "mets"
+    ],
+    "professions": [
+      "medicine"
+    ]
+  },
+  "rnfl": {
+    "display": "RNFL",
+    "full_name": "retinal nerve fibre layer",
+    "explanation": "OCT imaging measure for glaucoma monitoring. Optometry OET writing includes RNFL thinning with IOP findings.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "RNFL thinning on OCT; family history of glaucoma.",
+    "aliases": [
+      "rnfl"
+    ],
+    "professions": [
+      "optometry"
+    ]
+  },
+  "mri": {
+    "display": "MRI",
+    "full_name": "MRI",
+    "explanation": "Common in OET reading, speaking, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "speaking",
+      "writing"
+    ],
+    "example": "Text A — MRI safety: patient with pacemaker — cardiology clearance faxed, scan cancelled pending review.",
+    "aliases": [
+      "mri"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "ct": {
+    "display": "CT",
+    "full_name": "CT",
+    "explanation": "Common in OET reading, speaking, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "speaking",
+      "writing"
+    ],
+    "example": "Text C — Radiology: CT chest for Ms Patel booked urgent — nil by mouth from midnight. Consent form in notes.",
+    "aliases": [
+      "ct"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "ent": {
+    "display": "ENT",
+    "full_name": "ENT",
+    "explanation": "Common in OET reading, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text D — ENT referral for Bed 6 hoarse voice >3 weeks — copy GP letter to notes.",
+    "aliases": [
+      "ent"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "avulsion": {
+    "display": "avulsion",
+    "full_name": "avulsion",
+    "explanation": "Common in OET reading, speaking, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "speaking",
+      "writing"
+    ],
+    "example": "Which text gives avulsion first-aid advice?",
+    "aliases": [
+      "avulsion"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "colic": {
+    "display": "COLIC",
+    "full_name": "colic",
+    "explanation": "Common in OET speaking, writing tasks for all, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Equine colic surgical referral",
+    "aliases": [
+      "colic"
+    ],
+    "professions": [
+      "all",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "exercise_programme": {
+    "display": "Exercise Programme",
+    "full_name": "Exercise Programme",
+    "explanation": "Common in OET speaking, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Explain home exercise programme for frozen shoulder.",
+    "aliases": [
+      "exercise programme"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "oct": {
+    "display": "OCT",
+    "full_name": "OCT",
+    "explanation": "Common in OET reading, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text D — OCT machine calibration — morning list delayed 30 minutes.",
+    "aliases": [
+      "oct"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "dry_socket": {
+    "display": "Dry Socket",
+    "full_name": "Dry Socket",
+    "explanation": "Common in OET speaking, writing tasks for all, dentistry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Gum flares behind back tooth, friend had dry socket",
+    "aliases": [
+      "dry socket"
+    ],
+    "professions": [
+      "all",
+      "dentistry"
+    ],
+    "harvested": true
+  },
+  "keratitis": {
+    "display": "keratitis",
+    "full_name": "keratitis",
+    "explanation": "Common in OET speaking, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Counsel on contact lens hygiene after mild keratitis.",
+    "aliases": [
+      "keratitis"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "charcot_foot": {
+    "display": "Charcot Foot",
+    "full_name": "Charcot Foot",
+    "explanation": "Common in OET speaking, writing tasks for all, podiatry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Explain Charcot foot management in diabetes — offloading and monitoring.",
+    "aliases": [
+      "charcot foot"
+    ],
+    "professions": [
+      "all",
+      "podiatry"
+    ],
+    "harvested": true
+  },
+  "malnutrition": {
+    "display": "malnutrition",
+    "full_name": "malnutrition",
+    "explanation": "Common in OET reading, writing tasks for all, dietetics. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text D — Home visit cancelled — snow — telephone review for malnutrition screen instead.",
+    "aliases": [
+      "malnutrition"
+    ],
+    "professions": [
+      "all",
+      "dietetics"
+    ],
+    "harvested": true
+  },
+  "opg": {
+    "display": "OPG",
+    "full_name": "OPG",
+    "explanation": "Common in OET reading, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text D — Radiograph QC: OPG machine service due — use alternate room until Friday.",
+    "aliases": [
+      "opg"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "rom": {
+    "display": "ROM",
+    "full_name": "ROM",
+    "explanation": "Common in OET reading, writing tasks for all, physiotherapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text C — Splinting workshop: rheumatoid hands — heat pack and gentle ROM before fabrication.",
+    "aliases": [
+      "rom"
+    ],
+    "professions": [
+      "all",
+      "physiotherapy"
+    ],
+    "harvested": true
+  },
+  "visual_field": {
+    "display": "Visual Field",
+    "full_name": "Visual Field",
+    "explanation": "Common in OET reading, speaking, writing tasks for all, optometry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "speaking",
+      "writing"
+    ],
+    "example": "Mrs Okonkwo, 64, elevated IOP 28mmHg, early visual field loss",
+    "aliases": [
+      "visual field"
+    ],
+    "professions": [
+      "all",
+      "optometry"
+    ],
+    "harvested": true
+  },
+  "bmi": {
+    "display": "BMI",
+    "full_name": "BMI",
+    "explanation": "Common in OET listening, speaking, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "listening",
+      "speaking",
+      "writing"
+    ],
+    "example": "Booking visit at ten weeks. BMI twenty-six. Taking folic acid four hundred micrograms daily. No smoking. Dating scan booked at hospital. Discussed pertussis vaccination in third trimester.",
+    "aliases": [
+      "bmi"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "maxillofacial": {
+    "display": "maxillofacial",
+    "full_name": "maxillofacial",
+    "explanation": "Common in OET reading, writing tasks for all, dentistry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text C — Referral: orthopantomogram for Ms Wright sent to maxillofacial — await triage letter.",
+    "aliases": [
+      "maxillofacial"
+    ],
+    "professions": [
+      "all",
+      "dentistry"
+    ],
+    "harvested": true
+  },
+  "angle_closure": {
+    "display": "Angle Closure",
+    "full_name": "Angle Closure",
+    "explanation": "Common in OET reading, writing tasks for all, optometry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text A — Urgent: Ms Tran suspected acute angle closure — same-day ophthalmology referral.",
+    "aliases": [
+      "angle closure"
+    ],
+    "professions": [
+      "all",
+      "optometry"
+    ],
+    "harvested": true
+  },
+  "dysphonia": {
+    "display": "dysphonia",
+    "full_name": "dysphonia",
+    "explanation": "Common in OET speaking, writing tasks for all, speech_pathology. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Clear ENT referral for occupational dysphonia.",
+    "aliases": [
+      "dysphonia"
+    ],
+    "professions": [
+      "all",
+      "speech_pathology"
+    ],
+    "harvested": true
+  },
+  "modified_fluids": {
+    "display": "Modified Fluids",
+    "full_name": "Modified Fluids",
+    "explanation": "Common in OET reading, writing tasks for all, speech_pathology. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text A — Bed 11 dysphagia — modified fluids until videofluoroscopy review Wednesday.",
+    "aliases": [
+      "modified fluids"
+    ],
+    "professions": [
+      "all",
+      "speech_pathology"
+    ],
+    "harvested": true
+  },
+  "adherence": {
+    "display": "adherence",
+    "full_name": "adherence",
+    "explanation": "Common in OET speaking tasks for pharmacy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "We discussed barriers to adherence with twice-daily dosing.",
+    "aliases": [
+      "adherence"
+    ],
+    "professions": [
+      "pharmacy"
+    ],
+    "harvested": true
+  },
+  "anticoagulation": {
+    "display": "anticoagulation",
+    "full_name": "anticoagulation",
+    "explanation": "Common in OET speaking, writing tasks for medicine. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Anticoagulation commenced for non-valvular AF.",
+    "aliases": [
+      "anticoagulation"
+    ],
+    "professions": [
+      "medicine"
+    ],
+    "harvested": true
+  },
+  "anxiety": {
+    "display": "anxiety",
+    "full_name": "anxiety",
+    "explanation": "Common in OET speaking tasks for radiography. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I used clear steps to reduce anxiety before the scan.",
+    "aliases": [
+      "anxiety"
+    ],
+    "professions": [
+      "radiography"
+    ],
+    "harvested": true
+  },
+  "aphasia": {
+    "display": "aphasia",
+    "full_name": "aphasia",
+    "explanation": "Common in OET speaking tasks for speech_pathology. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "Communication strategies discussed with family for aphasia.",
+    "aliases": [
+      "aphasia"
+    ],
+    "professions": [
+      "speech_pathology"
+    ],
+    "harvested": true
+  },
+  "cognitive_screen": {
+    "display": "cognitive screen",
+    "full_name": "cognitive screen",
+    "explanation": "Common in OET reading tasks for occupational_therapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading"
+    ],
+    "example": "Cognitive screen: delirium — OT to assess before discharge.",
+    "aliases": [
+      "cognitive screen"
+    ],
+    "professions": [
+      "occupational_therapy"
+    ],
+    "harvested": true
+  },
+  "contrast": {
+    "display": "contrast",
+    "full_name": "contrast",
+    "explanation": "Common in OET reading, writing tasks for radiography. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "eGFR 28 — refer to radiologist before iodinated contrast.",
+    "aliases": [
+      "contrast"
+    ],
+    "professions": [
+      "radiography"
+    ],
+    "harvested": true
+  },
+  "cruciate_ligament": {
+    "display": "cruciate ligament",
+    "full_name": "cruciate ligament",
+    "explanation": "Common in OET writing tasks for veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Canine cruciate ligament rupture — surgical referral discussed.",
+    "aliases": [
+      "cruciate ligament"
+    ],
+    "professions": [
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "dental_anxiety": {
+    "display": "dental anxiety",
+    "full_name": "dental anxiety",
+    "explanation": "Common in OET speaking tasks for dentistry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I acknowledged her anxiety and explained each step of the procedure.",
+    "aliases": [
+      "dental anxiety"
+    ],
+    "professions": [
+      "dentistry"
+    ],
+    "harvested": true
+  },
+  "diabetic_foot": {
+    "display": "diabetic foot",
+    "full_name": "diabetic foot",
+    "explanation": "Common in OET speaking, writing tasks for podiatry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "High-risk diabetic foot clinic follow-up arranged.",
+    "aliases": [
+      "diabetic foot"
+    ],
+    "professions": [
+      "podiatry"
+    ],
+    "harvested": true
+  },
+  "discharge_planning": {
+    "display": "discharge planning",
+    "full_name": "discharge planning",
+    "explanation": "Common in OET writing tasks for occupational_therapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Discharge planning includes carer training on transfers.",
+    "aliases": [
+      "discharge planning"
+    ],
+    "professions": [
+      "occupational_therapy"
+    ],
+    "harvested": true
+  },
+  "drug_interaction": {
+    "display": "drug interaction",
+    "full_name": "drug interaction",
+    "explanation": "Common in OET speaking, writing tasks for pharmacy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Antibiotic course may interact with warfarin — INR monitoring required.",
+    "aliases": [
+      "drug interaction"
+    ],
+    "professions": [
+      "pharmacy"
+    ],
+    "harvested": true
+  },
+  "enteral": {
+    "display": "enteral",
+    "full_name": "enteral",
+    "explanation": "Common in OET reading, writing tasks for dietetics. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Enteral feeding regimen reviewed with nursing team.",
+    "aliases": [
+      "enteral"
+    ],
+    "professions": [
+      "dietetics"
+    ],
+    "harvested": true
+  },
+  "equipment": {
+    "display": "equipment",
+    "full_name": "equipment",
+    "explanation": "Common in OET writing tasks for occupational_therapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Raised toilet seat and grab rails recommended.",
+    "aliases": [
+      "equipment"
+    ],
+    "professions": [
+      "occupational_therapy"
+    ],
+    "harvested": true
+  },
+  "exertional_chest_pain": {
+    "display": "exertional chest pain",
+    "full_name": "exertional chest pain",
+    "explanation": "Common in OET speaking, writing tasks for medicine. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "He reports exertional chest pain over six weeks.",
+    "aliases": [
+      "exertional chest pain"
+    ],
+    "professions": [
+      "medicine"
+    ],
+    "harvested": true
+  },
+  "extraction": {
+    "display": "extraction",
+    "full_name": "extraction",
+    "explanation": "Common in OET speaking, writing tasks for dentistry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Extraction performed under local anaesthetic on 12 June.",
+    "aliases": [
+      "extraction"
+    ],
+    "professions": [
+      "dentistry"
+    ],
+    "harvested": true
+  },
+  "fluid_restriction": {
+    "display": "fluid restriction",
+    "full_name": "fluid restriction",
+    "explanation": "Common in OET speaking, writing tasks for dietetics. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Fluid restriction 1.5 L/day explained with practical tips.",
+    "aliases": [
+      "fluid restriction"
+    ],
+    "professions": [
+      "dietetics"
+    ],
+    "harvested": true
+  },
+  "functional_assessment": {
+    "display": "functional assessment",
+    "full_name": "functional assessment",
+    "explanation": "Common in OET writing tasks for occupational_therapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Functional assessment shows difficulty with dressing and bathing.",
+    "aliases": [
+      "functional assessment"
+    ],
+    "professions": [
+      "occupational_therapy"
+    ],
+    "harvested": true
+  },
+  "glaucoma": {
+    "display": "glaucoma",
+    "full_name": "glaucoma",
+    "explanation": "Common in OET speaking, writing tasks for optometry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Family history of glaucoma; RNFL thinning on OCT.",
+    "aliases": [
+      "glaucoma"
+    ],
+    "professions": [
+      "optometry"
+    ],
+    "harvested": true
+  },
+  "glycaemic": {
+    "display": "glycaemic",
+    "full_name": "glycaemic",
+    "explanation": "Common in OET writing tasks for dietetics. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Request GP co-management for glycaemic optimisation.",
+    "aliases": [
+      "glycaemic"
+    ],
+    "professions": [
+      "dietetics"
+    ],
+    "harvested": true
+  },
+  "home_assessment": {
+    "display": "home assessment",
+    "full_name": "home assessment",
+    "explanation": "Common in OET speaking, writing tasks for occupational_therapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Home OT visit arranged to review kitchen and bathroom access.",
+    "aliases": [
+      "home assessment"
+    ],
+    "professions": [
+      "occupational_therapy"
+    ],
+    "harvested": true
+  },
+  "informed_consent": {
+    "display": "informed consent",
+    "full_name": "informed consent",
+    "explanation": "Common in OET speaking tasks for radiography. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I explained the procedure, risks, and obtained informed consent.",
+    "aliases": [
+      "informed consent"
+    ],
+    "professions": [
+      "radiography"
+    ],
+    "harvested": true
+  },
+  "lenses": {
+    "display": "lenses",
+    "full_name": "lenses",
+    "explanation": "Common in OET speaking tasks for optometry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I explained how to insert and care for contact lenses safely.",
+    "aliases": [
+      "lenses"
+    ],
+    "professions": [
+      "optometry"
+    ],
+    "harvested": true
+  },
+  "medication_counselling": {
+    "display": "medication counselling",
+    "full_name": "medication counselling",
+    "explanation": "Common in OET speaking, writing tasks for pharmacy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "I counselled him on adherence and missed-dose advice.",
+    "aliases": [
+      "medication counselling"
+    ],
+    "professions": [
+      "pharmacy"
+    ],
+    "harvested": true
+  },
+  "mobilisation": {
+    "display": "mobilisation",
+    "full_name": "mobilisation",
+    "explanation": "Common in OET speaking, writing tasks for physiotherapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Early mobilisation commenced with frame on day one.",
+    "aliases": [
+      "mobilisation"
+    ],
+    "professions": [
+      "physiotherapy"
+    ],
+    "harvested": true
+  },
+  "neurovascular": {
+    "display": "neurovascular",
+    "full_name": "neurovascular",
+    "explanation": "Common in OET writing tasks for podiatry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Neurovascular status documented — absent pedal pulses.",
+    "aliases": [
+      "neurovascular"
+    ],
+    "professions": [
+      "podiatry"
+    ],
+    "harvested": true
+  },
+  "offloading": {
+    "display": "offloading",
+    "full_name": "offloading",
+    "explanation": "Common in OET writing tasks for podiatry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Charcot foot — total contact cast for offloading.",
+    "aliases": [
+      "offloading"
+    ],
+    "professions": [
+      "podiatry"
+    ],
+    "harvested": true
+  },
+  "otc": {
+    "display": "OTC",
+    "full_name": "OTC",
+    "explanation": "Common in OET speaking tasks for pharmacy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "Advised to check with pharmacist before taking OTC ibuprofen.",
+    "aliases": [
+      "otc"
+    ],
+    "professions": [
+      "pharmacy"
+    ],
+    "harvested": true
+  },
+  "owner": {
+    "display": "OWNER",
+    "full_name": "owner",
+    "explanation": "Common in OET speaking, writing tasks for veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "I explained treatment options clearly to the owner.",
+    "aliases": [
+      "owner"
+    ],
+    "professions": [
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "pain_management": {
+    "display": "pain management",
+    "full_name": "pain management",
+    "explanation": "Common in OET speaking tasks for physiotherapy. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "We discussed pacing and flare-up management strategies.",
+    "aliases": [
+      "pain management"
+    ],
+    "professions": [
+      "physiotherapy"
+    ],
+    "harvested": true
+  },
+  "patient_education": {
+    "display": "patient education",
+    "full_name": "patient education",
+    "explanation": "Common in OET speaking tasks for nursing. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "Patient education provided on inhaler technique.",
+    "aliases": [
+      "patient education"
+    ],
+    "professions": [
+      "nursing"
+    ],
+    "harvested": true
+  },
+  "post_operative_care": {
+    "display": "post-operative care",
+    "full_name": "post-operative care",
+    "explanation": "Common in OET speaking, writing tasks for veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Post-operative care instructions given in plain language.",
+    "aliases": [
+      "post-operative care"
+    ],
+    "professions": [
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "prognosis": {
+    "display": "prognosis",
+    "full_name": "prognosis",
+    "explanation": "Common in OET speaking tasks for veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I discussed prognosis and recovery timeline with the owner.",
+    "aliases": [
+      "prognosis"
+    ],
+    "professions": [
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "prophylaxis": {
+    "display": "prophylaxis",
+    "full_name": "prophylaxis",
+    "explanation": "Common in OET writing tasks for dentistry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Antibiotic prophylaxis discussed for high-risk cardiac patient.",
+    "aliases": [
+      "prophylaxis"
+    ],
+    "professions": [
+      "dentistry"
+    ],
+    "harvested": true
+  },
+  "protein_target": {
+    "display": "protein target",
+    "full_name": "protein target",
+    "explanation": "Common in OET writing tasks for dietetics. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Daily protein target 1.2 g/kg for wound healing.",
+    "aliases": [
+      "protein target"
+    ],
+    "professions": [
+      "dietetics"
+    ],
+    "harvested": true
+  },
+  "radiation_dose": {
+    "display": "radiation dose",
+    "full_name": "radiation dose",
+    "explanation": "Common in OET speaking tasks for radiography. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I explained radiation dose is kept as low as reasonably achievable.",
+    "aliases": [
+      "radiation dose"
+    ],
+    "professions": [
+      "radiography"
+    ],
+    "harvested": true
+  },
+  "self_care": {
+    "display": "self-care",
+    "full_name": "self-care",
+    "explanation": "Common in OET speaking tasks for podiatry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking"
+    ],
+    "example": "I checked understanding of daily foot inspection and moisturising.",
+    "aliases": [
+      "self-care"
+    ],
+    "professions": [
+      "podiatry"
+    ],
+    "harvested": true
+  },
+  "species": {
+    "display": "species",
+    "full_name": "species",
+    "explanation": "Common in OET writing tasks for veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Species, findings, and urgency stated in opening lines.",
+    "aliases": [
+      "species"
+    ],
+    "professions": [
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "ulcer": {
+    "display": "ULCER",
+    "full_name": "ulcer",
+    "explanation": "Common in OET speaking, writing tasks for podiatry. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Diabetic foot ulcer dressed; offloading insole provided.",
+    "aliases": [
+      "ulcer"
+    ],
+    "professions": [
+      "podiatry"
+    ],
+    "harvested": true
+  },
+  "wound_care": {
+    "display": "wound care",
+    "full_name": "wound care",
+    "explanation": "Common in OET speaking, writing tasks for nursing. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "speaking",
+      "writing"
+    ],
+    "example": "Wound dressing changed; no signs of infection.",
+    "aliases": [
+      "wound care"
+    ],
+    "professions": [
+      "nursing"
+    ],
+    "harvested": true
+  },
+  "on_admission": {
+    "display": "On Admission",
+    "full_name": "On Admission",
+    "explanation": "Common in OET reading, vocab, writing tasks for all, nursing. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "vocab",
+      "writing"
+    ],
+    "example": "On admission",
+    "aliases": [
+      "on admission"
+    ],
+    "professions": [
+      "all",
+      "nursing"
+    ],
+    "harvested": true
+  },
+  "contact_lens_keratitis": {
+    "display": "Contact Lens Keratitis",
+    "full_name": "Contact Lens Keratitis",
+    "explanation": "Common in OET writing tasks for all. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Contact lens keratitis referral",
+    "aliases": [
+      "contact lens keratitis"
+    ],
+    "professions": [
+      "all"
+    ],
+    "harvested": true
+  },
+  "cxr": {
+    "display": "CXR",
+    "full_name": "CXR",
+    "explanation": "Common in OET reading, writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "Text D — Rheumatology: start methotrexate for Mr Singh — folic acid 5mg weekly, baseline CXR filed.",
+    "aliases": [
+      "cxr"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "ideas_concerns_expectations": {
+    "display": "Ideas, Concerns, Expectations",
+    "full_name": "Ideas, Concerns, Expectations",
+    "explanation": "Common in OET vocab tasks for all. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "vocab"
+    ],
+    "example": "Ideas, Concerns, Expectations",
+    "aliases": [
+      "ideas, concerns, expectations"
+    ],
+    "professions": [
+      "all"
+    ],
+    "harvested": true
+  },
+  "od": {
+    "display": "OD",
+    "full_name": "OD",
+    "explanation": "Common in OET writing tasks for dentistry, dietetics, nursing, occupational_therapy, optometry, pharmacy, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "BP 165 mmHg systolic; started amlodipine 0.625mg OD",
+    "aliases": [
+      "od"
+    ],
+    "professions": [
+      "dentistry",
+      "dietetics",
+      "nursing",
+      "occupational_therapy",
+      "optometry",
+      "pharmacy",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "slt": {
+    "display": "SLT",
+    "full_name": "SLT",
+    "explanation": "Common in OET writing tasks for all, dentistry, dietetics, occupational_therapy, optometry, physiotherapy, podiatry, radiography, speech_pathology, veterinary_science. Nika can explain this in full when you ask.",
+    "oet_skills": [
+      "writing"
+    ],
+    "example": "Mr Geoff Edwards, 70y — SLT assessment",
+    "aliases": [
+      "slt"
+    ],
+    "professions": [
+      "all",
+      "dentistry",
+      "dietetics",
+      "occupational_therapy",
+      "optometry",
+      "physiotherapy",
+      "podiatry",
+      "radiography",
+      "speech_pathology",
+      "veterinary_science"
+    ],
+    "harvested": true
+  },
+  "as_discussed": {
+    "display": "As discussed",
+    "full_name": "As discussed",
+    "explanation": "This phrase is used to refer back to a previous conversation or meeting. It indicates that the current discussion is related to what was previously talked about.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "The patient's symptoms were discussed and assessed by the doctor.",
+    "aliases": [
+      "as mentioned earlier",
+      "as previously discussed",
+      "according to what was said before"
+    ],
+    "professions": [
+      "all",
+      "NURSING",
+      "MEDICAL",
+      "DENTAL",
+      "PHARMACY",
+      "ALLIEDHEALTHCAREPROFESSIONALS"
+    ]
+  },
+  "palliative": {
+    "display": "Palliative",
+    "full_name": "Palliative care",
+    "explanation": "A type of medical care that focuses on relieving the symptoms, pain, and stress of a serious illness, rather than curing it. Palliative care is provided by a team of healthcare professionals, including doctors, nurses, and other specialists. It aims to improve the quality of life for patients and their families.",
+    "oet_skills": [
+      "listening",
+      "reading"
+    ],
+    "example": "The palliative care team worked closely with the patient's family to develop a plan that met her changing needs.",
+    "aliases": [
+      "Palliative care",
+      "Comfort care"
+    ],
+    "professions": [
+      "NURSE",
+      "DOCTOR",
+      "ALL"
+    ]
+  },
+  "dm": {
+    "display": "DM",
+    "full_name": "Diabetes Mellitus",
+    "explanation": "A group of metabolic disorders characterized by high blood sugar levels. It can cause a range of symptoms, including increased thirst and urination. If left untreated, diabetes can lead to serious complications.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "The patient has been diagnosed with type 2 diabetes mellitus.",
+    "aliases": [
+      "DM1",
+      "Type 2 DM"
+    ],
+    "professions": [
+      "all",
+      "NURSING",
+      "MEDICINE"
+    ]
+  },
+  "hr": {
+    "display": "HR",
+    "full_name": "Human Resources",
+    "explanation": "The person in charge of staff management and employee relations. They handle tasks such as recruitment, training, and benefits.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "The HR department is responsible for managing the company's workforce.",
+    "aliases": [
+      "Recruitment Officer",
+      "Personnel Manager"
+    ],
+    "professions": [
+      "all",
+      "NURSE",
+      "DOCTOR",
+      "MIDWIFE",
+      "PHARMACIST"
+    ]
+  },
+  "sc": {
+    "display": "SC",
+    "full_name": "Scalpel",
+    "explanation": "A scalpel is a small, sharp knife used in surgery to make precise cuts in the skin and underlying tissues.",
+    "oet_skills": [
+      "listening",
+      "reading",
+      "writing",
+      "speaking"
+    ],
+    "example": "The surgeon carefully holds the scalpel to make a precise incision.",
+    "aliases": [
+      "surgical knife",
+      "scalpels"
+    ],
+    "professions": [
+      "all",
+      "01",
+      "02"
+    ]
+  }
+}

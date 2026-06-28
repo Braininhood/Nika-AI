@@ -70,12 +70,17 @@ export default function SpeakingHubPage() {
 
       <StudySectionCard
         skill="speaking"
-        title="Quick practice"
+        title="Practice & exam"
         items={[
           {
+            href: "/speaking/exam",
+            label: "Speaking exam",
+            hint: "2 role-plays · 3 min prep + 5 min each",
+          },
+          {
             href: "/study/clever/speaking",
-            label: "Quick quiz",
-            hint: "Clinical communication — 5 mixed questions",
+            label: "Communication quiz",
+            hint: "12 ICE, structure & empathy questions",
           },
         ]}
       />

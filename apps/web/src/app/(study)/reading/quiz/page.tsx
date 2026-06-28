@@ -49,7 +49,6 @@ export default function AdaptiveQuizPage() {
         profession,
         targetCountry,
         mode: "adaptive",
-        limit: 5,
         excludeIds,
         selectionSeed,
       }),

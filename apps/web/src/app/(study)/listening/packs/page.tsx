@@ -17,7 +17,7 @@ export default function ListeningPacksPage() {
           Download bundled practice audio or manage your imported official materials.
         </p>
       </header>
-      <OfflinePacksPanel />
+      <OfflinePacksPanel variant="full" />
       <MyImportPacksList />
     </div>
   );

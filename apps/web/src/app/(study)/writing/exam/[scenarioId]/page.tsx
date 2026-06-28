@@ -12,6 +12,7 @@ import { StudyPageHeader } from "@/components/study/study-page-header";
 import { getScenario } from "@/content/writing/scenarios";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { db } from "@/lib/db";
+import { OET_WORD_MIN } from "@/lib/writing/word-count";
 import { submitWritingAttempt } from "@/lib/writing/submit-feedback";
 
 export default function ExamScenarioPage() {
@@ -107,7 +108,7 @@ export default function ExamScenarioPage() {
         title={`${scenario.meta.letterType} letter`}
       />
 
-      <ExamTimerBar phase={phase} onPhaseChange={setPhase} />
+      <ExamTimerBar phase={phase} onPhaseChange={setPhase} strict />
 
       {!hideCaseNotes && <CaseNotesPanel scenario={scenario} title="Case notes (reading phase)" />}
 
@@ -121,11 +122,14 @@ export default function ExamScenarioPage() {
           />
           <button
             type="button"
-            disabled={submitting || letterText.trim().length < 50}
+            disabled={
+              submitting ||
+              letterText.trim().split(/\s+/).filter(Boolean).length < OET_WORD_MIN
+            }
             onClick={() => void handleSubmit()}
             className="w-full rounded-xl bg-brand-accent px-4 py-3 text-sm font-semibold text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent disabled:opacity-40"
           >
-            {submitting ? "Submitting…" : "Submit exam attempt"}
+            {submitting ? "Submitting…" : `Submit exam attempt (min ${OET_WORD_MIN} words)`}
           </button>
         </>
       )}

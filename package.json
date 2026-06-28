@@ -7,6 +7,7 @@
     "dev:api": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev-api.ps1",
     "dev:all": "pnpm exec concurrently -n web,api -c blue,green \"pnpm dev\" \"pnpm dev:api\"",
     "build": "pnpm --filter web build",
+    "sync:glossary": "pnpm --filter web sync:glossary",
     "start": "pnpm --filter web start",
     "lint": "pnpm --filter web lint",
     "test": "pnpm --filter web test",
@@ -29,6 +30,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "concurrently": "^10.0.3"
+    "concurrently": "^10.0.3",
+    "typescript": "^5.9.3"
   }
 }

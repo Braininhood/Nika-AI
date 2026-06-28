@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getScenario, type WritingScenario } from "@/content/writing/scenarios";
 import { useAuth } from "@/lib/auth/auth-provider";
+import { warmContentCatalog } from "@/lib/content/merged-catalog";
 import { loadWritingContentContext } from "@/lib/writing/content-context";
 
 export function useWritingScenario(scenarioId: string): {
@@ -20,12 +21,15 @@ export function useWritingScenario(scenarioId: string): {
     if (authLoading) return;
 
     let cancelled = false;
-    void loadWritingContentContext(session?.user?.id).then((ctx) => {
+    void (async () => {
+      if (session?.access_token) {
+        await warmContentCatalog(session.access_token);
+      }
+      await loadWritingContentContext(session?.user?.id);
       if (cancelled) return;
-      const fromCatalog = ctx.scenarios.find((item) => item.id === scenarioId);
-      setScenario(fromCatalog ?? getScenario(scenarioId));
+      setScenario(getScenario(scenarioId));
       setResolved(true);
-    });
+    })();
 
     return () => {
       cancelled = true;

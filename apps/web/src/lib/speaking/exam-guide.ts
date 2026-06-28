@@ -1,5 +1,15 @@
 import type { ClinicalChecklistGroup } from "./clinical-checklist";
 
+/** Sourced from docs/01-OET-RESEARCH/05-speaking-deep-dive.md */
+export const OET_SPEAKING_OVERVIEW = {
+  rolePlays: 2,
+  prepMinutesEach: 3,
+  durationMinutesEach: 5,
+  warmUpMinutes: 2,
+  totalAssessedMinutes: 20,
+  totalWithWarmUp: 22,
+} as const;
+
 export interface SpeakingExamTip {
   id: string;
   title: string;

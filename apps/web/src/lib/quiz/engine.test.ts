@@ -34,11 +34,19 @@ function testSkillMap(overrides: Partial<SkillMap> & Pick<SkillMap, "diagnostic"
 }
 
 describe("selectQuizQuestions", () => {
+  it("returns 20 Part A matching questions when Part A is the focus", () => {
+    const questions = selectQuizQuestions({
+      weakTags: ["reading:part-a-speed"],
+      mode: "adaptive",
+    });
+    expect(questions.length).toBe(20);
+    expect(questions.every((q) => q.part === "A")).toBe(true);
+  });
+
   it("returns exam-faithful Part C set for inference weak tags", () => {
     const questions = selectQuizQuestions({
       weakTags: ["reading:part-c-inference"],
       mode: "adaptive",
-      limit: 3,
     });
     expect(questions.length).toBeGreaterThanOrEqual(2);
     expect(questions.every((q) => q.part === "C")).toBe(true);

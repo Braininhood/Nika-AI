@@ -74,7 +74,9 @@ function sortScenarios(list: WritingScenario[]): WritingScenario[] {
 }
 
 export function getScenario(id: string): WritingScenario | undefined {
-  return getActiveWritingScenarios().find((s) => s.id === id);
+  const fromActive = getActiveWritingScenarios().find((s) => s.id === id);
+  if (fromActive && isValidWritingScenario(fromActive)) return fromActive;
+  return WRITING_SCENARIOS.find((s) => s.id === id && isValidWritingScenario(s));
 }
 
 export function scenariosForProfession(profession: string): WritingScenario[] {

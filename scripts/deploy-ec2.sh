@@ -63,7 +63,7 @@ if [[ -f "$ENV_LOCAL" ]] && [[ ! -r "$ENV_LOCAL" ]]; then
   exit 1
 fi
 
-echo "==> Build Next.js"
+echo "==> Build Next.js (prebuild syncs healthcare glossary for vocab quiz)"
 # t3.micro: cap Node heap; swap handles the rest. Override: NODE_MAX_OLD_SPACE_SIZE=1024
 export NODE_OPTIONS="--max-old-space-size=${NODE_MAX_OLD_SPACE_SIZE:-768}"
 export NEXT_TELEMETRY_DISABLED=1

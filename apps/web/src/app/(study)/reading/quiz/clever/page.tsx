@@ -44,7 +44,6 @@ export default function CleverQuizPage() {
         profession,
         targetCountry,
         mode: "clever_mix",
-        limit: 5,
         excludeIds,
         selectionSeed,
       }),

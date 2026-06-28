@@ -8,6 +8,7 @@ import { PassagePanel } from "@/components/reading/passage-panel";
 import { QuizQuestionList } from "@/components/reading/quiz-question";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
 import { ReadingTimerBar } from "@/components/reading/reading-timer-bar";
+import { OET_READING } from "@/lib/exam/oet-counts";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { loadUserProfile } from "@/lib/profile/service";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
@@ -79,9 +80,17 @@ export default function ReadingExamPage() {
       <header>
         <h1 className="text-xl font-bold text-ink">Reading exam — Parts B &amp; C</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          {examSet.partBQuestionCount} Part B extracts + {examSet.partCBlocks.length} Part C texts ·{" "}
-          {totalQ} questions · shared 45-minute block (real OET format).
+          {examSet.partBQuestionCount} Part B extracts · {examSet.partCQuestionCount} Part C
+          questions · {totalQ} total · shared {OET_READING.partBcMinutes}-minute block (real OET:{" "}
+          {OET_READING.partB}+{OET_READING.partC} = {OET_READING.partB + OET_READING.partC}{" "}
+          questions).
         </p>
+        {examSet.partCQuestionCount < OET_READING.partC ? (
+          <p className="mt-2 text-xs text-amber-700">
+            Part C pool has {examSet.partCQuestionCount} of {OET_READING.partC} questions — more
+            passages coming soon.
+          </p>
+        ) : null}
       </header>
 
       <ReadingExamBriefing part="B" compact />
@@ -135,6 +144,16 @@ export default function ReadingExamPage() {
           </div>
         ))}
       </section>
+
+      <p className="text-center text-xs text-ink-soft">
+        <Link href="/reading/exam/part-a" className="text-brand-primary underline">
+          Part A exam (15 min)
+        </Link>{" "}
+        ·{" "}
+        <Link href="/reading/exam/full" className="text-brand-primary underline">
+          Full reading exam (60 min)
+        </Link>
+      </p>
 
       <button
         type="button"

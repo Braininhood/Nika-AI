@@ -69,7 +69,7 @@ export async function primarySpeakingRecommendation(
     kind: "exam",
     title: "Exam simulation — dual role-play flow",
     description: "Two consecutive role-plays with prep timers — mirrors OET speaking format.",
-    route: roleCardRoute(card.id),
-    durationMinutes: 16,
+    route: "/speaking/exam",
+    durationMinutes: 20,
   };
 }
