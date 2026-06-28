@@ -132,7 +132,9 @@ Saved words live in **IndexedDB** (offline). Users can add from:
 
 Requires sign-in for AI explain/translate; pronunciation uses browser TTS (Nika voice profile).
 
-**Related API routes** (all JWT): `/api/v1/vocabulary/translate`, `/api/v1/vocabulary/explain`, `/api/v1/vocabulary/knowledge/stats`.
+**Cross-device sync:** When signed in online, study data syncs to Supabase automatically (sign-in, reconnect, after quizzes/vocabulary). Pull: `GET /api/v1/progress/pull`. Push: `POST /api/v1/progress/sync`. Tables: `attempts`, `vocabulary_entries`, `user_study_blobs`. Apply migration `20250618000000_cross_device_sync.sql`.
+
+**Related API routes** (all JWT): `/api/v1/vocabulary/translate`, `/api/v1/vocabulary/explain`, `/api/v1/progress/pull`, `/api/v1/progress/sync`.
 
 **Tests:** `cd apps/api && PYTHONPATH=. python -m pytest tests/test_daily_tip.py` (or `python tests/test_daily_tip.py`).
 
@@ -151,7 +153,7 @@ Requires sign-in for AI explain/translate; pronunciation uses browser TTS (Nika 
 | `pnpm verify:phase0` | Phase 0 smoke checks |
 | `./scripts/deploy-ec2.sh` | Redeploy on EC2 (production; restarts API → Nika auto-sync) |
 | `python scripts/harvest_oet_vocabulary.py` | Optional: manual vocabulary harvest (dev/CI) |
-| `python scripts/ingest_rag.py` | Optional: embed docs into pgvector RAG |
+| `python scripts/ingest_rag.py` | Optional: add markdown docs to **`rag_chunks`** (bundled corpus auto-syncs on API startup) |
 | `cd apps/api && PYTHONPATH=. python tests/test_daily_tip.py` | Daily tip service smoke tests |
 
 ---

@@ -33,6 +33,17 @@ export function OutboxSync() {
 
     window.addEventListener("online", handleOnline);
 
+    const handleScheduleStudySync = () => {
+      const token = session?.access_token;
+      const userId = session?.user?.id;
+      if (token && userId) {
+        void import("@/lib/sync/study-data-sync").then(({ scheduleStudyDataSync }) =>
+          scheduleStudyDataSync(userId, token),
+        );
+      }
+    };
+    window.addEventListener("oet-schedule-study-sync", handleScheduleStudySync);
+
     const handleSwMessage = (event: MessageEvent) => {
       if (event.data?.type === "PROCESS_OUTBOX") void runSync();
     };
@@ -42,9 +53,10 @@ export function OutboxSync() {
 
     return () => {
       window.removeEventListener("online", handleOnline);
+      window.removeEventListener("oet-schedule-study-sync", handleScheduleStudySync);
       navigator.serviceWorker?.removeEventListener("message", handleSwMessage);
     };
-  }, [loading, session]);
+  }, [loading, session?.access_token, session?.user?.id]);
 
   return null;
 }

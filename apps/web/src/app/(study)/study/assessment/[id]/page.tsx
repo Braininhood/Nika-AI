@@ -15,6 +15,7 @@ import {
   questionsFromAssessment,
 } from "@/lib/assessment/generated-store";
 import { submitAssessmentAttempt } from "@/lib/quiz/submit-assessment";
+import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
 
 export default function GeneratedAssessmentPage() {
   const params = useParams();
@@ -70,7 +71,7 @@ export default function GeneratedAssessmentPage() {
     );
   }
 
-  const allAnswered = questions.every((q) => responses[q.id] !== undefined);
+  const allAnswered = allQuestionsAnswered(questions, responses);
 
   if (result) {
     return (

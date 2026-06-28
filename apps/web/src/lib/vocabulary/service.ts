@@ -26,11 +26,15 @@ export async function saveVocabularyEntry(
     addedAt: Date.now(),
   };
   await db.vocabularyEntries.put(record);
+  const { notifyStudyDataChanged } = await import("@/lib/sync/notify-study-sync");
+  notifyStudyDataChanged();
   return record;
 }
 
 export async function deleteVocabularyEntry(id: string): Promise<void> {
   await db.vocabularyEntries.delete(id);
+  const { notifyStudyDataChanged } = await import("@/lib/sync/notify-study-sync");
+  notifyStudyDataChanged();
 }
 
 export async function vocabularyCount(): Promise<number> {

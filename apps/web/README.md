@@ -53,7 +53,7 @@ Reference panels (model letters, lesson examples, quiz answer review, etc.) defa
 
 - **Dexie / IndexedDB** — profile, vocabulary, progress, plans (`src/lib/db/`)
 - **Serwist** — service worker for offline shell
-- Vocabulary works offline for saved entries; explain/translate/today-tip need network + auth
+- **Cross-device sync** (signed in + online): on sign-in and after study activity, data pushes to Supabase and pulls from other devices. Synced: profile, skill map, attempts, vocabulary, writing drafts, lesson progress, mock attempts, flashcards, readiness. Speaking **audio files** stay on device (transcripts sync). Run migration `20250618000000_cross_device_sync.sql` on Supabase.
 
 ## Build
 

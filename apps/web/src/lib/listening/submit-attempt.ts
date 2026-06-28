@@ -67,6 +67,9 @@ export async function submitListeningAttempt(
     synced: false,
   });
 
+  const { notifyStudyDataChanged } = await import("@/lib/sync/notify-study-sync");
+  notifyStudyDataChanged();
+
   await db.progress.put({
     id: attemptId,
     skill: "listening",

@@ -82,6 +82,9 @@ export async function submitAssessmentAttempt(
     synced: false,
   });
 
+  const { notifyStudyDataChanged } = await import("@/lib/sync/notify-study-sync");
+  notifyStudyDataChanged();
+
   const { afterStudyActivity } = await import("@/lib/progress/badge-store");
   void afterStudyActivity();
 

@@ -117,6 +117,221 @@
       ]
     },
     {
+      "id": "pharmacy-drug-interaction",
+      "professions": ["pharmacy"],
+      "headline": "Pharmacy English for OET",
+      "term": "Drug interaction",
+      "phonetic": "drʌɡ ˌɪntərˈækʃən",
+      "definition": "When one medicine changes the effect of another — increasing toxicity or reducing benefit.",
+      "example": "A clinically significant drug interaction between warfarin and the newly prescribed antibiotic was identified.",
+      "speaking": {
+        "opening": ["Are you taking any other medicines, including over-the-counter products?"],
+        "clinical_questions": [
+          "Have you started any new tablets recently?",
+          "Do you take herbal supplements or vitamins?",
+          "Have you noticed unusual bruising or bleeding?"
+        ],
+        "empathy": ["It is easy to miss interactions when medicines come from several sources."],
+        "explanation": [
+          "Some combinations require dose adjustment or alternative therapy.",
+          "We review all current medicines to check for interactions."
+        ],
+        "advice": ["Bring a complete list of medicines to each review.", "Report new symptoms promptly."]
+      },
+      "writing_clinical": [
+        "Potential drug interaction identified on medicines reconciliation.",
+        "Alternative antibiotic therapy was recommended.",
+        "INR monitoring was arranged."
+      ],
+      "writing_key_phrases": [
+        "A clinically significant drug interaction was identified.",
+        "The GP was advised to consider an alternative agent.",
+        "Close monitoring is recommended."
+      ],
+      "exam_tip_use": ["clinically significant", "medicines reconciliation", "identified"],
+      "exam_tip_avoid": ["bad mix of pills"],
+      "grade_a_phrase": "A clinically significant drug interaction between warfarin and the prescribed antibiotic was identified; alternative therapy and INR monitoring were recommended.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "drug interaction",
+          "meaning": "One medicine altering the effect of another",
+          "example": "A drug interaction between warfarin and the antibiotic was identified."
+        }
+      ]
+    },
+    {
+      "id": "pharmacy-contraindication",
+      "professions": ["pharmacy"],
+      "headline": "Pharmacy English for OET",
+      "term": "Contraindication",
+      "phonetic": "ˌkɒntrəɪndɪˈkeɪʃən",
+      "definition": "A reason why a particular medicine should not be used in a given patient.",
+      "example": "Pregnancy is a contraindication to ACE inhibitor therapy in this case.",
+      "speaking": {
+        "opening": ["Before we supply this medicine, I need to check a few safety points."],
+        "clinical_questions": [
+          "Are you pregnant or planning pregnancy?",
+          "Do you have kidney or liver problems?",
+          "Have you had an allergic reaction to this drug class before?"
+        ],
+        "empathy": ["Safety checks help us choose the right medicine for you."],
+        "explanation": [
+          "A contraindication means this medicine is not suitable at present.",
+          "An alternative with a safer profile can usually be offered."
+        ],
+        "advice": ["Inform clinicians of allergies and pregnancy status.", "Do not share prescribed medicines."]
+      },
+      "writing_clinical": [
+        "Contraindication to the prescribed agent was noted.",
+        "Renal impairment precludes use of the current dose.",
+        "An alternative was suggested to the prescriber."
+      ],
+      "writing_key_phrases": [
+        "There is a contraindication to the prescribed therapy.",
+        "An alternative agent is recommended.",
+        "The prescriber was contacted for review."
+      ],
+      "exam_tip_use": ["contraindication", "precludes", "alternative agent"],
+      "exam_tip_avoid": ["can't take this pill"],
+      "grade_a_phrase": "Renal impairment constitutes a contraindication to the prescribed dose; an alternative agent was recommended and the prescriber was contacted.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "contraindication",
+          "meaning": "Reason a medicine must not be used",
+          "example": "Pregnancy is a contraindication to this therapy."
+        }
+      ]
+    },
+    {
+      "id": "pharmacy-therapeutic-monitoring",
+      "professions": ["pharmacy"],
+      "headline": "Pharmacy English for OET",
+      "term": "Therapeutic drug monitoring",
+      "phonetic": "ˌθerəpjuːtɪk drʌɡ ˈmɒnɪtərɪŋ",
+      "definition": "Measuring drug levels in blood to ensure efficacy and avoid toxicity.",
+      "example": "Therapeutic drug monitoring of phenytoin was arranged following dose adjustment.",
+      "speaking": {
+        "opening": ["We may need blood tests to make sure your medicine level is safe and effective."],
+        "clinical_questions": [
+          "Have you had levels checked before?",
+          "Have you missed any doses this week?",
+          "Any signs of toxicity such as unsteady gait or nausea?"
+        ],
+        "empathy": ["Regular monitoring helps keep your treatment both safe and effective."],
+        "explanation": [
+          "Some medicines have a narrow safe range in the blood.",
+          "Levels guide whether the dose should be changed."
+        ],
+        "advice": ["Attend scheduled blood tests.", "Take doses at the same time each day."]
+      },
+      "writing_clinical": [
+        "Therapeutic drug monitoring was requested.",
+        "Trough level to be drawn before the next dose.",
+        "Results will guide dose adjustment."
+      ],
+      "writing_key_phrases": [
+        "Therapeutic drug monitoring is recommended.",
+        "A trough sample should be taken prior to the next dose.",
+        "Dose adjustment will depend on laboratory results."
+      ],
+      "exam_tip_use": ["therapeutic drug monitoring", "trough level", "dose adjustment"],
+      "exam_tip_avoid": ["blood test for medicine"],
+      "grade_a_phrase": "Therapeutic drug monitoring of phenytoin was arranged; a trough sample is required before the next dose and dose adjustment will follow laboratory review.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "therapeutic drug monitoring",
+          "meaning": "Blood tests to check medicine levels",
+          "example": "Therapeutic drug monitoring was arranged after the dose change."
+        }
+      ]
+    },
+    {
+      "id": "pharmacy-formulary",
+      "professions": ["pharmacy"],
+      "headline": "Pharmacy English for OET",
+      "term": "Formulary",
+      "phonetic": "ˈfɔːmjələri",
+      "definition": "An approved list of medicines that may be prescribed within a hospital or health system.",
+      "example": "The requested agent is not on the hospital formulary; a therapeutically equivalent alternative is available.",
+      "speaking": {
+        "opening": ["The medicine on your script may need a formulary check."],
+        "clinical_questions": [
+          "Has this medicine been supplied here before?",
+          "Is a generic substitution acceptable?",
+          "Does the prescriber require a specific brand?"
+        ],
+        "empathy": ["Formulary rules can be confusing — we will find a suitable option."],
+        "explanation": [
+          "The formulary lists medicines approved for routine use.",
+          "Equivalent alternatives often have the same clinical effect."
+        ],
+        "advice": ["Ask the pharmacist if your usual brand is unavailable.", "Do not stop treatment without advice."]
+      },
+      "writing_clinical": [
+        "The prescribed medicine is not on the local formulary.",
+        "A therapeutically equivalent alternative was supplied.",
+        "The prescriber was notified."
+      ],
+      "writing_key_phrases": [
+        "The agent is not listed on the hospital formulary.",
+        "A therapeutically equivalent alternative was provided.",
+        "Notification was sent to the prescriber."
+      ],
+      "exam_tip_use": ["formulary", "therapeutically equivalent", "alternative"],
+      "exam_tip_avoid": ["not on the list"],
+      "grade_a_phrase": "The prescribed agent is not on the hospital formulary; a therapeutically equivalent alternative was supplied and the prescriber was notified.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "formulary",
+          "meaning": "Approved list of medicines in a health system",
+          "example": "The medicine is not on the hospital formulary."
+        }
+      ]
+    },
+    {
+      "id": "pharmacy-dose-titration",
+      "professions": ["pharmacy"],
+      "headline": "Pharmacy English for OET",
+      "term": "Dose titration",
+      "phonetic": "dəʊs taɪˈtreɪʃən",
+      "definition": "Gradually adjusting a medicine dose until the desired effect is reached with minimal side effects.",
+      "example": "Dose titration of ramipril was undertaken, increasing at two-week intervals.",
+      "speaking": {
+        "opening": ["We may need to increase your dose gradually to reach the target."],
+        "clinical_questions": [
+          "Have you had any dizziness since the last increase?",
+          "What is your home blood pressure?",
+          "Are you able to weigh yourself regularly if required?"
+        ],
+        "empathy": ["Finding the right dose can take time — we will adjust carefully."],
+        "explanation": [
+          "Titration reduces the risk of side effects from sudden dose changes.",
+          "You will be reviewed after each adjustment."
+        ],
+        "advice": ["Record blood pressure readings.", "Report dizziness or swelling promptly."]
+      },
+      "writing_clinical": [
+        "Dose titration plan documented.",
+        "Increase scheduled at two-week intervals if tolerated.",
+        "Blood pressure and renal function to be monitored."
+      ],
+      "writing_key_phrases": [
+        "Dose titration will proceed at two-week intervals.",
+        "Monitoring of blood pressure and renal function is required.",
+        "The patient was counselled on symptoms requiring review."
+      ],
+      "exam_tip_use": ["dose titration", "if tolerated", "at intervals"],
+      "exam_tip_avoid": ["slowly up the dose"],
+      "grade_a_phrase": "Dose titration of ramipril is planned at two-week intervals if tolerated, with blood pressure and renal function monitoring and counselling on symptoms requiring review.",
+      "vocabulary_phrases": [
+        {
+          "phrase": "dose titration",
+          "meaning": "Gradual adjustment of medicine dose",
+          "example": "Dose titration will proceed at two-week intervals."
+        }
+      ]
+    },
+    {
       "id": "nursing-falls-risk",
       "professions": ["nursing"],
       "headline": "Nursing English for OET",

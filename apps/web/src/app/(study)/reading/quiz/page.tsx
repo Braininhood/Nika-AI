@@ -18,6 +18,7 @@ import {
   selectQuizQuestions,
 } from "@/lib/quiz/engine";
 import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
+import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
 
 export default function AdaptiveQuizPage() {
   const { session, loading } = useAuth();
@@ -58,7 +59,7 @@ export default function AdaptiveQuizPage() {
   const rationale = quizRationale(weakTags, questions);
   const passageBlocks = useMemo(() => passageBlocksForQuiz(questions), [questions]);
   const briefingPart = useMemo(() => quizBriefingPart(weakTags, questions), [weakTags, questions]);
-  const allAnswered = questions.every((q) => responses[q.id] !== undefined);
+  const allAnswered = allQuestionsAnswered(questions, responses);
 
   const handleSubmit = async () => {
     setSubmitting(true);

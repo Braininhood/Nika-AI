@@ -1,7 +1,7 @@
 """Daily profession tip — one curated OET tip per profession per calendar day.
 
 Tip pool: ``app/data/daily_tips.json``. Each entry lists ``professions`` (or
-``"all"`` for generic tips). Selection is ``hash(date + profession)`` so the
+``"all"`` for generic tips). Selection uses a stable hash of date + profession so the
 same tip is returned all day for a given profession.
 
 API: ``GET /api/v1/vocabulary/today-tip`` (profile profession).
@@ -10,6 +10,7 @@ Tests: ``tests/test_daily_tip.py``.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import date
 from functools import lru_cache
@@ -46,7 +47,10 @@ def _load_tips() -> list[dict[str, Any]]:
 
 
 def _daily_seed(profession: str) -> int:
-    return hash(f"{date.today().isoformat()}:{profession}") % 10_000
+    """Stable per calendar day + profession (not Python's salted hash())."""
+    key = f"{date.today().isoformat()}:{profession}"
+    digest = hashlib.sha256(key.encode()).hexdigest()
+    return int(digest[:8], 16) % 10_000
 
 
 def _tips_for_profession(profession: str) -> list[dict[str, Any]]:

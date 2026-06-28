@@ -129,6 +129,7 @@ export async function submitSpeakingAttempt(
       durationSeconds,
       recordingId,
       transcriptLength: transcript.length,
+      transcript,
     },
     createdAt: Date.now(),
     synced: !queuedForSync && apiFeedback.status !== "offline",
@@ -150,6 +151,9 @@ export async function submitSpeakingAttempt(
 
   const { afterStudyActivity } = await import("@/lib/progress/badge-store");
   void afterStudyActivity();
+
+  const { notifyStudyDataChanged } = await import("@/lib/sync/notify-study-sync");
+  notifyStudyDataChanged();
 
   return {
     attemptId,

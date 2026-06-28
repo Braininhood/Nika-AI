@@ -17,7 +17,7 @@ export async function fetchTodayTip(
   if (cached) return cached;
 
   if (!accessToken || !navigator.onLine) {
-    return null;
+    return cached ?? null;
   }
 
   try {

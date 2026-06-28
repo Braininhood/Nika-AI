@@ -115,7 +115,7 @@ export async function submitWritingAttempt(input: WritingSubmitInput): Promise<W
     id: attemptId,
     skill: "writing",
     scenarioId: scenario.id,
-    scoreRaw: { criterionScores, wordCount, mode },
+    scoreRaw: { criterionScores, wordCount, mode, letterText: letterText },
     createdAt: Date.now(),
     synced: !queuedForSync && apiFeedback.status !== "offline",
   });
@@ -128,6 +128,9 @@ export async function submitWritingAttempt(input: WritingSubmitInput): Promise<W
 
   const { afterStudyActivity } = await import("@/lib/progress/badge-store");
   void afterStudyActivity();
+
+  const { notifyStudyDataChanged } = await import("@/lib/sync/notify-study-sync");
+  notifyStudyDataChanged();
 
   return { checklist, feedback: apiFeedback, queuedForSync, attemptId };
 }

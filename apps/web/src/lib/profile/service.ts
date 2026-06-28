@@ -10,6 +10,7 @@ import {
 } from "@/lib/profile/merge-remote-profile";
 import { createClient } from "@/lib/supabase/client";
 import { updateSupabaseProfile } from "@/lib/supabase/profile-sync";
+import { syncStudyDataWithCloud } from "@/lib/sync/study-data-sync";
 
 function localToProfile(user: LocalUser, skillMap?: SkillMap): UserProfile {
   return {
@@ -201,6 +202,12 @@ export async function syncAccountWithCloud(
         computedAt: remoteAt,
       });
     }
+  }
+
+  try {
+    await syncStudyDataWithCloud(userId, accessToken);
+  } catch {
+    // Offline — retried on reconnect
   }
 
   return merged;

@@ -93,14 +93,20 @@ async def retrieve_chunks(
     limit: int = 6,
 ) -> list[RetrievedChunk]:
     pg_results = await _retrieve_from_pgvector(
-        query, profession=profession, skill=skill, limit=limit
+        query, profession=profession, skill=skill, limit=limit * 2
     )
-    if pg_results:
-        return pg_results
+    mem_results = await _retrieve_from_memory(
+        query, profession=profession, skill=skill, limit=limit * 2
+    )
 
-    return await _retrieve_from_memory(
-        query, profession=profession, skill=skill, limit=limit
-    )
+    merged: dict[str, RetrievedChunk] = {}
+    for chunk in pg_results + mem_results:
+        existing = merged.get(chunk.id)
+        if not existing or chunk.score > existing.score:
+            merged[chunk.id] = chunk
+
+    ranked = sorted(merged.values(), key=lambda c: c.score, reverse=True)
+    return ranked[:limit]
 
 
 async def _retrieve_from_memory(

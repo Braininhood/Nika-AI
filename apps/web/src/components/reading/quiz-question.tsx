@@ -2,6 +2,12 @@
 
 import type { QuizQuestion } from "@/content/reading";
 
+import { OrderingSequenceField } from "@/components/quiz/ordering-sequence-field";
+import {
+  isSequenceOrdering,
+  splitListeningPrompt,
+} from "@/lib/quiz/question-utils";
+
 interface QuizQuestionFieldProps {
   question: QuizQuestion;
   index: number;
@@ -13,7 +19,7 @@ interface QuizQuestionFieldProps {
 
 function correctAnswerDisplay(question: QuizQuestion): string {
   if (typeof question.correctAnswer === "string") return question.correctAnswer;
-  return question.correctAnswer.join(", ");
+  return question.correctAnswer.join(" → ");
 }
 
 export function QuizQuestionField({
@@ -25,17 +31,28 @@ export function QuizQuestionField({
   onChange,
 }: QuizQuestionFieldProps) {
   const correctStr = correctAnswerDisplay(question);
+  const sequenceOrder = isSequenceOrdering(question);
   const isCorrect =
     value !== undefined &&
-    String(Array.isArray(value) ? value.join(", ") : value).toLowerCase() ===
-      correctStr.toLowerCase();
+    (sequenceOrder && Array.isArray(value) && Array.isArray(question.correctAnswer)
+      ? value.length === question.correctAnswer.length &&
+        question.correctAnswer.every(
+          (c, i) => String(value[i] ?? "").toLowerCase() === c.toLowerCase(),
+        )
+      : String(Array.isArray(value) ? value.join(", ") : value).toLowerCase() ===
+        correctStr.toLowerCase());
+
   const options = question.options ?? [];
+  const listeningParts = splitListeningPrompt(question.prompt, question.skill);
+  const promptText = listeningParts.question;
+
   const isChoiceQuestion =
-    question.type === "mcq" ||
-    question.type === "matching" ||
-    question.type === "gap_fill" ||
-    question.type === "true_false" ||
-    question.type === "ordering";
+    !sequenceOrder &&
+    (question.type === "mcq" ||
+      question.type === "matching" ||
+      question.type === "gap_fill" ||
+      question.type === "true_false" ||
+      question.type === "ordering");
 
   return (
     <article
@@ -59,13 +76,40 @@ export function QuizQuestionField({
             id={`question-${question.id}-prompt`}
             className="min-w-0 flex-1 break-words text-base font-semibold leading-snug text-ink [overflow-wrap:anywhere]"
           >
-            {question.prompt}
+            {promptText}
           </h2>
         </div>
       </header>
 
       <div className="p-4">
-        {isChoiceQuestion ? (
+        {listeningParts.context ? (
+          <div
+            className="mb-4 rounded-xl border border-brand-primary/25 bg-brand-accent-soft/30 px-3 py-3"
+            role="region"
+            aria-label={listeningParts.contextLabel ?? "Listening context"}
+          >
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-brand-primary">
+              {listeningParts.contextLabel ?? "Context"}
+            </p>
+            <p className="mt-1.5 break-words text-sm italic leading-relaxed text-ink [overflow-wrap:anywhere]">
+              &ldquo;{listeningParts.context}&rdquo;
+            </p>
+            {question.skill === "listening" ? (
+              <p className="mt-2 text-xs text-ink-soft">
+                Read the script carefully — full audio practice is in Listening sessions.
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
+        {sequenceOrder ? (
+          <OrderingSequenceField
+            options={options}
+            value={Array.isArray(value) ? value : undefined}
+            disabled={disabled}
+            onChange={onChange}
+          />
+        ) : isChoiceQuestion ? (
           <ul
             className="space-y-2"
             role="radiogroup"

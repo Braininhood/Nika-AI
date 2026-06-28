@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from app.core.config import settings
 from app.core.rate_limit import RateLimitMiddleware
 from app.services.knowledge_sync import startup_knowledge_sync
+from app.services.rag_sync import startup_rag_sync
 from app.services.ollama_status import get_ollama_status
 from app.routers import admin, admin_content, ai, auth, content, course, diagnostic, mock_exam, plan, profile, progress, readiness, vocabulary
 
@@ -19,6 +20,7 @@ _openapi = None if settings.is_production else "/openapi.json"
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     await startup_knowledge_sync()
+    await startup_rag_sync()
     yield
 
 
@@ -83,7 +85,17 @@ async def health(request: Request) -> dict:
         },
         "deepl_configured": bool(settings.deepl_api_key),
         "nika_knowledge": _nika_knowledge_health(),
+        "rag_corpus": _rag_corpus_health(),
     }
+
+
+def _rag_corpus_health() -> dict:
+    try:
+        from app.services.rag_sync import rag_sync_stats
+
+        return rag_sync_stats()
+    except Exception:
+        return {"status": "unavailable"}
 
 
 def _nika_knowledge_health() -> dict:

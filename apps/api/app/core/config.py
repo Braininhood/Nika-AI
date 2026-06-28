@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     supabase_jwt_secret: str = ""
     supabase_anon_key: str = ""
     supabase_service_role_key: str = ""
-    database_url: str = "postgresql+asyncpg://oet:oet@localhost:5432/oet_coach"
+    database_url: str = ""  # optional — Supabase direct Postgres or local Docker; empty = in-memory RAG only
     redis_url: str = "redis://localhost:6379/0"
 
     gemini_api_key: str = ""
@@ -55,6 +55,7 @@ class Settings(BaseSettings):
     ai_daily_quota: int = 15
     environment: str = "development"  # development | production
     nika_auto_sync: bool = True  # harvest + reload knowledge on API startup
+    rag_auto_sync: bool = True  # rag_corpus.json → rag_chunks on API startup when DATABASE_URL set
     nika_auto_enrich: bool = True  # background LLM glossary enrich when API keys available
     nika_enrich_limit: int = 8  # max new terms per startup enrich cycle
     nika_merge_glossary_stubs: bool = False  # stub entries; prefer --enrich / auto-enrich

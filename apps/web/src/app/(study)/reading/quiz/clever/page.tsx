@@ -4,13 +4,15 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { QuizQuestionList } from "@/components/reading/quiz-question";
+import { QuizPassageSection } from "@/components/quiz/quiz-passage-section";
 import { QuizSourceTip } from "@/components/quiz/quiz-source-tip";
 import { ReadingExamBriefing } from "@/components/reading/reading-exam-briefing";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { loadUserProfile } from "@/lib/profile/service";
 import { submitReadingAttempt } from "@/lib/reading/submit-attempt";
-import { cleverQuizRationale, quizBriefingPart, selectQuizQuestions } from "@/lib/quiz/engine";
+import { cleverQuizRationale, passageBlocksForQuiz, quizBriefingPart, selectQuizQuestions } from "@/lib/quiz/engine";
+import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
 import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
 
 export default function CleverQuizPage() {
@@ -50,8 +52,9 @@ export default function CleverQuizPage() {
   );
 
   const rationale = cleverQuizRationale(weakTags);
+  const passageBlocks = useMemo(() => passageBlocksForQuiz(questions), [questions]);
   const briefingPart = useMemo(() => quizBriefingPart(weakTags, questions), [weakTags, questions]);
-  const allAnswered = questions.every((q) => responses[q.id] !== undefined);
+  const allAnswered = allQuestionsAnswered(questions, responses);
 
   const handleSubmit = async () => {
     setSubmitting(true);
@@ -96,11 +99,18 @@ export default function CleverQuizPage() {
         </p>
       </header>
 
-      <QuizQuestionList
-        questions={questions}
-        responses={responses}
-        onChange={(id, value) => setResponses((prev) => ({ ...prev, [id]: value }))}
-      />
+      <QuizPassageSection blocks={passageBlocks} />
+
+      <section>
+        {passageBlocks.length > 0 ? (
+          <h2 className="mb-4 text-sm font-semibold text-ink">Questions</h2>
+        ) : null}
+        <QuizQuestionList
+          questions={questions}
+          responses={responses}
+          onChange={(id, value) => setResponses((prev) => ({ ...prev, [id]: value }))}
+        />
+      </section>
 
       <button
         type="button"

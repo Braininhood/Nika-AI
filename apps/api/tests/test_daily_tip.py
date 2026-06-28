@@ -16,7 +16,15 @@ def test_daily_tip_dentistry():
 def test_daily_tip_pharmacy():
     tip = get_daily_tip("pharmacy")
     assert tip["profession"] == "pharmacy"
-    assert "adherence" in tip["term"].lower() or tip["term"]
+    assert tip["term"]
+    assert tip["tip_id"].startswith("pharmacy-")
+
+
+def test_pharmacy_tip_pool_size():
+    from app.services.daily_tip import _tips_for_profession
+
+    pool = _tips_for_profession("pharmacy")
+    assert len(pool) >= 5, "Pharmacy needs multiple tips for daily rotation"
 
 
 def test_daily_tip_fallback_profession():
@@ -36,6 +44,7 @@ def test_daily_tip_stable_same_day():
 def run_all() -> None:
     test_daily_tip_dentistry()
     test_daily_tip_pharmacy()
+    test_pharmacy_tip_pool_size()
     test_daily_tip_fallback_profession()
     test_daily_tip_stable_same_day()
     print("All daily tip tests passed.")

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { QuizQuestionList } from "@/components/reading/quiz-question";
+import { QuizPassageSection } from "@/components/quiz/quiz-passage-section";
 import { QuizSourceTip } from "@/components/quiz/quiz-source-tip";
 import { ReadingResultsPanel } from "@/components/reading/reading-results-panel";
 import { StudyPageHeader } from "@/components/study/study-page-header";
@@ -11,7 +12,8 @@ import {
   type AssessmentSkill,
 } from "@/content/assessment";
 import { useAuth } from "@/lib/auth/auth-provider";
-import { cleverQuizRationale, selectAssessmentQuestions } from "@/lib/quiz/engine";
+import { cleverQuizRationale, passageBlocksForQuiz, selectAssessmentQuestions } from "@/lib/quiz/engine";
+import { allQuestionsAnswered } from "@/lib/quiz/question-utils";
 import { useQuizSelection } from "@/lib/quiz/use-quiz-selection";
 import { submitAssessmentAttempt } from "@/lib/quiz/submit-assessment";
 import { loadUserProfile } from "@/lib/profile/service";
@@ -61,7 +63,8 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
   );
 
   const rationale = cleverQuizRationale(weakTags, skill);
-  const allAnswered = questions.every((q) => responses[q.id] !== undefined);
+  const passageBlocks = useMemo(() => passageBlocksForQuiz(questions), [questions]);
+  const allAnswered = allQuestionsAnswered(questions, responses);
   const label = title ?? CLEVER_SKILL_LABELS[skill];
   const studySkill =
     skill === "reading" || skill === "listening" || skill === "writing" || skill === "speaking"
@@ -109,11 +112,18 @@ export function CleverQuizSession({ skill, backHref, title }: CleverQuizSessionP
 
       <QuizSourceTip />
 
-      <QuizQuestionList
-        questions={questions}
-        responses={responses}
-        onChange={(id, value) => setResponses((prev) => ({ ...prev, [id]: value }))}
-      />
+      <QuizPassageSection blocks={passageBlocks} />
+
+      <section>
+        {passageBlocks.length > 0 ? (
+          <h2 className="mb-4 text-sm font-semibold text-ink">Questions</h2>
+        ) : null}
+        <QuizQuestionList
+          questions={questions}
+          responses={responses}
+          onChange={(id, value) => setResponses((prev) => ({ ...prev, [id]: value }))}
+        />
+      </section>
 
       <button
         type="button"
