@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { blocksForUserPart } from "@/content/listening";
+import { blocksForUserPart, blockSummary } from "@/content/listening";
+import { PartExamCta } from "@/components/study/part-exam-cta";
 import { StudyPageHeader } from "@/components/study/study-page-header";
 
 export default function ListeningPartBListPage() {
@@ -16,8 +17,12 @@ export default function ListeningPartBListPage() {
         skill="listening"
         eyebrow="Listening · Part B"
         title="Workplace extracts"
-        description="One short clip, one MCQ per screen."
+        description="Practice: one extract per block. Exam: 6 extracts × 1 MCQ each."
       />
+
+      <PartExamCta skill="listening" part="B" />
+
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Practice blocks</p>
       <ul className="space-y-2 text-sm">
         {blocks.map((block) => (
           <li key={block.id} className="rounded-xl border border-border px-3 py-2">
@@ -27,6 +32,7 @@ export default function ListeningPartBListPage() {
             >
               {block.title}
             </Link>
+            <span className="text-ink-soft"> · {blockSummary(block)}</span>
           </li>
         ))}
       </ul>

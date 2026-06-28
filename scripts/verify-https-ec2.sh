@@ -54,7 +54,13 @@ fi
 
 echo ""
 echo "=== Next.js (localhost:3000) ==="
-curl -sf -o /dev/null -w "  web HTTP %{http_code}\n" http://127.0.0.1:3000/ || echo "  FAIL: Nika-AI-web not responding"
+curl -sf -o /dev/null -w "  web / HTTP %{http_code}\n" http://127.0.0.1:3000/ || echo "  FAIL: Nika-AI-web not responding"
+curl -sf -o /dev/null -w "  web /diagnostic HTTP %{http_code}\n" http://127.0.0.1:3000/diagnostic || echo "  FAIL: /diagnostic not responding"
+
+echo ""
+echo "=== systemd (web + api) ==="
+systemctl is-active Nika-AI-web 2>/dev/null && echo "  Nika-AI-web: active" || echo "  Nika-AI-web: DOWN — sudo systemctl restart Nika-AI-web"
+systemctl is-active Nika-AI-api 2>/dev/null && echo "  Nika-AI-api: active" || echo "  Nika-AI-api: DOWN — sudo systemctl restart Nika-AI-api"
 
 echo ""
 echo "Done. If HTTPS fails: fix DNS → open SG ports 80+443 → copy Caddyfile → sudo systemctl restart caddy"

@@ -20,16 +20,48 @@ function sortBlocks(list: ListeningBlock[]): ListeningBlock[] {
 }
 
 export function getListeningBlock(id: string): ListeningBlock | undefined {
-  return getActiveListeningBlocks().find((block) => block.id === id);
+  const block = getActiveListeningBlocks().find((b) => b.id === id);
+  return block ? normalizeListeningBlock(block) : undefined;
+}
+
+/** Ensure catalog merges never drop embedded questions, note fields, or audio paths. */
+export function normalizeListeningBlock(block: ListeningBlock): ListeningBlock {
+  const staticBlock = ALL_LISTENING_BLOCKS.find((b) => b.id === block.id);
+  const staticQuestions = staticBlock?.questions ?? [];
+  const mergedQuestions = block.questions?.length ? block.questions : staticQuestions;
+
+  return {
+    ...staticBlock,
+    ...block,
+    questions: mergedQuestions.length ? mergedQuestions : [],
+    noteFields: block.noteFields?.length
+      ? block.noteFields
+      : (staticBlock?.noteFields ?? []),
+    noteTemplate: block.noteTemplate ?? staticBlock?.noteTemplate,
+    transcript: block.transcript ?? staticBlock?.transcript ?? "",
+    bundledAudioPath: block.bundledAudioPath ?? staticBlock?.bundledAudioPath,
+    durationMinutes: block.durationMinutes ?? staticBlock?.durationMinutes ?? 12,
+    difficulty: block.difficulty ?? staticBlock?.difficulty ?? 2,
+    tags: block.tags?.length ? block.tags : (staticBlock?.tags ?? []),
+    accent: block.accent ?? staticBlock?.accent ?? "UK",
+  };
+}
+
+export function listeningQuestionCount(block: ListeningBlock): number {
+  return normalizeListeningBlock(block).questions.length;
 }
 
 export function blocksForPart(part: ListeningPart): ListeningBlock[] {
-  return sortBlocks(getActiveListeningBlocks().filter((block) => block.part === part));
+  return sortBlocks(
+    getActiveListeningBlocks()
+      .filter((block) => block.part === part)
+      .map(normalizeListeningBlock),
+  );
 }
 
 /** Accent rotation — spread UK · AU · US · IE · NZ · CA across practice. */
 export function blocksForUser(_profession?: string, _targetCountry?: string): ListeningBlock[] {
-  return sortBlocks(getActiveListeningBlocks());
+  return sortBlocks(getActiveListeningBlocks().map(normalizeListeningBlock));
 }
 
 export function blocksForAccent(accent: ListeningAccent): ListeningBlock[] {
@@ -47,7 +79,7 @@ export function accentsInCatalog(): ListeningAccent[] {
 }
 
 export function blocksForUserPart(part: ListeningPart): ListeningBlock[] {
-  return blocksForUser().filter((b) => b.part === part);
+  return blocksForUser().filter((b) => b.part === part).map(normalizeListeningBlock);
 }
 
 export function pickPlanListeningBlock(
@@ -76,7 +108,7 @@ export function blockSummary(block: ListeningBlock): string {
     block.accent === "mixed"
       ? "Mixed accents"
       : `${block.accent ?? "UK"} accent`;
-  const questionCount = block.questions?.length ?? 0;
+  const questionCount = listeningQuestionCount(block);
   return `${accent} · ${questionCount} Q`;
 }
 
@@ -106,7 +138,7 @@ export function listeningBlockCount(): number {
 
 export function totalListeningQuestionCount(): number {
   return getActiveListeningBlocks().reduce(
-    (sum, b) => sum + (b.questions?.length ?? 0),
+    (sum, b) => sum + listeningQuestionCount(b),
     0,
   );
 }

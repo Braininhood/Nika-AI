@@ -86,8 +86,26 @@ sudo systemctl restart Nika-AI-api
 # Nika knowledge brain auto-syncs on API startup (harvest + profession packs)
 sudo systemctl restart Nika-AI-web
 
+wait_for_url() {
+  local url="$1"
+  local label="$2"
+  local i
+  for i in $(seq 1 20); do
+    if curl -sf -o /dev/null "$url"; then
+      echo "  $label ready (attempt $i)"
+      return 0
+    fi
+    sleep 3
+  done
+  echo "  WARN: $label not responding after 60s — check: sudo journalctl -u Nika-AI-web -n 50"
+  return 1
+}
+
 echo "==> Status"
-sudo systemctl --no-pager status Nika-AI-api Nika-AI-web
+sudo systemctl --no-pager status Nika-AI-api Nika-AI-web || true
+wait_for_url "http://127.0.0.1:8000/health" "API" || true
+wait_for_url "http://127.0.0.1:3000/" "Web" || true
 curl -sf http://127.0.0.1:8000/health | head -c 200
 echo ""
-curl -sf -o /dev/null -w "web HTTP %{http_code}\n" http://127.0.0.1:3000/
+curl -sf -o /dev/null -w "web HTTP %{http_code}\n" http://127.0.0.1:3000/ || echo "web FAIL"
+curl -sf -o /dev/null -w "diagnostic HTTP %{http_code}\n" http://127.0.0.1:3000/diagnostic || echo "diagnostic FAIL"

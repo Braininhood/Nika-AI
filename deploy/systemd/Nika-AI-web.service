@@ -1,7 +1,7 @@
 [Unit]
 Description=Nika-AI Next.js PWA
 After=network.target Nika-AI-api.service
-Requires=Nika-AI-api.service
+Wants=Nika-AI-api.service
 
 [Service]
 Type=simple
@@ -11,8 +11,9 @@ EnvironmentFile=/opt/Nika-AI/.env
 Environment=ENVIRONMENT=production
 Environment=API_PROXY_URL=http://127.0.0.1:8000
 Environment=NODE_ENV=production
+Environment=NODE_OPTIONS=--max-old-space-size=384
 ExecStart=/usr/bin/pnpm start
-Restart=on-failure
+Restart=always
 RestartSec=5
 
 [Install]

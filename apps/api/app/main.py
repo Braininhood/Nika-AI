@@ -1,5 +1,7 @@
 """FastAPI application entry point."""
 
+import asyncio
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -16,11 +18,21 @@ from app.routers import admin, admin_content, ai, auth, content, course, diagnos
 _docs = None if settings.is_production else "/docs"
 _openapi = None if settings.is_production else "/openapi.json"
 
+logger = logging.getLogger(__name__)
+
+
+async def _background_startup_sync() -> None:
+    """Harvest / RAG sync — must not block HTTP; keeps site up during deploy restarts."""
+    try:
+        await startup_knowledge_sync()
+        await startup_rag_sync()
+    except Exception:
+        logger.exception("Background startup sync failed")
+
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    await startup_knowledge_sync()
-    await startup_rag_sync()
+    asyncio.create_task(_background_startup_sync())
     yield
 
 

@@ -1,6 +1,8 @@
 import { ALL_LISTENING_BLOCKS } from "@/content/listening";
 import type { ListeningBlock } from "@/content/listening";
+import { normalizeListeningBlock } from "@/content/listening/blocks/registry";
 import { ALL_READING_BLOCKS } from "@/content/reading/blocks/registry";
+import { normalizeReadingBlock } from "@/content/reading/blocks/registry";
 import type { ReadingBlock } from "@/content/reading/types";
 import { ROLE_PLAY_CARDS } from "@/content/speaking";
 import type { RolePlayCard } from "@/content/speaking/types";
@@ -68,6 +70,38 @@ function mergeWritingScenariosValidated(
   return [...byId.values()];
 }
 
+function mergeListeningBlocksValidated(
+  staticItems: ListeningBlock[],
+  catalog: CatalogResponse | null,
+): ListeningBlock[] {
+  const merged = mergeById(staticItems, catalog, ["listening_block", "block"]);
+  const byId = new Map<string, ListeningBlock>();
+
+  for (const item of staticItems) {
+    byId.set(item.id, normalizeListeningBlock(item));
+  }
+
+  for (const item of merged) {
+    const normalized = normalizeListeningBlock(item);
+    if (normalized.questions.length > 0) {
+      byId.set(normalized.id, normalized);
+    } else {
+      const fallback = staticItems.find((s) => s.id === normalized.id);
+      if (fallback) byId.set(fallback.id, normalizeListeningBlock(fallback));
+    }
+  }
+
+  return [...byId.values()];
+}
+
+function mergeReadingBlocksValidated(
+  staticItems: ReadingBlock[],
+  catalog: CatalogResponse | null,
+): ReadingBlock[] {
+  const merged = mergeById(staticItems, catalog, ["reading_block", "block"]);
+  return merged.map((b) => normalizeReadingBlock(b));
+}
+
 async function loadCatalog(
   accessToken: string,
   skill: ContentSkill,
@@ -95,15 +129,15 @@ export async function mergedWritingScenarios(accessToken?: string): Promise<Writ
 }
 
 export async function mergedReadingBlocks(accessToken?: string): Promise<ReadingBlock[]> {
-  if (!accessToken) return ALL_READING_BLOCKS;
+  if (!accessToken) return ALL_READING_BLOCKS.map(normalizeReadingBlock);
   const catalog = await loadCatalog(accessToken, "reading");
-  return mergeById(ALL_READING_BLOCKS, catalog, ["reading_block", "block"]);
+  return mergeReadingBlocksValidated(ALL_READING_BLOCKS, catalog);
 }
 
 export async function mergedListeningBlocks(accessToken?: string): Promise<ListeningBlock[]> {
-  if (!accessToken) return ALL_LISTENING_BLOCKS;
+  if (!accessToken) return ALL_LISTENING_BLOCKS.map(normalizeListeningBlock);
   const catalog = await loadCatalog(accessToken, "listening");
-  return mergeById(ALL_LISTENING_BLOCKS, catalog, ["listening_block", "block"]);
+  return mergeListeningBlocksValidated(ALL_LISTENING_BLOCKS, catalog);
 }
 
 export async function mergedSpeakingCards(accessToken?: string): Promise<RolePlayCard[]> {

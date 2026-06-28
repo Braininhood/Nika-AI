@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { PartExamCta } from "@/components/study/part-exam-cta";
 import { StudyPageHeader } from "@/components/study/study-page-header";
 import { blockRoute, blockSummary } from "@/content/reading";
 import type { ReadingBlock } from "@/content/reading";
@@ -28,8 +29,12 @@ export default function ReadingPartBListPage() {
         skill="reading"
         eyebrow="Reading · Part B"
         title="Gist & detail"
-        description="Locale-matched policies (NHS, AHPRA, HIPAA, HSE, etc.) listed first for your destination."
+        description="Practice: one extract per block. Exam: 6 extracts in the shared 45-minute B+C window."
       />
+
+      <PartExamCta skill="reading" part="B" />
+
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Practice blocks</p>
       <ul className="space-y-2 text-sm">
         {blocks.map((block) => (
           <li key={block.id} className="rounded-xl border border-border px-3 py-2">
@@ -37,7 +42,7 @@ export default function ReadingPartBListPage() {
               {block.title}
             </Link>
             <p className="text-xs text-ink-soft">
-              {(block.questions?.length ?? 0)} questions · {blockSummary(block)}
+              {block.questions?.length ?? 0} questions · {blockSummary(block)} · practice mode
             </p>
           </li>
         ))}

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { blocksForUserPart } from "@/content/listening";
+import { blocksForUserPart, blockSummary, listeningQuestionCount } from "@/content/listening";
+import { PartExamCta } from "@/components/study/part-exam-cta";
 import { StudyPageHeader } from "@/components/study/study-page-header";
 
 export default function ListeningPartAListPage() {
@@ -16,8 +17,12 @@ export default function ListeningPartAListPage() {
         skill="listening"
         eyebrow="Listening · Part A"
         title="Note completion"
-        description="Complete consultation notes while listening. Spelling must be correct."
+        description="Practice: one consultation per block (≈4 gaps). Exam: 24 gaps across multiple consultations."
       />
+
+      <PartExamCta skill="listening" part="A" />
+
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Practice blocks</p>
       <ul className="space-y-2 text-sm">
         {blocks.map((block) => (
           <li key={block.id} className="rounded-xl border border-border px-3 py-2">
@@ -27,7 +32,7 @@ export default function ListeningPartAListPage() {
             >
               {block.title}
             </Link>
-            <span className="text-ink-soft"> · {block.questions.length} gaps</span>
+            <span className="text-ink-soft"> · {listeningQuestionCount(block)} gaps · {blockSummary(block)}</span>
           </li>
         ))}
       </ul>

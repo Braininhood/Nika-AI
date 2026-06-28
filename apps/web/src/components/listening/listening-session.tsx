@@ -11,6 +11,7 @@ import { NoteCompletionPanel } from "@/components/listening/note-completion-pane
 import { QuizQuestionField } from "@/components/reading/quiz-question";
 import { StudyPageHeader } from "@/components/study/study-page-header";
 import type { ListeningBlock } from "@/content/listening";
+import { normalizeListeningBlock } from "@/content/listening";
 import { partAExamTip, partBExamStyleTip } from "@/lib/listening/exam-guide";
 import { submitListeningAttempt } from "@/lib/listening/submit-attempt";
 
@@ -25,7 +26,7 @@ interface ListeningSessionProps {
 }
 
 export function ListeningSession({
-  block,
+  block: rawBlock,
   mode,
   backHref,
   backLabel = "Back",
@@ -33,6 +34,7 @@ export function ListeningSession({
   importAudioId,
   importedAnswerKey,
 }: ListeningSessionProps) {
+  const block = normalizeListeningBlock(rawBlock);
   const [responses, setResponses] = useState<Record<string, string | string[]>>({});
   const [submitting, setSubmitting] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);

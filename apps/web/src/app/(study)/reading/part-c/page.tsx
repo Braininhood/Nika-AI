@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { PartExamCta } from "@/components/study/part-exam-cta";
 import { StudyPageHeader } from "@/components/study/study-page-header";
 import { blockRoute, blockSummary } from "@/content/reading";
 import type { ReadingBlock } from "@/content/reading";
@@ -28,7 +29,12 @@ export default function ReadingPartCListPage() {
         skill="reading"
         eyebrow="Reading · Part C"
         title="Inference"
+        description="Practice: one text at a time. Exam: 16 MCQs across two long texts (shared 45 min with Part B)."
       />
+
+      <PartExamCta skill="reading" part="C" />
+
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Practice blocks</p>
       <ul className="space-y-2 text-sm">
         {blocks.map((block) => (
           <li key={block.id} className="rounded-xl border border-border px-3 py-2">
@@ -36,7 +42,7 @@ export default function ReadingPartCListPage() {
               {block.title}
             </Link>
             <p className="text-xs text-ink-soft">
-              {(block.questions?.length ?? 0)} questions · {blockSummary(block)}
+              {block.questions?.length ?? 0} questions · {blockSummary(block)} · practice mode
             </p>
           </li>
         ))}

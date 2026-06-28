@@ -21,4 +21,6 @@ export {
   partFromWeakTag,
   pickPlanListeningBlock,
   totalListeningQuestionCount,
+  normalizeListeningBlock,
+  listeningQuestionCount,
 } from "./blocks/registry";
