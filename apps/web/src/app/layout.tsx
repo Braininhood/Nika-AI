@@ -2,8 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 
 import { AppChrome } from "@/components/layout/app-chrome";
-import { AppProviders } from "@/components/providers";
 import { InstallPrompt } from "@/components/install-prompt";
+import { AppProviders } from "@/components/providers";
+import { NIKA_APP_ICON } from "@/lib/nika/assets";
 import { siteMetadata, siteOpenGraph } from "@/lib/site/metadata";
 
 import "./globals.css";
@@ -29,10 +30,12 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/nika/avatar/nika-icon.png", sizes: "192x192", type: "image/png" },
-      { url: "/nika/avatar/nika-icon.png", sizes: "512x512", type: "image/png" },
+      { url: NIKA_APP_ICON, sizes: "32x32", type: "image/png" },
+      { url: NIKA_APP_ICON, sizes: "192x192", type: "image/png" },
+      { url: NIKA_APP_ICON, sizes: "512x512", type: "image/png" },
     ],
-    apple: "/nika/avatar/nika-icon.png",
+    apple: [{ url: NIKA_APP_ICON, sizes: "180x180", type: "image/png" }],
+    shortcut: NIKA_APP_ICON,
   },
   appleWebApp: {
     capable: true,

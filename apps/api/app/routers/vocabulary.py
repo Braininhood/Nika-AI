@@ -9,7 +9,8 @@ from app.core.quota_deps import require_ai_quota
 from app.core.security import AuthUser, get_current_user
 from app.routers.profile import _load_profile_row
 from app.services.deepl import translate_text
-from app.services.daily_tip import get_daily_tip
+from app.services.daily_tip import get_curated_daily_tip
+from app.services.daily_tip_generator import get_daily_tip
 from app.services.healthcare_vocabulary import format_vocab_entry, lookup_healthcare_term
 from app.services.llm import generate_chat_reply
 from app.services.nika_knowledge import knowledge_context_for_term, knowledge_stats
@@ -38,7 +39,7 @@ async def vocabulary_today_tip(
     """One curated OET tip per profession per day — vocabulary, speaking, writing."""
     profile_row = await _load_profile_row(user.id)
     profession = profile_row.get("profession") if profile_row else None
-    tip = get_daily_tip(profession)
+    tip = await get_daily_tip(profession)
     return {"user_id": user.id, **tip}
 
 

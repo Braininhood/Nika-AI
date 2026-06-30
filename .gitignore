@@ -52,6 +52,7 @@ build/
 # ── Python (apps/api) ──
 apps/api/.venv/
 .venv/
+apps/api/app/data/daily_tip_cache/
 __pycache__/
 *.py[cod]
 *$py.class

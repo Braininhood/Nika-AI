@@ -43,6 +43,29 @@ async def generate_chat_reply(
     return _grounded_template_reply(user_message, context), "grounded_rules"
 
 
+async def generate_cloud_chat_reply(
+    *,
+    system: str,
+    user_message: str,
+    context: str,
+    temperature: float = 0.4,
+) -> tuple[str, str]:
+    """Gemini → Groq only (no Ollama). Use for scheduled / shared content in production."""
+    if settings.gemini_api_key:
+        reply, model = await _gemini_chat_with_fallback(
+            system, user_message, context, temperature
+        )
+        if reply:
+            return reply, f"gemini:{model}"
+
+    if settings.groq_api_key:
+        reply = await _groq_chat(system, user_message, context, temperature)
+        if reply:
+            return reply, "groq"
+
+    return _grounded_template_reply(user_message, context), "grounded_rules"
+
+
 async def _gemini_chat_with_fallback(
     system: str,
     user_message: str,

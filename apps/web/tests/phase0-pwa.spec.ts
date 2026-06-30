@@ -14,7 +14,7 @@ async function waitForServiceWorker(page: import("@playwright/test").Page) {
 
 test.describe("Phase 0 PWA smoke", () => {
   test("production shell and PWA assets are served", async ({ page }) => {
-    for (const path of ["/", "/login", "/dashboard", "/manifest.json", "/sw.js", "/icons/icon-192.png"]) {
+    for (const path of ["/", "/login", "/dashboard", "/manifest.json", "/sw.js", "/nika/avatar/nika-companion.png"]) {
       const response = await page.goto(path);
       expect(response?.status(), path).toBe(200);
     }

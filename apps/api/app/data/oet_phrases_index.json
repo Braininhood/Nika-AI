@@ -1,7 +1,7 @@
 {
   "version": 1,
   "generated_from": "apps\\web\\src\\content",
-  "phrase_count": 117,
+  "phrase_count": 118,
   "phrases": [
     {
       "term": "referral",
@@ -26,14 +26,14 @@
         "vocab",
         "writing"
       ],
-      "occurrences": 398,
+      "occurrences": 400,
       "example": "Which sentence best establishes Purpose in a referral?",
       "sources": [
         "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
         "apps/web/src/content/assessment/vocab-bank.ts",
         "apps/web/src/content/listening/blocks/accents-wave4.ts",
-        "apps/web/src/content/listening/blocks/accents.ts",
-        "apps/web/src/content/listening/blocks/universal.ts"
+        "apps/web/src/content/listening/blocks/accents.ts"
       ]
     },
     {
@@ -57,14 +57,14 @@
         "speaking",
         "vocab"
       ],
-      "occurrences": 173,
+      "occurrences": 181,
       "example": "speaking:ice-expectations",
       "sources": [
         "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
         "apps/web/src/content/assessment/vocab-bank.ts",
         "apps/web/src/content/speaking/accent-wave4.ts",
-        "apps/web/src/content/speaking/allied-health.ts",
-        "apps/web/src/content/speaking/country-wave2.ts"
+        "apps/web/src/content/speaking/allied-health.ts"
       ]
     },
     {
@@ -90,37 +90,14 @@
         "vocab",
         "writing"
       ],
-      "occurrences": 78,
+      "occurrences": 79,
       "example": "Handover: 1L fluid restriction for heart failure. Main clinical concern?",
       "sources": [
         "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
         "apps/web/src/content/assessment/vocab-bank.ts",
         "apps/web/src/content/listening/blocks/accents-wave4.ts",
-        "apps/web/src/content/listening/blocks/universal.ts",
-        "apps/web/src/content/reading/blocks/countries.ts"
-      ]
-    },
-    {
-      "term": "INR",
-      "professions": [
-        "all",
-        "pharmacy"
-      ],
-      "skills": [
-        "listening",
-        "reading",
-        "speaking",
-        "vocab",
-        "writing"
-      ],
-      "occurrences": 45,
-      "example": "Warfarin dose increased → INR monitoring should be…",
-      "sources": [
-        "apps/web/src/content/assessment/skill-banks.ts",
-        "apps/web/src/content/reading/blocks/professions-wave2.ts",
-        "apps/web/src/content/reading/quiz-bank.ts",
-        "apps/web/src/content/speaking/country-wave3.ts",
-        "apps/web/src/content/writing/sample-letters/samples-wave2.ts"
+        "apps/web/src/content/listening/blocks/universal.ts"
       ]
     },
     {
@@ -145,14 +122,37 @@
         "vocab",
         "writing"
       ],
-      "occurrences": 43,
-      "example": "HbA1c is 64 mmol/mol, above the agreed target.",
+      "occurrences": 46,
+      "example": "HbA1c 64 mmol/mol; metformin continued.",
       "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
         "apps/web/src/content/assessment/vocab-bank.ts",
         "apps/web/src/content/listening/blocks/accents-wave4.ts",
         "apps/web/src/content/listening/blocks/accents.ts",
-        "apps/web/src/content/speaking/medicine.ts",
-        "apps/web/src/content/writing/drills.ts"
+        "apps/web/src/content/speaking/medicine.ts"
+      ]
+    },
+    {
+      "term": "INR",
+      "professions": [
+        "all",
+        "pharmacy"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 45,
+      "example": "Warfarin dose increased → INR monitoring should be…",
+      "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/quiz-bank.ts",
+        "apps/web/src/content/speaking/country-wave3.ts",
+        "apps/web/src/content/writing/sample-letters/samples-wave2.ts"
       ]
     },
     {
@@ -522,6 +522,38 @@
       ]
     },
     {
+      "term": "PRN",
+      "professions": [
+        "all",
+        "dentistry",
+        "dietetics",
+        "medicine",
+        "occupational_therapy",
+        "optometry",
+        "pharmacy",
+        "physiotherapy",
+        "podiatry",
+        "radiography",
+        "speech_pathology",
+        "veterinary_science"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 20,
+      "example": "PRN / stat / bd / tds",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/writing/lesson-examples.ts"
+      ]
+    },
+    {
       "term": "keratitis",
       "professions": [
         "all",
@@ -546,6 +578,28 @@
         "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
         "apps/web/src/content/writing/scenarios/country-wave2.ts",
         "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "Nil By Mouth",
+      "professions": [
+        "all",
+        "nursing"
+      ],
+      "skills": [
+        "listening",
+        "reading",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 19,
+      "example": "'Nil by mouth from midnight.' Patient may eat/drink after midnight?",
+      "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/reading/blocks/professions-wave2.ts",
+        "apps/web/src/content/reading/blocks/professions.ts",
+        "profession_phrases/nursing.json"
       ]
     },
     {
@@ -593,38 +647,6 @@
         "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
         "apps/web/src/content/writing/scenarios/allied-health.ts",
         "apps/web/src/content/writing/scenarios/country-wave2.ts"
-      ]
-    },
-    {
-      "term": "PRN",
-      "professions": [
-        "all",
-        "dentistry",
-        "dietetics",
-        "medicine",
-        "occupational_therapy",
-        "optometry",
-        "pharmacy",
-        "physiotherapy",
-        "podiatry",
-        "radiography",
-        "speech_pathology",
-        "veterinary_science"
-      ],
-      "skills": [
-        "listening",
-        "reading",
-        "vocab",
-        "writing"
-      ],
-      "occurrences": 18,
-      "example": "What does PRN mean on a medication chart?",
-      "sources": [
-        "apps/web/src/content/assessment/vocab-bank.ts",
-        "apps/web/src/content/listening/blocks/accents-wave4.ts",
-        "apps/web/src/content/listening/blocks/accents.ts",
-        "apps/web/src/content/writing/lesson-examples.ts",
-        "apps/web/src/content/writing/scenarios/allied-health.ts"
       ]
     },
     {
@@ -693,27 +715,6 @@
         "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
         "apps/web/src/content/writing/scenarios/medicine.ts",
         "apps/web/src/content/writing/scenarios/pharmacy.ts"
-      ]
-    },
-    {
-      "term": "Nil By Mouth",
-      "professions": [
-        "all",
-        "nursing"
-      ],
-      "skills": [
-        "listening",
-        "reading",
-        "vocab",
-        "writing"
-      ],
-      "occurrences": 17,
-      "example": "True or false: 'Nil by mouth' means the patient must not eat or drink.",
-      "sources": [
-        "apps/web/src/content/assessment/vocab-bank.ts",
-        "apps/web/src/content/reading/blocks/professions-wave2.ts",
-        "apps/web/src/content/reading/blocks/professions.ts",
-        "profession_phrases/nursing.json"
       ]
     },
     {
@@ -849,6 +850,27 @@
       ]
     },
     {
+      "term": "Hypertension",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 14,
+      "example": "Hypertension means…",
+      "sources": [
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/speaking/country-wave2.ts",
+        "apps/web/src/content/writing/lessons.ts"
+      ]
+    },
+    {
       "term": "NEWS2",
       "professions": [
         "all",
@@ -955,26 +977,6 @@
       ]
     },
     {
-      "term": "hypertension",
-      "professions": [
-        "all"
-      ],
-      "skills": [
-        "listening",
-        "speaking",
-        "writing"
-      ],
-      "occurrences": 13,
-      "example": "Toronto — Caribbean-Canadian patient hypertension",
-      "sources": [
-        "apps/web/src/content/listening/blocks/accents-wave4.ts",
-        "apps/web/src/content/listening/blocks/accents.ts",
-        "apps/web/src/content/speaking/country-wave2.ts",
-        "apps/web/src/content/writing/lessons.ts",
-        "apps/web/src/content/writing/sample-letters/samples-wave3.ts"
-      ]
-    },
-    {
       "term": "maxillofacial",
       "professions": [
         "all",
@@ -1033,6 +1035,27 @@
       "sources": [
         "apps/web/src/content/reading/blocks/professions.ts",
         "profession_phrases/optometry.json"
+      ]
+    },
+    {
+      "term": "bd",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 12,
+      "example": "PRN / stat / bd / tds",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/listening/blocks/accents-wave4.ts",
+        "apps/web/src/content/listening/blocks/accents.ts",
+        "apps/web/src/content/speaking/country-wave2.ts"
       ]
     },
     {
@@ -1194,26 +1217,6 @@
       "example": "Communication strategies discussed with family for aphasia.",
       "sources": [
         "profession_phrases/speech_pathology.json"
-      ]
-    },
-    {
-      "term": "BD",
-      "professions": [
-        "all"
-      ],
-      "skills": [
-        "listening",
-        "speaking",
-        "writing"
-      ],
-      "occurrences": 10,
-      "example": "Metformin 1g BD and empagliflozin.",
-      "sources": [
-        "apps/web/src/content/listening/blocks/accents-wave4.ts",
-        "apps/web/src/content/listening/blocks/accents.ts",
-        "apps/web/src/content/speaking/country-wave2.ts",
-        "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
-        "apps/web/src/content/writing/scenarios/country-wave2.ts"
       ]
     },
     {
@@ -1791,9 +1794,10 @@
         "vocab",
         "writing"
       ],
-      "occurrences": 7,
-      "example": "On admission",
+      "occurrences": 9,
+      "example": "On admission / on discharge",
       "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
         "apps/web/src/content/assessment/vocab-bank.ts",
         "apps/web/src/content/reading/blocks/countries-wave2.ts",
         "apps/web/src/content/writing/sample-letters/samples-wave5-baseline.ts",
@@ -1834,6 +1838,51 @@
       ]
     },
     {
+      "term": "As Discussed",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 4,
+      "example": "As discussed",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "For Your Information",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 4,
+      "example": "For your information",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
+      "term": "Ideas, Concerns, Expectations",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 4,
+      "example": "Ideas, Concerns, Expectations — patient-centred framework",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts"
+      ]
+    },
+    {
       "term": "PE",
       "professions": [
         "all"
@@ -1861,6 +1910,25 @@
       "sources": [
         "apps/web/src/content/writing/sample-letters/samples-wave2.ts",
         "apps/web/src/content/writing/scenarios/country-wave2.ts"
+      ]
+    },
+    {
+      "term": "tds",
+      "professions": [
+        "all",
+        "pharmacy"
+      ],
+      "skills": [
+        "vocab",
+        "writing"
+      ],
+      "occurrences": 4,
+      "example": "PRN / stat / bd / tds",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
+        "apps/web/src/content/assessment/vocab-bank.ts",
+        "apps/web/src/content/writing/scenarios/country-wave2.ts",
+        "apps/web/src/content/writing/scenarios/pharmacy.ts"
       ]
     },
     {
@@ -1921,7 +1989,7 @@
       ]
     },
     {
-      "term": "Ideas, Concerns, Expectations",
+      "term": "NBM",
       "professions": [
         "all"
       ],
@@ -1929,8 +1997,9 @@
         "vocab"
       ],
       "occurrences": 3,
-      "example": "Ideas, Concerns, Expectations",
+      "example": "NBM means nothing orally from the stated time.",
       "sources": [
+        "apps/web/src/content/assessment/skill-banks.ts",
         "apps/web/src/content/assessment/vocab-bank.ts"
       ]
     },
@@ -1985,21 +2054,22 @@
       ]
     },
     {
-      "term": "As Discussed",
+      "term": "stat",
       "professions": [
         "all"
       ],
       "skills": [
         "vocab"
       ],
-      "occurrences": 2,
-      "example": "As discussed",
+      "occurrences": 3,
+      "example": "PRN / stat / bd / tds",
       "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
         "apps/web/src/content/assessment/vocab-bank.ts"
       ]
     },
     {
-      "term": "For Your Information",
+      "term": "FYI",
       "professions": [
         "all"
       ],
@@ -2007,8 +2077,9 @@
         "vocab"
       ],
       "occurrences": 2,
-      "example": "For your information",
+      "example": "FYI — sharing without requiring action from reader",
       "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts",
         "apps/web/src/content/assessment/vocab-bank.ts"
       ]
     },
@@ -2059,22 +2130,6 @@
       ]
     },
     {
-      "term": "TDS",
-      "professions": [
-        "all",
-        "pharmacy"
-      ],
-      "skills": [
-        "writing"
-      ],
-      "occurrences": 2,
-      "example": "Amoxicillin 500mg TDS x 5 days completed — partial improvement only",
-      "sources": [
-        "apps/web/src/content/writing/scenarios/country-wave2.ts",
-        "apps/web/src/content/writing/scenarios/pharmacy.ts"
-      ]
-    },
-    {
       "term": "Anticoagulant",
       "professions": [
         "all"
@@ -2108,20 +2163,6 @@
       "example": "Type 2 DM 12 years; HbA1c 8.1%",
       "sources": [
         "apps/web/src/content/writing/scenarios/allied-health.ts"
-      ]
-    },
-    {
-      "term": "FYI",
-      "professions": [
-        "all"
-      ],
-      "skills": [
-        "vocab"
-      ],
-      "occurrences": 1,
-      "example": "FYI — sharing without requiring action",
-      "sources": [
-        "apps/web/src/content/assessment/vocab-bank.ts"
       ]
     },
     {
@@ -2161,20 +2202,6 @@
       ]
     },
     {
-      "term": "NBM",
-      "professions": [
-        "all"
-      ],
-      "skills": [
-        "vocab"
-      ],
-      "occurrences": 1,
-      "example": "NBM / NPO — nothing orally.",
-      "sources": [
-        "apps/web/src/content/assessment/vocab-bank.ts"
-      ]
-    },
-    {
       "term": "NPO",
       "professions": [
         "all"
@@ -2189,6 +2216,20 @@
       ]
     },
     {
+      "term": "qds",
+      "professions": [
+        "all"
+      ],
+      "skills": [
+        "vocab"
+      ],
+      "occurrences": 1,
+      "example": "Paracetamol 1 g qds PRN; metoclopramide 10 mg stat.",
+      "sources": [
+        "apps/web/src/content/assessment/skill-vocab-phrases.ts"
+      ]
+    },
+    {
       "term": "SC",
       "professions": [
         "all"
@@ -2200,20 +2241,6 @@
       "example": "Enoxaparin 40mg SC daily until INR therapeutic",
       "sources": [
         "apps/web/src/content/writing/scenarios/country-wave2.ts"
-      ]
-    },
-    {
-      "term": "Stat",
-      "professions": [
-        "all"
-      ],
-      "skills": [
-        "vocab"
-      ],
-      "occurrences": 1,
-      "example": "'Stat' in a clinical order means…",
-      "sources": [
-        "apps/web/src/content/assessment/vocab-bank.ts"
       ]
     }
   ]

@@ -29,14 +29,22 @@ export interface TodayTip {
   exam_tip_avoid: string[];
   grade_a_phrase: string;
   vocabulary_phrases: TodayTipPhrase[];
+  /** curated | gemini:… | groq */
+  source?: string;
 }
 
-export const TODAY_TIP_CACHE_KEY = "oet-today-tip-cache";
+function cacheKey(profession?: string): string {
+  const day = new Date().toISOString().slice(0, 10);
+  const prof = profession?.trim().toLowerCase().replace(/-/g, "_") || "any";
+  return `oet-today-tip:${day}:${prof}`;
+}
 
 export function cacheTodayTip(tip: TodayTip): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(TODAY_TIP_CACHE_KEY, JSON.stringify(tip));
+    localStorage.setItem(cacheKey(tip.profession), JSON.stringify(tip));
+    // Drop legacy single-key cache from older builds
+    localStorage.removeItem("oet-today-tip-cache");
   } catch {
     /* ignore */
   }
@@ -45,11 +53,14 @@ export function cacheTodayTip(tip: TodayTip): void {
 export function loadCachedTodayTip(expectedProfession?: string): TodayTip | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(TODAY_TIP_CACHE_KEY);
+    const expected = expectedProfession?.trim().toLowerCase().replace(/-/g, "_");
+    const raw =
+      localStorage.getItem(cacheKey(expected)) ??
+      localStorage.getItem(cacheKey()) ??
+      localStorage.getItem("oet-today-tip-cache");
     if (!raw) return null;
     const tip = JSON.parse(raw) as TodayTip;
     if (tip.date !== new Date().toISOString().slice(0, 10)) return null;
-    const expected = expectedProfession?.trim().toLowerCase().replace(/-/g, "_");
     if (expected && tip.profession !== expected) return null;
     return tip;
   } catch {

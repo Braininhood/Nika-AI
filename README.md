@@ -110,7 +110,7 @@ curl http://localhost:8000/health
 
 ### Today's tip
 
-Curated **one tip per OET profession per calendar day** — term, IPA, definition, example, speaking scripts, writing phrases, exam tips, and add-to-vocabulary phrases.
+Curated **one tip per OET profession per calendar day** — term, IPA, definition, example, speaking scripts, writing phrases, exam tips, and add-to-vocabulary phrases. **Nika generates a fresh tip daily** via Gemini/Groq (production); curated `daily_tips.json` is the fallback.
 
 | Surface | Route / endpoint |
 | ------- | ---------------- |
@@ -118,9 +118,9 @@ Curated **one tip per OET profession per calendar day** — term, IPA, definitio
 | Vocabulary shortcuts | `/vocabulary` → **From today's tip** section |
 | API | `GET /api/v1/vocabulary/today-tip` (uses profile `profession`) |
 
-**Content:** `apps/api/app/data/daily_tips.json` — tips tagged by profession (`dentistry`, `nursing`, …) or `"all"` as fallback. Selection is stable for the day (date + profession hash).
+**Content:** LLM output cached in `apps/api/app/data/daily_tip_cache/` + curated pool `daily_tips.json`. Anti-repeat history (~30 days) avoids showing the same term again.
 
-**Frontend cache:** localStorage key `oet-today-tip-cache` (refreshed when online).
+**Frontend cache:** localStorage `oet-today-tip:{date}:{profession}` (refreshed when online).
 
 ### Vocabulary list
 

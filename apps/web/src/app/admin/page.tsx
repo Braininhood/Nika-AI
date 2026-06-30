@@ -60,6 +60,14 @@ export default function AdminHomePage() {
           </li>
           <li>
             <Link
+              href="/admin/users"
+              className="block rounded-xl bg-surface-muted px-4 py-3 text-sm font-medium text-ink hover:bg-brand-primary/5"
+            >
+              User management →
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/admin/packs"
               className="block rounded-xl bg-surface-muted px-4 py-3 text-sm font-medium text-ink hover:bg-brand-primary/5"
             >

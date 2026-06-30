@@ -13,7 +13,23 @@ from app.core.rate_limit import RateLimitMiddleware
 from app.services.knowledge_sync import startup_knowledge_sync
 from app.services.rag_sync import startup_rag_sync
 from app.services.ollama_status import get_ollama_status
-from app.routers import admin, admin_content, ai, auth, content, course, diagnostic, mock_exam, plan, profile, progress, readiness, vocabulary
+from app.routers import (
+    admin,
+    admin_content,
+    admin_groups,
+    admin_users,
+    ai,
+    auth,
+    content,
+    course,
+    diagnostic,
+    mock_exam,
+    plan,
+    profile,
+    progress,
+    readiness,
+    vocabulary,
+)
 
 _docs = None if settings.is_production else "/docs"
 _openapi = None if settings.is_production else "/openapi.json"
@@ -67,6 +83,8 @@ app.include_router(course.router, prefix="/api/v1/course", tags=["course"])
 app.include_router(vocabulary.router, prefix="/api/v1/vocabulary", tags=["vocabulary"])
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
 app.include_router(admin_content.router, prefix="/api/v1/admin", tags=["admin"])
+app.include_router(admin_users.router, prefix="/api/v1/admin", tags=["admin"])
+app.include_router(admin_groups.router, prefix="/api/v1/admin", tags=["admin"])
 app.include_router(content.router, prefix="/api/v1/content", tags=["content"])
 
 

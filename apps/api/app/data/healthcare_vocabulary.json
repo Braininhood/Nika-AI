@@ -2102,5 +2102,21 @@
       "01",
       "02"
     ]
+  },
+  "qds": {
+    "display": "qds",
+    "full_name": "quater in die sumendum",
+    "explanation": "Qds is a medical abbreviation that means 'to be taken four times a day'. It is often used on prescriptions to indicate the frequency at which a patient should take their medication. This term is commonly used in healthcare settings to ensure patients take their medication correctly.",
+    "oet_skills": [
+      "reading",
+      "writing"
+    ],
+    "example": "The doctor prescribed medication to be taken qds for a week to treat the infection.",
+    "aliases": [
+      "q.i.d."
+    ],
+    "professions": [
+      "all"
+    ]
   }
 }

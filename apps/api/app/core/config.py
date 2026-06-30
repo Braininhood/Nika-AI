@@ -53,6 +53,8 @@ class Settings(BaseSettings):
     chat_model: str = "gemini-2.0-flash"
     groq_model: str = "llama-3.3-70b-versatile"
     ai_daily_quota: int = 15
+    daily_tip_use_llm: bool = True  # Gemini/Groq daily tip; falls back to curated pool
+    daily_tip_history_days: int = 30  # avoid repeating terms within this window
     environment: str = "development"  # development | production
     nika_auto_sync: bool = True  # harvest + reload knowledge on API startup
     rag_auto_sync: bool = True  # rag_corpus.json → rag_chunks on API startup when DATABASE_URL set
@@ -66,6 +68,12 @@ class Settings(BaseSettings):
     admin_emails: str = ""  # deprecated — use Supabase app_metadata.role
     content_packs_public_url: str = ""
     content_packs_bucket: str = "content-packs"
+
+    resend_api_key: str = ""
+    site_url: str = "https://nika-oet.fun"
+    email_from_noreply: str = "Nika <noreply@nika-oet.fun>"
+    email_from_support: str = "OET Coach Support <support@nika-oet.fun>"
+    email_reply_to: str = "support@nika-oet.fun"
 
     @property
     def admin_email_list(self) -> list[str]:

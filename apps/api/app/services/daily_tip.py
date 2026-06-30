@@ -1,11 +1,6 @@
-"""Daily profession tip — one curated OET tip per profession per calendar day.
+"""Daily profession tip — curated pool + Nika LLM generation (see daily_tip_generator.py).
 
-Tip pool: ``app/data/daily_tips.json``. Each entry lists ``professions`` (or
-``"all"`` for generic tips). Selection uses a stable hash of date + profession so the
-same tip is returned all day for a given profession.
-
-API: ``GET /api/v1/vocabulary/today-tip`` (profile profession).
-Tests: ``tests/test_daily_tip.py``.
+Static pool: ``app/data/daily_tips.json``. LLM tips cached under ``daily_tip_cache/``.
 """
 
 from __future__ import annotations
@@ -40,6 +35,13 @@ PROFESSION_HEADLINES: dict[str, str] = {
 }
 
 
+def normalize_profession(profession: str | None) -> str:
+    prof = (profession or "medicine").strip().lower().replace("-", "_")
+    if prof not in PROFESSION_LABELS:
+        prof = "medicine"
+    return prof
+
+
 @lru_cache(maxsize=1)
 def _load_tips() -> list[dict[str, Any]]:
     raw = json.loads(DATA_PATH.read_text(encoding="utf-8"))
@@ -47,7 +49,7 @@ def _load_tips() -> list[dict[str, Any]]:
 
 
 def _daily_seed(profession: str) -> int:
-    """Stable per calendar day + profession (not Python's salted hash())."""
+    """Stable per calendar day + profession (UTC date)."""
     key = f"{date.today().isoformat()}:{profession}"
     digest = hashlib.sha256(key.encode()).hexdigest()
     return int(digest[:8], 16) % 10_000
@@ -62,23 +64,20 @@ def _tips_for_profession(profession: str) -> list[dict[str, Any]]:
     return generic or tips
 
 
-def get_daily_tip(profession: str | None = None) -> dict[str, Any]:
-    prof = (profession or "medicine").strip().lower().replace("-", "_")
-    if prof not in PROFESSION_LABELS:
-        prof = "medicine"
-
-    pool = _tips_for_profession(prof)
-    seed = _daily_seed(prof)
-    tip = pool[seed % len(pool)]
-
-    headline = tip.get("headline") or PROFESSION_HEADLINES.get(prof, "Healthcare English for OET")
+def format_daily_tip(
+    tip: dict[str, Any],
+    profession: str,
+    *,
+    source: str = "curated",
+) -> dict[str, Any]:
+    headline = tip.get("headline") or PROFESSION_HEADLINES.get(profession, "Healthcare English for OET")
     if "all" in (tip.get("professions") or []):
-        headline = PROFESSION_HEADLINES.get(prof, headline)
+        headline = PROFESSION_HEADLINES.get(profession, headline)
 
     return {
         "date": date.today().isoformat(),
-        "profession": prof,
-        "profession_label": PROFESSION_LABELS.get(prof, prof.replace("_", " ").title()),
+        "profession": profession,
+        "profession_label": PROFESSION_LABELS.get(profession, profession.replace("_", " ").title()),
         "tip_id": tip["id"],
         "headline": headline,
         "term": tip["term"],
@@ -92,4 +91,18 @@ def get_daily_tip(profession: str | None = None) -> dict[str, Any]:
         "exam_tip_avoid": tip.get("exam_tip_avoid") or [],
         "grade_a_phrase": tip.get("grade_a_phrase", ""),
         "vocabulary_phrases": tip.get("vocabulary_phrases") or [],
+        "source": source,
     }
+
+
+def get_curated_daily_tip(profession: str | None = None) -> dict[str, Any]:
+    """Sync curated-only tip (tests / offline tooling)."""
+    from app.services.daily_tip_generator import _select_curated_tip
+
+    prof = normalize_profession(profession)
+    pool = _tips_for_profession(prof)
+    seed = _daily_seed(prof)
+    tip = pool[seed % len(pool)]
+    avoid_ids: set[str] = set()
+    tip = _select_curated_tip(prof, avoid_ids) if len(pool) > 1 else tip
+    return format_daily_tip(tip, prof, source="curated")

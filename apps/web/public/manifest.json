@@ -9,19 +9,19 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/nika/avatar/nika-icon.png",
+      "src": "/nika/avatar/nika-companion.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/nika/avatar/nika-icon.png",
+      "src": "/nika/avatar/nika-companion.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/nika/avatar/nika-icon.png",
+      "src": "/nika/avatar/nika-companion.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

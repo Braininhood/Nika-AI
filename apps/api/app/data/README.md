@@ -34,9 +34,14 @@ If no tip matches the user's profession, entries with `"all"` in `professions` a
 
 ### Selection logic
 
-Implemented in `app/services/daily_tip.py` — one tip per profession per calendar day (stable until midnight UTC date roll).
+Implemented in `app/services/daily_tip_generator.py`:
 
-After editing, restart the API or redeploy; no migration required.
+1. **Disk cache** — `daily_tip_cache/YYYY-MM-DD_{profession}.json` (one tip per profession per UTC day).
+2. **Nika LLM** — Gemini/Groq (cloud only, no Ollama) generates a fresh tip using profession vocabulary + phrase packs. Set `DAILY_TIP_USE_LLM=false` to disable.
+3. **Anti-repeat** — `_history.json` tracks recent tip IDs/terms (~30 days) so the same term does not recur.
+4. **Curated fallback** — `daily_tips.json` when LLM keys are missing or generation fails.
+
+Restart the API or redeploy after code changes; delete `daily_tip_cache/` to force regeneration for today.
 
 ---
 

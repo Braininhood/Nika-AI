@@ -17,12 +17,13 @@ export async function fetchTodayTip(
   if (cached) return cached;
 
   if (!accessToken || !navigator.onLine) {
-    return cached ?? null;
+    return null;
   }
 
   try {
     const res = await fetch(apiUrl("/api/v1/vocabulary/today-tip"), {
       headers: { Authorization: `Bearer ${accessToken}` },
+      cache: "no-store",
     });
     if (!res.ok) return null;
     const tip = (await res.json()) as TodayTip;
